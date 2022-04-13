@@ -304,7 +304,7 @@
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					row += 1;
 				}
-				MessageTimer = self.setInterval("notifyMe()", 1000);
+				MessageTimer = self.setInterval("notifyMe()", 30000);
 			}
 			//获取选中行
 			var index = "01";
@@ -427,12 +427,12 @@
 						var s = infoS[row-1].split(" ");
 						if(s[1] < currentDate) {
 							ShowMsg("可以攻击 " + s[0] + "了!");
-							//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="green";
-							//document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="green";
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="green";
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="green";
 						}
 						else {
-							//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="";
-							//document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="";
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="";
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="";
 						}
 						row++;
 					}
