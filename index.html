@@ -433,6 +433,7 @@
 					}
 				}
 			}
+			//改变颜色
 			function colorMe() {
 				var d = new Date();
 				var hh = d.getHours() + "";
@@ -461,6 +462,7 @@
 			function ShowMsg(msg) {
 				//浏览器是否支持
 				if(!("Notification" in window)) {
+					window.clearInterval(MessageTimer);
 					alert("This browser does not support desktop notification.");
 				}
 				//检查用户是否同意接受通知
