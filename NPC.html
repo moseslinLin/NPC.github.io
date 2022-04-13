@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> NPC </title>
+		<meta charset="utf-8">
+		<script src="Scripts/jquery-1.8.2.min.js"></script>
+		<script src="Scripts/common.js"></script>
+		<style type="text/css">
+			p {
+				width: 95%;
+				margin: 0 auto;
+				/*p相对屏幕左右居中*/
+				padding-bottom: 10px;
+			}
+			.tableSort {
+				border: solid 1px #666;
+				border-collapse: collapse;
+				width: 100%;
+				cursor: default;
+				font-size: 400%;
+			}
+			.tableSort tr {
+				border: solid 1px #666;
+				height: 30px;
+			}
+			table thead tr {
+				background-color: #ccc;
+				font-size: 111%;
+			}
+			.tableSort td {
+				border: solid 1px #666;
+			}
+			.tableSort th {
+				border: solid 1px #666;
+				text-align: center;
+				cursor: pointer;
+			}
+			.sequence {
+				text-align: center;
+				width: 150px;
+			}
+			
+			input {
+				font-size: 99%;
+				border: 0px;
+				width: 99%;
+				text-align: center;
+			}
+			
+			button {
+				font-size: 250%;
+				height: 55px;
+			}
+		</style>
+	</head>
+	<body>
+	    <table border="0" width="100%">
+            <tr>
+                <td align="center">
+					<p>
+						<table id="tableSort" class="tableSort" style="width: 99%">
+							<thead>
+								<tr>
+									<th type="number">序号</th>
+									<th type="string">姓名</th>
+									<th type="number">时间</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="sequence">1</td>
+									<td>
+										<input id="name01" type="text" value="" />
+									</td>
+									<td>
+										<input id="time01" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">2</td>
+									<td>
+										<input id="name02" type="text" value="" />
+									</td>
+									<td>
+										<input id="time02" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">3</td>
+									<td>
+										<input id="name03" type="text" value="" />
+									</td>
+									<td>
+										<input id="time03" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">4</td>
+									<td>
+										<input id="name04" type="text" value="" />
+									</td>
+									<td>
+										<input id="time04" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">5</td>
+									<td>
+										<input id="name05" type="text" value="" />
+									</td>
+									<td>
+										<input id="time05" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">6</td>
+									<td>
+										<input id="name06" type="text" value="" />
+									</td>
+									<td>
+										<input id="time06" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">7</td>
+									<td>
+										<input id="name07" type="text" value="" />
+									</td>
+									<td>
+										<input id="time07" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">8</td>
+									<td>
+										<input id="name08" type="text" value="" />
+									</td>
+									<td>
+										<input id="time08" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">9</td>
+									<td>
+										<input id="name09" type="text" value="" />
+									</td>
+									<td>
+										<input id="time09" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">10</td>
+									<td>
+										<input id="name10" type="text" value="" />
+									</td>
+									<td>
+										<input id="time10" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">11</td>
+									<td>
+										<input id="name11" type="text" value="" />
+									</td>
+									<td>
+										<input id="time11" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">12</td>
+									<td>
+										<input id="name12" type="text" value="" />
+									</td>
+									<td>
+										<input id="time12" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">13</td>
+									<td>
+										<input id="name13" type="text" value="" />
+									</td>
+									<td>
+										<input id="time13" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">14</td>
+									<td>
+										<input id="name14" type="text" value="" />
+									</td>
+									<td>
+										<input id="time14" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">15</td>
+									<td>
+										<input id="name15" type="text" value="" />
+									</td>
+									<td>
+										<input id="time15" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">16</td>
+									<td>
+										<input id="name16" type="text" value="" />
+									</td>
+									<td>
+										<input id="time16" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">17</td>
+									<td>
+										<input id="name17" type="text" value="" />
+									</td>
+									<td>
+										<input id="time17" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">18</td>
+									<td>
+										<input id="name18" type="text" value="" />
+									</td>
+									<td>
+										<input id="time18" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">19</td>
+									<td>
+										<input id="name19" type="text" value="" />
+									</td>
+									<td>
+										<input id="time19" type="text" value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="sequence">20</td>
+									<td>
+										<input id="name20" type="text" value="" />
+									</td>
+									<td>
+										<input id="time20" type="text" value="" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+				</td>
+			</tr>
+		</table>
+		<div style="height: 110px"></div>
+		<div style="position: fixed; bottom: 0px; width: 99%">
+			<table style="width: 99%; background-color: #ccc;" align="center">
+				<tbody>
+					<tr>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="SetTime(1)">+60</button>
+						</td>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="SetTime(2)">+30</button>
+						</td>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="SetTime(4)">+1</button>
+						</td>
+						<td rowspan="2">
+							<button style="width:99%; height:113px; vertical-align: center; font-weight: bold" onclick="Sort()">刷新</button>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="SetTime(11)">-60</button>
+						</td>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="SetTime(22)">-30</button>
+						</td>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="SetTime(44)">-1</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script type="text/javascript">
+			var MessageTimer;  //“提示”计时器
+			//打开页面读取数据
+			var Info = localStorage.getItem("Info");
+			if(Info == null || Info == "") { }
+			else {
+				var infoS = Info.split(";");
+				var row = 1;
+				while(row <= infoS.length) {
+					var s = infoS[row-1].split(" ");
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
+					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[1];
+					row++;
+				}
+				while(row <= 20) {
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
+					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+					row += 1;
+				}
+				MessageTimer = self.setInterval("notifyMe()", 1000);
+			}
+			//获取选中行
+			var index = "01";
+			
+			$(function () {
+				$("input[type='text']").focus(function () {
+					var id = $(this)[0].id;
+					if(id.substr(0,4) == "time") {
+						index = id.substr(4);
+					}
+				});
+			});
+			//操作时间
+			function SetTime(way) {
+				var span = 0;
+				if(way=="1") span = 60;
+				if(way=="2") span = 30;
+				if(way=="3") span = 10;
+				if(way=="4") span = 1;
+				if(way=="11") span = -60;
+				if(way=="22") span = -30;
+				if(way=="33") span = -10;
+				if(way=="44") span = -1;
+				var d = new Date();
+				var mh = document.getElementById("time" + index).value.split(":");
+				if(mh.length < 2)
+					return;
+				var mm = mh[0];
+				var hh = mh[1];
+				var t = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm, hh, "00");
+				t.setTime(t.setMinutes(t.getMinutes() + span));
+				var h = t.getHours();
+				h = h > 9 ? h : ("0" + h);
+				var m = t.getMinutes();
+				m = m > 9 ? m : ("0" + m);
+				document.getElementById("time" + index).value = h + ":" + m;
+				Save();
+			}
+			//格式化、前加“0”
+			function formatTime(time) {
+				var timeS = time.split(":");
+				return (timeS[0].length==1 ? "0"+timeS[0] : timeS[0]) + ":" + (timeS[1].length==1 ? "0"+timeS[1] : timeS[1]);
+			}
+			//保存
+			function Save() {
+				var Info = "";
+				for(var row = 1; row <= 20; row++) {
+					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
+					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					if(name.length > 0 && time.length > 0)
+						Info = Info + ";" + name + " " + formatTime(time);
+				}
+				localStorage.setItem("Info", Info.substr(1));
+				if(Info.leng == 0)
+					window.clearInterval(MessageTimer);
+			}    
+			//排序
+			function Sort() {
+				//排序
+				var Info = new Array();
+				
+				var index = 0;
+				for(var row = 1; row <= 20; row++) {
+					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
+					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					if(name.length > 0 && time.length > 0) {
+						Info[index] = new Array();
+						Info[index][0]=name;
+						Info[index][1]=formatTime(time);
+						index = index + 1;
+					}
+				}
+
+				Info.sort(function(x, y){
+					return compare(x[1], y[1]);
+				});
+
+				row = 1;
+				while(row <= Info.length) {
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = Info[row-1][0];
+					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
+					row += 1;
+				}
+				while(row <= 20) {
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
+					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+					row += 1;
+				}
+				//保存
+				Save();
+			}
+			//比较时间
+			function compare(date1, date2) {
+				var d = new Date();
+				var mh1 = date1.split(":");
+				var mm1 = mh1[0];
+				var hh1 = mh1[1];
+				var mh2 = date2.split(":");
+				var mm2 = mh2[0];
+				var hh2 = mh2[1];
+				var oDate1 = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm1, hh1, "00");
+				var oDate2 = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm2, hh2, "00");
+				if(oDate1.getTime() > oDate2.getTime())
+					return 1;
+				else
+					return -1;
+			}
+			//发送通知
+			function notifyMe() {
+				var d = new Date();
+				var hh = d.getHours() + "";
+				var mm = d.getMinutes() + "";
+				var currentDate = (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
+				var Info = localStorage.getItem("Info");
+				if(Info == null || Info == "") { }
+				else {
+					var infoS = Info.split(";");
+					var row = 1;
+					while(row <= infoS.length) {
+						var s = infoS[row-1].split(" ");
+						if(s[1] < currentDate) {
+							//ShowMsg("可以攻击 " + s[0] + "了!");
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="green";
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="green";
+						}
+						else {
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="";
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="";
+						}
+						row++;
+					}
+				}
+			}
+			//显示消息
+			function ShowMsg(msg) {
+				//浏览器是否支持
+				if(!("Notification" in window)) {
+					alert("This browser does not support desktop notification.");
+				}
+				//检查用户是否同意接受通知
+				else if (Notification.permission === "granted") {
+					sendNotice(msg);
+				}
+				//否则我们需要向用户获取权限
+				else if (Notification.permission !=="denied") {
+					Notification.requestPermission(function(permission) {
+						if (permission === "granted") {
+							sendNotice(msg);
+						}
+					});
+				}
+			}
+			
+			function sendNotice(msg) {
+				var notification = new Notification("提示", {
+						body: msg,
+						icon: "http://localhost:3456/MyTest/ico.jpg"
+					});
+				setTimeout(function () {
+					notification.close();  //关闭桌面通知  
+				}, 1000);
+			}
+		</script>
+	</body>
+</html>
