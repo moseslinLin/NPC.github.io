@@ -287,6 +287,7 @@
 		</div>
 		<script type="text/javascript">
 			var MessageTimer;  //“提示”计时器
+			var ColorTimer;  //“颜色”计时器
 			//打开页面读取数据
 			var Info = localStorage.getItem("Info");
 			if(Info == null || Info == "") { }
@@ -304,7 +305,8 @@
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					row += 1;
 				}
-				MessageTimer = self.setInterval("notifyMe()", 30000);
+				MessageTimer = self.setInterval("notifyMe()", 60000);
+				ColorTimer = self.setInterval("colorMe()", 1000);
 			}
 			//获取选中行
 			var index = "01";
@@ -425,8 +427,25 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] < currentDate) {
+						if(s[1] < currentDate)
 							ShowMsg("可以攻击 " + s[0] + "了!");
+						row++;
+					}
+				}
+			}
+			function colorMe() {
+				var d = new Date();
+				var hh = d.getHours() + "";
+				var mm = d.getMinutes() + "";
+				var currentDate = (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
+				var Info = localStorage.getItem("Info");
+				if(Info == null || Info == "") { }
+				else {
+					var infoS = Info.split(";");
+					var row = 1;
+					while(row <= infoS.length) {
+						var s = infoS[row-1].split(" ");
+						if(s[1] < currentDate) {
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="green";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="green";
 						}
