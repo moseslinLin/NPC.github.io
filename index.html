@@ -253,10 +253,20 @@
 				</td>
 			</tr>
 		</table>
-		<div style="height: 110px"></div>
+		<div style="height: 170px"></div>
 		<div style="position: fixed; bottom: 0px; width: 99%">
 			<table style="width: 99%; background-color: #ccc;" align="center">
 				<tbody>
+					<tr>
+						<td style="width: 25%" align="center"></td>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="Copy()">复制</button>
+						</td>
+						<td style="width: 25%" align="center">
+							<button style="width:99%" onclick="Paste()">粘贴</button>
+						</td>
+						<td style="width: 25%" align="center"></td>
+					</tr>
 					<tr>
 						<td style="width: 25%" align="center">
 							<button style="width:99%" onclick="SetTime(1)">+60</button>
@@ -487,6 +497,47 @@
 				setTimeout(function () {
 					notification.close();  //关闭桌面通知  
 				}, 1000);
+			}
+			
+			const clipboardObj = navigator.clipboard;
+			
+			async function Copy() {
+				var Info = "";
+				for(var row = 1; row <= 20; row++) {
+					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
+					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					if(name.length > 0 && time.length > 0)
+						Info = Info + ";" + name + " " + formatTime(time);
+				}
+				try {
+					await navigator.clipboard.writeText(Info);
+				} catch (err) {
+					alert('Failed to copy.');
+				}
+			}
+			
+			function Paste() {
+				try {
+					const Info = await navigator.clipboard.readText();
+					if(Info == null || Info == "") { }
+					else {
+						var infoS = Info.split(";");
+						var row = 1;
+						while(row <= infoS.length) {
+							var s = infoS[row-1].split(" ");
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[1];
+							row++;
+						}
+						while(row <= 20) {
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+							row += 1;
+						}
+					}
+				} catch (err) {
+					alert('Failed to paste.');
+				}
 			}
 		</script>
 	</body>
