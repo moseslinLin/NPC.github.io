@@ -510,13 +510,13 @@
 						Info = Info + ";" + name + " " + formatTime(time);
 				}
 				try {
-					await navigator.clipboard.writeText(Info);
+					await navigator.clipboard.writeText(Info.substr(1));
 				} catch (err) {
 					alert('Failed to copy.');
 				}
 			}
 			
-			function Paste() {
+			async function Paste() {
 				try {
 					const Info = await navigator.clipboard.readText();
 					if(Info == null || Info == "") { }
