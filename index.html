@@ -29,6 +29,7 @@
 			}
 			.tableSort td {
 				border: solid 1px #666;
+				text-align: center;
 			}
 			.tableSort th {
 				border: solid 1px #666;
@@ -442,7 +443,7 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] < currentDate)
+						if(s[1] <= currentDate)
 							ShowMsg("可以攻击 " + s[0] + "了!");
 						row++;
 					}
@@ -461,7 +462,7 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] < currentDate) {
+						if(s[1] <= currentDate) {
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="green";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="green";
 						}
