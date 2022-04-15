@@ -513,6 +513,7 @@
 				}
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
+					location = "mailto:moseslin@163.com?subject=NPC&body=" + Info.substr(1);
 				} catch (err) {
 					alert('Failed to copy.');
 				}
@@ -564,26 +565,11 @@
 				var mac = /macintosh|mac os x/i.test(navigator.userAgent) && !window.MSStream;
 				var android = /Android/.test(navigator.userAgent) && !window.MSStream;
 
-				if (agent.indexOf("win32") >= 0 || agent.indexOf("wow32") >= 0) 
-				{
-					return "windows";
-				}
-				if (agent.indexOf("win64") >= 0 || agent.indexOf("wow64") >= 0)
-				{
-					return "windows";
-				}
-				if (ios)
-				{
-					return "iphone";
-				}
-				if (mac)
-				{
-					return "mac";
-				}
-				if (android)
-				{
-					return "andriod";
-				}
+				if (agent.indexOf("win32") >= 0 || agent.indexOf("wow32") >= 0) return "windows";
+				if (agent.indexOf("win64") >= 0 || agent.indexOf("wow64") >= 0) return "windows";
+				if (ios) return "iphone";
+				if (mac) return "mac";
+				if (android) return "andriod";
 				return "unknow";
 			}
 			
