@@ -513,7 +513,8 @@
 				}
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
-					location = "mailto:moseslin@163.com?subject=NPC&body=" + Info.substr(1);
+					if(GetOS() == "windows")
+						location = "mailto:moseslin@163.com?subject=NPC&body=" + Info.substr(1);
 				} catch (err) {
 					alert('Failed to copy.');
 				}
