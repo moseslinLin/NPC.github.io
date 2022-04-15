@@ -17,7 +17,6 @@
 				border-collapse: collapse;
 				width: 100%;
 				cursor: default;
-				font-size: 400%;
 			}
 			.tableSort tr {
 				border: solid 1px #666;
@@ -49,14 +48,11 @@
 			}
 			
 			button {
-				font-size: 250%;
-				height: 75px;
 				border-radius: 30px;
 			}
 			
 			button:hover {
 				background-color: green;
-				font-size: 320%;
 			}
 		</style>
 	</head>
@@ -260,7 +256,7 @@
 				</td>
 			</tr>
 		</table>
-		<div style="height: 230px"></div>
+		<div id="blankDiv" style="height: 230px"></div>
 		<div style="position: fixed; bottom: 0px; width: 99%">
 			<table style="width: 99%" align="center" id="tableOutIn">
 				<tbody>
@@ -560,6 +556,70 @@
 				rowOutIn(_tableOutIn.rows[0], type);
 				type = (type == "open" ? "close" : "open");
 			}
+			
+			function GetOS()
+			{
+				var agent = navigator.userAgent.toLowerCase();
+				var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				var mac = /macintosh|mac os x/i.test(navigator.userAgent) && !window.MSStream;
+				var android = /Android/.test(navigator.userAgent) && !window.MSStream;
+
+				if (agent.indexOf("win32") >= 0 || agent.indexOf("wow32") >= 0) 
+				{
+					return "windows";
+				}
+				if (agent.indexOf("win64") >= 0 || agent.indexOf("wow64") >= 0)
+				{
+					return "windows";
+				}
+				if (ios)
+				{
+					return "iphone";
+				}
+				if (mac)
+				{
+					return "mac";
+				}
+				if (android)
+				{
+					return "andriod";
+				}
+				return "unknow";
+			}
+			
+			$(function () {
+				var os = GetOS();
+				if(os == "andriod") {
+					document.getElementById("tableSort").style.fontSize="400%";
+					var btns = document.getElementsByTagName('button');
+					for(n=0; n<btns.length; n++){
+						btns[n].style.fontSize="250%";
+						btns[n].style.height="75px";
+						btns[n].onmouseover = function() {
+							this.style.fontSize="320%";
+						}
+						btns[n].onmouseout = function() {
+							this.style.fontSize="250%";
+						}
+					}
+					document.getElementById("blankDiv").style.height = "230px";
+				}
+				else {
+					document.getElementById("tableSort").style.fontSize="200%";
+					var btns = document.getElementsByTagName('button');
+					for(n=0; n<btns.length; n++){
+						btns[n].style.fontSize="150%";
+						btns[n].style.height="50px";
+						btns[n].onmouseover = function() {
+							this.style.fontSize="180%";
+						}
+						btns[n].onmouseout = function() {
+							this.style.fontSize="150%";
+						}
+					}
+					document.getElementById("blankDiv").style.height = "155px";
+				}
+			});
 		</script>
 	</body>
 </html>
