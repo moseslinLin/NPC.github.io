@@ -297,6 +297,21 @@
 			</table>
 			<button style="width:30px; height: 20px; font-size: 50%; display: none" onclick="OutIn()"><></button>
 		</div>
+		<div id="pop">
+			<table>
+				<tr>
+					<td style="width: 50px;">
+						<input type="button" id="btnGray" width="100%" height="90px" style="background-color: #99cc99" onclick="SetBackColor(1)" />
+					</td>
+					<td style="width: 50px;">
+						<input type="button" id="btnYellow" width="100%" height="100%" style="background-color: #ffcc99" onclick="SetBackColor(2)" />
+					</td>
+					<td style="width: 50px;">
+						<input type="button" id="btnRed" width="100%" height="100%" style="background-color: #ff3333" onclick="SetBackColor(3)" />
+					</td>
+				</tr>
+			</table>
+		</div>
 		<script type="text/javascript">
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
@@ -309,6 +324,7 @@
 				while(row <= infoS.length) {
 					var s = infoS[row-1].split(" ");
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[2];
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[1];
 					row++;
 				}
@@ -322,17 +338,54 @@
 			}
 			//获取选中行
 			var index = "01";
+			var ColorIndex = "01";
 			
 			$(function () {
 				$("input[type='text']").focus(function () {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
 						index = id.substr(4);
+						var pop = document.getElementById("pop");
+						if(pop != null) pop.style.display = "none";
+					}
+				});
+				$("input[type='text']").mousedown(function (event) {
+					var id = $(this)[0].id;
+					if(id.substr(0,4) == "name") {
+						ColorIndex = id.substr(4);
+						var pop = document.getElementById("pop");
+						if(pop != null) {
+							var p = getPos(event);
+							pop.style.display = "";
+							pop.style.position = "absolute";
+							pop.style.left = (p.x + 10) + "px";
+							pop.style.top = (p.y - 12) + "px";
+						}
 					}
 				});
 			});
+			//设置背景色
+			function SetBackColor(colorIndex) {
+				if (colorIndex == 1)
+					document.getElementById("name" + ColorIndex).style.background = "#99cc99";
+				if (colorIndex == 2)
+					document.getElementById("name" + ColorIndex).style.background = "#ffcc99";
+				if (colorIndex == 3)
+					document.getElementById("name" + ColorIndex).style.background = "#ff3333";
+			}
+			//获取位置
+			function getPos(ipt) {
+				var p = {x: 0, y: 0};
+				p.x += ipt.clientX;
+				p.y += ipt.clientY;
+				return p;
+			}
 			//操作时间
 			function SetTime(way) {
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
+				
 				var span = 0;
 				if(way=="1") span = 60;
 				if(way=="2") span = 30;
@@ -367,27 +420,33 @@
 				var Info = "";
 				for(var row = 1; row <= 20; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
+					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + formatTime(time);
+						Info = Info + ";" + name + " " + formatTime(time) + " " + color.replaceAll(" ", "");
 				}
 				localStorage.setItem("Info", Info.substr(1));
 				if(Info.leng == 0)
 					window.clearInterval(MessageTimer);
-			}    
+			}
 			//排序
 			function Sort() {
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
 				//排序
 				var Info = new Array();
 				
 				var index = 0;
 				for(var row = 1; row <= 20; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
+					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					if(name.length > 0 && time.length > 0) {
 						Info[index] = new Array();
 						Info[index][0]=name;
 						Info[index][1]=formatTime(time);
+						Info[index][2]=color.replaceAll(" ", "");
 						index = index + 1;
 					}
 				}
@@ -399,6 +458,7 @@
 				row = 1;
 				while(row <= Info.length) {
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = Info[row-1][0];
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][2];
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
 					row += 1;
 				}
@@ -504,12 +564,16 @@
 			const clipboardObj = navigator.clipboard;
 			
 			async function Copy() {
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
 				var Info = "";
 				for(var row = 1; row <= 20; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
+					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + formatTime(time);
+						Info = Info + ";" + name + " " + formatTime(time) + " " + color.replaceAll(" ", "");
 				}
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
@@ -521,6 +585,9 @@
 			}
 			
 			async function Paste() {
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
 				try {
 					const Info = await navigator.clipboard.readText();
 					if(Info == null || Info == "") { }
@@ -530,6 +597,7 @@
 						while(row <= infoS.length) {
 							var s = infoS[row-1].split(" ");
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[2];
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[1];
 							row++;
 						}
@@ -559,8 +627,7 @@
 				type = (type == "open" ? "close" : "open");
 			}
 			
-			function GetOS()
-			{
+			function GetOS() {
 				var agent = navigator.userAgent.toLowerCase();
 				var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 				var mac = /macintosh|mac os x/i.test(navigator.userAgent) && !window.MSStream;
