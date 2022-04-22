@@ -313,15 +313,6 @@
 			</table>
 		</div>
 		<script type="text/javascript">
-			var fso = new ActiveXObject("Scripting.FileSystemObject");
-			var f = fso.OpenTextFile("https://github.com/moseslinLin/NPC.github.io/blob/main/config", 1);
-			var row = 1;
-			while (!f.AtEndOfStream && row <= 20){   
-				var s = f.Readline().split(" ");
-				alert(s);
-				row += 1;
-			}
-			
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
 			//打开页面读取数据
