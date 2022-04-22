@@ -298,15 +298,15 @@
 			<button style="width:30px; height: 20px; font-size: 50%; display: none" onclick="OutIn()"><></button>
 		</div>
 		<div id="pop" style="border: 1px outset white; background-color: white">
-			<table>
+			<table style="width: 100%">
 				<tr>
-					<td style="width: 50px;">
+					<td>
 						<input type="button" id="btnGray" width="100%" height="100%" style="background-color: #99cc99" onclick="SetBackColor(1)" />
 					</td>
-					<td style="width: 50px;">
+					<td>
 						<input type="button" id="btnYellow" width="100%" height="100%" style="background-color: #ffcc99" onclick="SetBackColor(2)" />
 					</td>
-					<td style="width: 50px;">
+					<td>
 						<input type="button" id="btnRed" width="100%" height="100%" style="background-color: #ff3333" onclick="SetBackColor(3)" />
 					</td>
 				</tr>
@@ -352,6 +352,7 @@
 				});
 				$("input[type='text']").mousedown(function (event) {
 					var id = $(this)[0].id;
+					var ww = $(this)[0].clientWidth;
 					if(id.substr(0,4) == "name") {
 						ColorIndex = id.substr(4);
 						var pop = document.getElementById("pop");
@@ -359,7 +360,7 @@
 							var p = getPos(event);
 							pop.style.display = "";
 							pop.style.position = "absolute";
-							pop.style.left = (p.x + 10) + "px";
+							pop.style.left = (150 + ww/2 + 100) + "px";
 							pop.style.top = (p.y - 12) + "px";
 						}
 						//有内容直接复制
@@ -671,6 +672,7 @@
 					}
 					document.getElementById("blankDiv").style.height = "230px";
 					document.getElementById("pop").style.fontSize = "300%";
+					document.getElementById("pop").style.width = "250px";
 				}
 				else {
 					document.getElementById("tableSort").style.fontSize="200%";
@@ -687,6 +689,7 @@
 					}
 					document.getElementById("blankDiv").style.height = "155px";
 					document.getElementById("pop").style.fontSize = "120%";
+					document.getElementById("pop").style.width = "150px";
 				}
 			});
 		</script>
