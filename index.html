@@ -555,7 +555,7 @@
 					sendNotice(msg);
 				}
 				//否则我们需要向用户获取权限
-				else if (Notification.permission !=="denied") {
+				else if (Notification.permission !== "denied") {
 					Notification.requestPermission(function(permission) {
 						if (permission === "granted") {
 							sendNotice(msg);
