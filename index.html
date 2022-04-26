@@ -5,6 +5,10 @@
 		<meta charset="utf-8">
 		<script src="Scripts/jquery-1.8.2.min.js"></script>
 		<script src="Scripts/common.js"></script>
+		<script src="Scripts/shCore.js"></script>
+		<script src="Scripts/NZ-MsgBox.min.js"></script>
+		
+		<link href="css/NZ-MsgBox.min.css" rel="stylesheet" />
 		<style type="text/css">
 			p {
 				width: 95%;
@@ -513,7 +517,7 @@
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
 						if(s[1] <= currentDate)
-							ShowMsg("可以攻击 " + s[0] + "了!");
+							$.NZ_MsgBox.tipsbar({ title: "通知", content: "可以攻击 " + s[0] + "了!", type: "info", tipsort: "bottom", showtime: 3000 });
 						row++;
 					}
 				}
