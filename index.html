@@ -516,8 +516,12 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] <= currentDate)
-							$.NZ_MsgBox.tipsbar({ title: "通知", content: "可以攻击 " + s[0] + "了!", type: "info", tipsort: "bottom", showtime: 3000 });
+						if(s[1] <= currentDate) {
+							if(GetOS() == "windows")
+								ShowMsg("可以攻击 " + s[0] + "了!");
+							else
+								$.NZ_MsgBox.tipsbar({ title: "通知", content: "可以攻击 " + s[0] + "了!", type: "info", tipsort: "bottom", showtime: 3000 });
+						}
 						row++;
 					}
 				}
