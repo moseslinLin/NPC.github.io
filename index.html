@@ -525,7 +525,7 @@
 						var s = infoS[row-1].split(" ");
 						if(s[1] <= currentDate) {
 							if(GetOS() == "windows")
-								ShowMsg("<font size='3'>可以攻击 <font size='5' color='#330099'><strong>" + s[0] + "</strong></font> 了!</font>");
+								ShowMsg("可以攻击 " + s[0] + " 了!");
 							else
 								$.NZ_MsgBox.tipsbar({ title: "通知", content: "<font size='3'>可以攻击 <font size='5' color='#330099'><strong>" + s[0] + "</strong></font> 了!</font>", type: "info", tipsort: "bottom", showtime: 3000 });
 						}
