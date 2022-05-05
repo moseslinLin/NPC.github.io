@@ -371,6 +371,12 @@
 						copyName($(this)[0].value);
 					}
 				});
+				$("input[type='text']").keydown(function (event) {
+					var id = $(this)[0].id;
+					if(id.substr(0,4) == "time" && event.keyCode == 13) {
+						Sort();
+					}
+				});
 			});
 			async function copyName(name) {
 				try {
@@ -458,6 +464,7 @@
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					if(time.length == 0) time = "23:59";
 					if(name.length > 0 && time.length > 0) {
 						Info[index] = new Array();
 						Info[index][0]=name;
