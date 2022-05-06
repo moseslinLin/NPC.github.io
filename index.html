@@ -584,6 +584,10 @@
 						body: msg,
 						icon: "https://github.com/moseslinLin/NPC.github.io/blob/main/icon.jpg"
 					});
+				notification.onclick = function() {
+					alert("你点我干啥？");
+					notification.close();
+				};
 				setTimeout(function () {
 					notification.close();  //关闭桌面通知  
 				}, 3000);
