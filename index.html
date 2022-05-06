@@ -586,7 +586,13 @@
 					});
 				notification.onclick = function() {
 					var name = notification.body.replace("可以攻击 ", "").replace(" 了!", "");
-					copyName(name);
+					/* copyName(name);  //DOMException: Document is not focused. */
+					var clipboard = document.createElement('textarea');
+					clipboard.value = name;
+					document.body.appendChild(clipboard);
+					clipboard.select();
+					document.execCommand('Copy');
+					document.body.removeChild(clipboard);
 					notification.close();
 				};
 				setTimeout(function () {
