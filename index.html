@@ -585,7 +585,8 @@
 						icon: "https://github.com/moseslinLin/NPC.github.io/blob/main/icon.jpg"
 					});
 				notification.onclick = function() {
-					alert("你点我干啥？");
+					var name = notification.body.replace("可以攻击 ", "").replace(" 了!", "");
+					CopyName(name);
 					notification.close();
 				};
 				setTimeout(function () {
@@ -611,6 +612,14 @@
 					await navigator.clipboard.writeText(Info.substr(1));
 					if(GetOS() == "windows")
 						location = "mailto:moseslin@163.com?subject=NPC&body=" + Info.substr(1);
+				} catch (err) {
+					alert('Failed to copy.');
+				}
+			}
+			
+			async function CopyName(name) {
+				try {
+					await navigator.clipboard.writeText(name);
 				} catch (err) {
 					alert('Failed to copy.');
 				}
