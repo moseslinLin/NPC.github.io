@@ -586,7 +586,7 @@
 					});
 				notification.onclick = function() {
 					var name = notification.body.replace("可以攻击 ", "").replace(" 了!", "");
-					CopyName(name);
+					copyName(name);
 					notification.close();
 				};
 				setTimeout(function () {
@@ -615,15 +615,7 @@
 				} catch (err) {
 					alert('Failed to copy.');
 				}
-			}
-			
-			async function CopyName(name) {
-				try {
-					await navigator.clipboard.writeText(name);
-				} catch (err) {
-					alert('Failed to copy.');
-				}
-			}
+			}			
 			
 			async function Paste() {
 				//隐藏弹出层
