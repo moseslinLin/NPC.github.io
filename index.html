@@ -59,6 +59,47 @@
 				background-color: green;
 			}
 		</style>
+		<style>
+			/* Switch开关样式 */
+			input[type='checkbox'].switch {
+				outline: none;
+				appearance: none;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				position: relative;
+				width: 60px;
+				height: 30px;
+				background: #ccc;
+				border-radius: 10px;
+				transition: border-color .3s, background-color .3s;
+			}
+
+			input[type='checkbox'].switch::after {
+				content: '';
+				display: inline-block;
+				width: 1rem;
+				height: 1rem;
+				border-radius: 50%;
+				background: #fff;
+				box-shadow: 0, 0, 2px, #999;
+				transition: .4s;
+				top: 7px;
+				position: absolute;
+				left: 2px;
+			}
+
+			input[type='checkbox'].switch:checked {
+				background: rgb(19, 206, 102);
+			}
+
+			/* 当input[type=checkbox]被选中时：伪元素显示下面样式 位置发生变化 */
+			input[type='checkbox'].switch:checked::after {
+				content: '';
+				position: absolute;
+				left: 55%;
+				top: 7px;
+			}
+		</style>
 	</head>
 	<body>
 	    <table border="0" width="100%">
@@ -264,6 +305,11 @@
 		<div style="position: fixed; bottom: 0px; width: 99%">
 			<table style="width: 99%" align="center" id="tableOutIn">
 				<tbody>
+					<tr>
+						<td style="width: 100%" align="right" colspan="3">
+							<input type="checkbox" class="switch" id="ckMessage">
+						</td>
+					</tr>
 					<tr>
 						<td style="width: 33%" align="center">
 							<button style="width:99%" onclick="SetTime(1)">+60</button>
@@ -523,7 +569,7 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] <= currentDate) {
+						if(s[1] <= currentDate && document.getElementById("ckMessage").checked) {
 							if(GetOS() == "windows")
 								ShowMsg("可以攻击 " + s[0] + " 了!");
 							else
