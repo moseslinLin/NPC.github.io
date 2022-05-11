@@ -1,0 +1,19 @@
+.selectList{
+    height: 40px;
+	display: inline-block;
+}
+.selectList ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px 0px 0px 10px;
+}
+.selectList ul li{
+    float: left;
+    margin-left: 10px;
+    line-height: 40px;
+    cursor: pointer;
+}
+.selectList ul li i{
+    margin-right: 3px;
+}
+
