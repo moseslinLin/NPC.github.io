@@ -446,6 +446,72 @@
 				</tr>
 			</table>
 		</div>
+		<div id="divProgress" style="text-align: center; display: none; position: fixed; width: 400px; height: 170px; border: 1px dashed #000; border-radius: 10px">
+            <div id="Equip00" style="width: 99%; font-size: 200%; padding-top: 10px"></div>
+			<input type="text" id="EquipValue00" style="display: none" />
+			<table style="padding-top: 50px; width: 100%">
+				<tr>
+					<td></td>
+					<td style="width: 100px">
+						<button style="width: 100px" onclick="HideProgressBar()">关闭</button>
+					</td>
+					<td style="width: 100px">
+						<button style="width: 100px" onclick="SaveData()">确定</button>
+					</td>
+				</tr>
+			</table>
+        </div>
+		<div id="divMaskFrame" style="background-color: #F2F4F7; display: none; left: 0px; position: absolute; top: 0px;"></div>
+
+		<script type="text/javascript">
+			// 顯示讀取遮罩
+			function ShowProgressBar() {
+				displayMaskFrame();
+			}
+
+			// 隱藏讀取遮罩
+			function HideProgressBar() {
+				var progress = $('#divProgress');
+				var maskFrame = $("#divMaskFrame");
+				progress.hide('slow', 'linear', function() { maskFrame.hide(); });
+			}
+			// 顯示讀取畫面
+			function displayProgress() {
+				var w = $(document).width();
+				var h = $(window).height();
+				var progress = $('#divProgress');
+				progress.css({ "z-index": 999999, "top": (h / 2) - (progress.height() / 2), "left": (w / 2) - (progress.width() / 2) });
+				progress.show('slow', 'linear');
+			}
+			// 顯示遮罩畫面
+			function displayMaskFrame() {
+				var w = $(window).width();
+				var h = $(document).height();
+				var maskFrame = $("#divMaskFrame");
+				maskFrame.css({ "z-index": 999998, "opacity": 0.9, "width": w, "height": h });
+				maskFrame.show('fase', 'linear', function() { displayProgress(); });
+			}
+			
+			function SaveData() {
+				var selectValue = document.getElementById("EquipValue00").value;
+				if(selectValue.length == 0) selectValue = "0";
+				var selectDataS = selectValue.split(",");
+					var id = "Equip" + SelectIndex;
+					let SelectData = {};
+					for(var i=0; i<selectDataS.length; i++){
+						SelectData[i] = {"colId":selectDataS[i], "colValue":""};
+					}
+					$("#" + id).multiselectInit({
+						"selectData": InitEquip,
+						"isSelectData": SelectData,
+						"isMulti": true, //是否多选
+						"inputId": "EquipValue" + SelectIndex, //输入框的id
+						"checkStyle": "fg" //选择的样式
+					});
+				HideProgressBar();
+				Save();
+			}
+		</script>
 
 		<script type="text/javascript">
 			var InitEquip = [
@@ -458,21 +524,21 @@
 					{"colId":7, "colValue":"左戒"},
 					{"colId":8, "colValue":"右戒"}
 				];
-				<!-- var oDiv = document.getElementsByTagName("div"); -->
-				<!-- for(var i=0; i<oDiv.length; i++) { -->
-					<!-- var id = oDiv[i].id; -->
-					<!-- if(id.length == 7) { -->
-						<!-- if(id.substr(0, 5) == "Equip") { -->
-							<!-- var index = oDiv[i].id.substr(5, 2); -->
-							<!-- $("#" + id).multiselectInit({ -->
-								<!-- "selectData": InitEquip, -->
-								<!-- "isMulti": true, //是否多选 -->
-								<!-- "inputId": "EquipValue" + index, //输入框的id -->
-								<!-- "checkStyle": "fg" //选择的样式 -->
-							<!-- }); -->
-						<!-- } -->
+			<!-- var oDiv = document.getElementsByTagName("div"); -->
+			<!-- for(var i=0; i<oDiv.length; i++) { -->
+				<!-- var id = oDiv[i].id; -->
+				<!-- if(id.length == 7) { -->
+					<!-- if(id.substr(0, 5) == "Equip") { -->
+						<!-- var index = oDiv[i].id.substr(5, 2); -->
+						<!-- $("#" + id).multiselectInit({ -->
+							<!-- "selectData": InitEquip, -->
+							<!-- "isMulti": true, //是否多选 -->
+							<!-- "inputId": "EquipValue" + index, //输入框的id -->
+							<!-- "checkStyle": "fg" //选择的样式 -->
+						<!-- }); -->
 					<!-- } -->
 				<!-- } -->
+			<!-- } -->
 		</script>
 			
 		<script type="text/javascript">
@@ -516,14 +582,14 @@
 				ColorTimer = self.setInterval("colorMe()", 1000);
 			}
 			//获取选中行
-			var index = "01";
+			var SelectIndex = "01";  //选中的“行”
 			var ColorIndex = "01";
 			
 			$(function () {
 				$("input[type='text']").focus(function () {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
-						index = id.substr(4);
+						SelectIndex = id.substr(4);
 						var pop = document.getElementById("pop");
 						if(pop != null) pop.style.display = "none";
 					}
@@ -548,7 +614,25 @@
 				$("input[type='text']").keydown(function (event) {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time" && event.keyCode == 13) {
-						Sort();
+						if(GetOS() == "windows")
+							Sort();
+						else {
+							ShowProgressBar();
+							var selectValue = document.getElementById("EquipValue" + id.substr(4)).value;
+							if(selectValue.length == 0) selectValue = "0";
+							let SelectData = {};
+							var selectDataS = selectValue.split(",");
+							for(var i=0; i<selectDataS.length; i++){
+								SelectData[i] = {"colId":selectDataS[i], "colValue":""};
+							}
+							$("#Equip00").multiselectInit({
+								"selectData": InitEquip,
+								"isSelectData": SelectData,
+								"isMulti": true, //是否多选
+								"inputId": "EquipValue00", //输入框的id
+								"checkStyle": "fg" //选择的样式
+							});
+						}
 					}
 				});
 			});
@@ -592,7 +676,7 @@
 				if(way=="33") span = -10;
 				if(way=="44") span = -1;
 				var d = new Date();
-				var mh = document.getElementById("time" + index).value.split(":");
+				var mh = document.getElementById("time" + SelectIndex).value.split(":");
 				if(mh.length < 2)
 					return;
 				var mm = mh[0];
@@ -603,7 +687,7 @@
 				h = h > 9 ? h : ("0" + h);
 				var m = t.getMinutes();
 				m = m > 9 ? m : ("0" + m);
-				document.getElementById("time" + index).value = h + ":" + m;
+				document.getElementById("time" + SelectIndex).value = h + ":" + m;
 				Save();
 			}
 			//格式化、前加“0”
