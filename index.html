@@ -473,7 +473,9 @@
 			function HideProgressBar() {
 				var progress = $('#divProgress');
 				var maskFrame = $("#divMaskFrame");
-				progress.hide('slow', 'linear', function() { maskFrame.hide(); });
+				<!-- progress.hide('slow', 'linear', function() { maskFrame.hide(); }); -->
+				progress.hide();
+				maskFrame.hide();
 			}
 			// 顯示讀取畫面
 			function displayProgress() {
@@ -481,7 +483,8 @@
 				var h = $(window).height();
 				var progress = $('#divProgress');
 				progress.css({ "z-index": 999999, "top": (h / 2) - (progress.height() / 2), "left": (w / 2) - (progress.width() / 2) });
-				progress.show('slow', 'linear');
+				<!-- progress.show('slow', 'linear'); -->
+				progress.show();
 			}
 			// 顯示遮罩畫面
 			function displayMaskFrame() {
@@ -489,7 +492,9 @@
 				var h = $(document).height();
 				var maskFrame = $("#divMaskFrame");
 				maskFrame.css({ "z-index": 999998, "opacity": 0.9, "width": w, "height": h });
-				maskFrame.show('fase', 'linear', function() { displayProgress(); });
+				<!-- maskFrame.show('fase', 'linear', function() { displayProgress(); }); -->
+				maskFrame.show();
+				displayProgress();
 			}
 			
 			function SaveData() {
