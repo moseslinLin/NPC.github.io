@@ -682,11 +682,15 @@
 			//设置背景色
 			function SetBackColor(colorIndex) {
 				if (colorIndex == 1)
-					document.getElementById("name" + ColorIndex).style.background = "#99cc99";
+					document.getElementById("name" + ColorIndex).style.background = "#ffccff";
 				else if (colorIndex == 2)
-					document.getElementById("name" + ColorIndex).style.background = "#ffcc99";
+					document.getElementById("name" + ColorIndex).style.background = "#ff99ff";
 				else if (colorIndex == 3)
-					document.getElementById("name" + ColorIndex).style.background = "#ff3333";
+					document.getElementById("name" + ColorIndex).style.background = "#ff66ff";
+				else if (colorIndex == 4)
+					document.getElementById("name" + ColorIndex).style.background = "#ff33ff";
+				else if (colorIndex == 5)
+					document.getElementById("name" + ColorIndex).style.background = "#ff00ff";
 				else
 					document.getElementById("name" + ColorIndex).style.background = "#ffffff";
 			}
@@ -1071,9 +1075,20 @@
 				ColorIndex = colorIndex;
 				var selectData = document.getElementById("EquipValue" + colorIndex).value;
 				if(selectData.length > 0) {
-					if(selectData.substr(0, 1) == "1") SetBackColor(3);
-					else if (selectData.split(",").length > 2) SetBackColor(2);
-					else  SetBackColor(1);
+					var selectDataS = selectData.split(",");
+					if(selectData.substr(0, 1) == "1") {
+						if (selectDataS.length >= 4) SetBackColor(5);
+						else SetBackColor(4);
+					}
+					else if (selectData.substr(0, 1) == "2") {
+						if (selectDataS.length >= 4) SetBackColor(4);
+						else SetBackColor(3);
+					}
+					else if (selectDataS.length == 6) SetBackColor(4);
+					else if (selectDataS.length >= 4) SetBackColor(3);
+					else if (selectDataS.length >= 2) SetBackColor(2);
+					else if (selectDataS.length == 1) SetBackColor(1);
+					else  SetBackColor(0);
 				}
 			}
 		</script>
