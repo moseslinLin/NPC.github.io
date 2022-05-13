@@ -628,14 +628,14 @@
 					var ww = $(this)[0].clientWidth;
 					if(id.substr(0,4) == "name") {
 						ColorIndex = id.substr(4);
-						var pop = document.getElementById("pop");
-						if(pop != null) {
-							var p = getPos(event);
-							pop.style.display = "";
-							pop.style.position = "absolute";
-							pop.style.left = (150 + ww/2 + 100) + "px";
-							pop.style.top = (p.y - 12) + "px";
-						}
+						<!-- var pop = document.getElementById("pop"); -->
+						<!-- if(pop != null) { -->
+							<!-- var p = getPos(event); -->
+							<!-- pop.style.display = ""; -->
+							<!-- pop.style.position = "absolute"; -->
+							<!-- pop.style.left = (150 + ww/2 + 100) + "px"; -->
+							<!-- pop.style.top = (p.y - 12) + "px"; -->
+						<!-- } -->
 						//有内容直接复制
 						copyName($(this)[0].value);
 					}
