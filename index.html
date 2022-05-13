@@ -682,17 +682,19 @@
 			//设置背景色
 			function SetBackColor(colorIndex) {
 				if (colorIndex == 1)
-					document.getElementById("name" + ColorIndex).style.background = "#ffccff";
+					document.getElementById("name" + ColorIndex).style.background = "#fff5ee";
 				else if (colorIndex == 2)
-					document.getElementById("name" + ColorIndex).style.background = "#ff99ff";
+					document.getElementById("name" + ColorIndex).style.background = "#faebd7";
 				else if (colorIndex == 3)
-					document.getElementById("name" + ColorIndex).style.background = "#ff66ff";
+					document.getElementById("name" + ColorIndex).style.background = "#f5deb3";
 				else if (colorIndex == 4)
-					document.getElementById("name" + ColorIndex).style.background = "#ff33ff";
+					document.getElementById("name" + ColorIndex).style.background = "#f4a460";
 				else if (colorIndex == 5)
-					document.getElementById("name" + ColorIndex).style.background = "#ff00ff";
+					document.getElementById("name" + ColorIndex).style.background = "#ff7f50";
+				else if (colorIndex == 6)
+					document.getElementById("name" + ColorIndex).style.background = "#ff4500";
 				else
-					document.getElementById("name" + ColorIndex).style.background = "#ffffff";
+					document.getElementById("name" + ColorIndex).style.background = "white";
 			}
 			//获取位置
 			function getPos(ipt) {
@@ -1070,26 +1072,27 @@
 					document.getElementById("pop").style.width = "150px";
 				}
 			});
-			
+			//设置背景色
 			function SetColorState(colorIndex) {
 				ColorIndex = colorIndex;
 				var selectData = document.getElementById("EquipValue" + colorIndex).value;
 				if(selectData.length > 0) {
 					var selectDataS = selectData.split(",");
 					if(selectData.substr(0, 1) == "1") {
-						if (selectDataS.length >= 4) SetBackColor(5);
-						else SetBackColor(4);
+						if (selectDataS.length >= 4) SetBackColor(6);
+						else SetBackColor(5);
 					}
 					else if (selectData.substr(0, 1) == "2") {
-						if (selectDataS.length >= 4) SetBackColor(4);
-						else SetBackColor(3);
+						if (selectDataS.length >= 4) SetBackColor(5);
+						else SetBackColor(4);
 					}
 					else if (selectDataS.length == 6) SetBackColor(4);
 					else if (selectDataS.length >= 4) SetBackColor(3);
 					else if (selectDataS.length >= 2) SetBackColor(2);
 					else if (selectDataS.length == 1) SetBackColor(1);
-					else  SetBackColor(0);
+					else SetBackColor(0);
 				}
+				else SetBackColor(0);
 			}
 		</script>
 	</body>
