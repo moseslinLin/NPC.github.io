@@ -446,7 +446,7 @@
 				</tr>
 			</table>
 		</div>
-		<div id="divProgress" style="text-align: center; display: none; position: fixed; width: 880px; height: 300px; border: 1px dashed #000; border-radius: 10px; box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3); background-color: #99cccc">
+		<div id="divProgress" class="divProgress" style="text-align: center; display: none; position: fixed; width: 880px; height: 300px; border: 1px dashed #000; border-radius: 10px; box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3); background-color: #99cccc">
 			<div id="Equip00" style="width: 99%; font-size: 400%; padding-top: 10px"></div>
 			<input type="text" id="EquipValue00" style="display: none" />
 			<table style="padding-top: 120px; padding-right: 10px; width: 100%">
@@ -463,6 +463,22 @@
         </div>
 		<div id="divMaskFrame" style="background-color: #F2F4F7; display: none; left: 0px; position: absolute; top: 0px;"></div>
 
+		<style>
+			@keyframes ball {
+				0% { opacity: 0; }
+				25% { opacity: 0.4; }
+				50% { opacity: 0.7; }
+				75% { opacity: 0.9; }
+				100% { opacity: 1; }
+			}
+			.divProgress {
+				opacity: 1;
+				animation-name: ball;
+				animation-duration: 2s;
+				animation-play-state: paused;
+			}
+		</style>
+		
 		<script type="text/javascript">
 			// 顯示讀取遮罩
 			function ShowProgressBar() {
@@ -476,6 +492,9 @@
 				<!-- progress.hide('slow', 'linear', function() { maskFrame.hide(); }); -->
 				progress.hide();
 				maskFrame.hide();
+				$("div").each(function(){
+					$(this)[0].style["animationPlayState"] = "paused";
+				});
 			}
 			// 顯示讀取畫面
 			function displayProgress() {
@@ -485,6 +504,9 @@
 				progress.css({ "z-index": 999999, "top": (h / 2) - (progress.height() / 2), "left": (w / 2) - (progress.width() / 2) });
 				<!-- progress.show('slow', 'linear'); -->
 				progress.show();
+				$("div").each(function(){
+					$(this)[0].style["animationPlayState"] = "running";
+				});
 			}
 			// 顯示遮罩畫面
 			function displayMaskFrame() {
@@ -501,18 +523,19 @@
 				var selectValue = document.getElementById("EquipValue00").value;
 				if(selectValue.length == 0) selectValue = "0";
 				var selectDataS = selectValue.split(",");
-					var id = "Equip" + SelectIndex;
-					let SelectData = {};
-					for(var i=0; i<selectDataS.length; i++){
-						SelectData[i] = {"colId":selectDataS[i], "colValue":""};
-					}
-					$("#" + id).multiselectInit({
-						"selectData": InitEquip,
-						"isSelectData": SelectData,
-						"isMulti": true, //是否多选
-						"inputId": "EquipValue" + SelectIndex, //输入框的id
-						"checkStyle": "fg" //选择的样式
-					});
+				var id = "Equip" + SelectIndex;
+				let SelectData = {};
+				for(var i=0; i<selectDataS.length; i++){
+					SelectData[i] = {"colId":selectDataS[i], "colValue":""};
+				}
+				$("#" + id).multiselectInit({
+					"selectData": InitEquip,
+					"isSelectData": SelectData,
+					"isMulti": true, //是否多选
+					"inputId": "EquipValue" + SelectIndex, //输入框的id
+					"checkStyle": "fg" //选择的样式
+				});
+				SetColorState(SelectIndex);
 				HideProgressBar();
 				Save();
 			}
@@ -574,6 +597,7 @@
 						"inputId": "EquipValue" + (row > 9 ? row : ("0" + row)), //输入框的id
 						"checkStyle": "fg" //选择的样式
 					});
+					SetColorState(row > 9 ? row : ("0" + row));
 					row++;
 				}
 				while(row <= 20) {
@@ -638,7 +662,7 @@
 								"checkStyle": "fg" //选择的样式
 							});
 							
-							$("#Equip00 div li .iconfont").each(function(){
+							$("#Equip00 div li .iconfont").each(function(){  //弹框样式--加大
 								$(this)[0].style.fontSize = "48px";
 								$(this)[0].style.marginLeft = "20px";
 								$(this)[0].style.lineHeight = "80px";
@@ -659,10 +683,12 @@
 			function SetBackColor(colorIndex) {
 				if (colorIndex == 1)
 					document.getElementById("name" + ColorIndex).style.background = "#99cc99";
-				if (colorIndex == 2)
+				else if (colorIndex == 2)
 					document.getElementById("name" + ColorIndex).style.background = "#ffcc99";
-				if (colorIndex == 3)
+				else if (colorIndex == 3)
 					document.getElementById("name" + ColorIndex).style.background = "#ff3333";
+				else
+					document.getElementById("name" + ColorIndex).style.background = "#ffffff";
 			}
 			//获取位置
 			function getPos(ipt) {
@@ -771,6 +797,7 @@
 						"inputId": "EquipValue" + (row > 9 ? row : ("0" + row)), //输入框的id
 						"checkStyle": "fg" //选择的样式
 					});
+					SetColorState(row > 9 ? row : ("0" + row));
 					row += 1;
 				}
 				while(row <= 20) {
@@ -951,6 +978,7 @@
 								"inputId": "EquipValue" + (row > 9 ? row : ("0" + row)), //输入框的id
 								"checkStyle": "fg" //选择的样式
 							});
+							SetColorState(row > 9 ? row : ("0" + row));
 							row++;
 						}
 						while(row <= 20) {
@@ -1038,6 +1066,16 @@
 					document.getElementById("pop").style.width = "150px";
 				}
 			});
+			
+			function SetColorState(colorIndex) {
+				ColorIndex = colorIndex;
+				var selectData = document.getElementById("EquipValue" + colorIndex).value;
+				if(selectData.length > 0) {
+					if(selectData.substr(0, 1) == "1") SetBackColor(3);
+					else if (selectData.split(",").length > 2) SetBackColor(2);
+					else  SetBackColor(1);
+				}
+			}
 		</script>
 	</body>
 </html>
