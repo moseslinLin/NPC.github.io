@@ -849,9 +849,9 @@
 				//定时开关消息提示
 				if(GetOS() == "windows") {
 					var ckMessage = document.getElementById("ckMessage");
-					if(compare(currentDate, "09:00") > 0 && compare(currentDate, "17:45") < 0 && !ckMessage.checked)
+					if(compare(currentDate, "09:00") > 0 && compare(currentDate, "09:05") < 0 && !ckMessage.checked)
 						ckMessage.checked = true;
-					if(compare(currentDate, "17:45") > 0 && ckMessage.checked)
+					if(compare(currentDate, "17:45") > 0 && compare(currentDate, "17:50") < 0 && ckMessage.checked)
 						ckMessage.checked = false;
 				}
 			}
