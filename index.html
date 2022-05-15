@@ -1089,7 +1089,14 @@
 					else if (selectDataS.length == 6) SetBackColor(4);
 					else if (selectDataS.length >= 4) SetBackColor(3);
 					else if (selectDataS.length >= 2) SetBackColor(2);
-					else if (selectDataS.length == 1) SetBackColor(1);
+					else if (selectDataS.length == 1) {
+						SetBackColor(1);
+						if(selectDataS[0] == "7" || selectDataS[0] == "8")
+							document.getElementById("time" + ColorIndex).value = "23:58";
+						else
+							document.getElementById("time" + ColorIndex).value = "23:59";
+					}
+					
 					else SetBackColor(0);
 				}
 				else SetBackColor(0);
