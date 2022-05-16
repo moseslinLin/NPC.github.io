@@ -1,6 +1,7 @@
 .selectList{
     height: 40px;
 	display: inline-block;
+	overflow: hidden;
 }
 .selectList ul{
     list-style: none;
