@@ -54,6 +54,17 @@
 				text-align: center;
 			}
 			
+			input:focus {  //获取焦点时边框发光
+				transition: border linear .2s, box-shadow linear .5s;
+				-moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+				-webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+				outline: none;
+				border-color: rgba(93,149,242,.75);
+				box-shadow: 0 0 8px rgba(93,149,242,.105);
+				-moz-box-shadow: 0 0 8px rgba(93,149,242,.5);
+				-webkit-box-shadow: 0 0 8px rgba(93,149,242,3);
+			}
+			
 			button {
 				border-radius: 30px;
 			}
