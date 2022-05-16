@@ -1131,7 +1131,6 @@
 			});
 			//设置背景色
 			function SetColorState(colorIndex) {
-				ColorIndex = colorIndex;
 				var selectData = document.getElementById("EquipValue" + colorIndex).value;
 				if(selectData.length > 0) {
 					var selectDataS = selectData.split(",");
@@ -1149,9 +1148,9 @@
 					else if (selectDataS.length == 1) {
 						SetBackColor(1);
 						if(selectDataS[0] == "7" || selectDataS[0] == "8")
-							document.getElementById("time" + ColorIndex).value = "23:58";
+							document.getElementById("time" + colorIndex).value = "23:58";
 						else
-							document.getElementById("time" + ColorIndex).value = "23:59";
+							document.getElementById("time" + colorIndex).value = "23:59";
 					}
 					else SetBackColor(0);
 				}
