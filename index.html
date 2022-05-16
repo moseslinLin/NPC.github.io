@@ -1131,6 +1131,7 @@
 			});
 			//设置背景色
 			function SetColorState(colorIndex) {
+				ColorIndex = colorIndex;
 				var selectData = document.getElementById("EquipValue" + colorIndex).value;
 				if(selectData.length > 0) {
 					var selectDataS = selectData.split(",");
