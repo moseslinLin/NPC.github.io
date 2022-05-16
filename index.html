@@ -386,14 +386,12 @@
 			</tr>
 		</table>
 		<div id="blankDiv"></div>
+		<div style="position: fixed; bottom: 165px; right: 10px; width: 100px; text-align: center">
+			<input type="checkbox" class="switch" id="ckMessage">
+		</div>
 		<div style="position: fixed; bottom: 0px; width: 99%">
-			<table style="width: 99%" align="center" id="tableOutIn">
+			<table style="width: 99%" align="center">
 				<tbody>
-					<tr>
-						<td style="width: 100%" align="right" colspan="3">
-							<input type="checkbox" class="switch" id="ckMessage">
-						</td>
-					</tr>
 					<tr>
 						<td style="width: 33%" align="center">
 							<button style="width:99%" onclick="SetTime(1)">+60</button>
@@ -429,7 +427,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<button style="width:30px; height: 20px; font-size: 50%; display: none" onclick="OutIn()"><></button>
 		</div>
 		<div id="pop" style="border: 1px outset white; background-color: white; display: none">
 			<table style="width: 100%">
@@ -492,7 +489,7 @@
 				<!-- progress.hide('slow', 'linear', function() { maskFrame.hide(); }); -->
 				progress.hide();
 				maskFrame.hide();
-				$("div").each(function(){
+				$(".divProgress").each(function(){
 					$(this)[0].style["animationPlayState"] = "paused";
 				});
 			}
@@ -504,7 +501,7 @@
 				progress.css({ "z-index": 999999, "top": (h / 2) - (progress.height() / 2), "left": (w / 2) - (progress.width() / 2) });
 				<!-- progress.show('slow', 'linear'); -->
 				progress.show();
-				$("div").each(function(){
+				$(".divProgress").each(function(){
 					$(this)[0].style["animationPlayState"] = "running";
 				});
 			}
@@ -572,11 +569,15 @@
 		<script type="text/javascript">
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
+			var TotalCount = 2;  //總數據條數
+			var _tableSort = document.getElementById("tableSort");
+
 			//打开页面读取数据
 			var Info = localStorage.getItem("Info");
 			if(Info == null || Info == "") { }
 			else {
 				var infoS = Info.split(";");
+				TotalCount = infoS.length + 2;
 				var row = 1;
 				while(row <= infoS.length) {
 					var s = infoS[row-1].split(" ");
@@ -605,7 +606,11 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
+					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";
 					row += 1;
+				}
+				for(var ii = TotalCount; ii<=20; ii++) {
+					rowOutIn(ii, "close");
 				}
 				MessageTimer = self.setInterval("notifyMe()", 60000);
 				ColorTimer = self.setInterval("colorMe()", 1000);
@@ -785,6 +790,7 @@
 				});
 
 				row = 1;
+				TotalCount = Info.length + 2;
 				while(row <= Info.length) {
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = Info[row-1][0];
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][2];
@@ -811,7 +817,14 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
+					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";
 					row += 1;
+				}
+				for(var ii = 0; ii<TotalCount; ii++) {
+					rowOutIn(ii, "open");
+				}
+				for(var ii = TotalCount; ii<=20; ii++) {
+					rowOutIn(ii, "close");
 				}
 				//保存
 				Save();
@@ -965,6 +978,7 @@
 					else {
 						var infoS = Info.split(";");
 						var row = 1;
+						TotalCount = infoS.length + 2;
 						while(row <= infoS.length) {
 							var s = infoS[row-1].split(" ");
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
@@ -992,7 +1006,14 @@
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 							document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
+							document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";
 							row += 1;
+						}
+						for(var ii = 0; ii<TotalCount; ii++) {
+							rowOutIn(ii, "open");
+						}
+						for(var ii = TotalCount; ii<=20; ii++) {
+							rowOutIn(ii, "close");
 						}
 					}
 				} catch (err) {
@@ -1000,19 +1021,15 @@
 				}
 			}
 			//隐藏 table 的某一行
-			function rowOutIn(e, type) {
+			function rowOutIn(i, type) {
 				if(type != "open") {
-					e.style.display = "none";
+					//e.style.display = "none";
+					_tableSort.rows[i].style.display = "none";
 				}
 				else {
-					e.style.display = "table-row";
+					//e.style.display = "table-row";
+					_tableSort.rows[i].style.display = "table-row";
 				}
-			}
-			var _tableOutIn = document.getElementById("tableOutIn");
-			var type = "close";
-			function OutIn() {
-				rowOutIn(_tableOutIn.rows[0], type);
-				type = (type == "open" ? "close" : "open");
 			}
 			
 			function GetOS() {
@@ -1096,7 +1113,6 @@
 						else
 							document.getElementById("time" + ColorIndex).value = "23:59";
 					}
-					
 					else SetBackColor(0);
 				}
 				else SetBackColor(0);
