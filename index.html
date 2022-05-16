@@ -606,7 +606,7 @@
 		<script type="text/javascript">
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
-			var TotalCount = 2;  //總數據條數
+			var TotalCount = 2;  //總數據條數\head占一行
 			var _tableSort = document.getElementById("tableSort");
 
 			//打开页面读取数据
@@ -643,7 +643,7 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
-					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";
+					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 					row += 1;
 				}
 				for(var ii = TotalCount; ii<=20; ii++) {
@@ -857,7 +857,7 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
-					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";
+					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 					row += 1;
 				}
 				for(var ii = 0; ii<TotalCount; ii++) {
@@ -1046,7 +1046,7 @@
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 							document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
-							document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";
+							document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 							row += 1;
 						}
 						for(var ii = 0; ii<TotalCount; ii++) {
