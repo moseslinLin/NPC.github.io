@@ -886,7 +886,7 @@
 				var hh2 = mh2[1];
 				var oDate1 = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm1, hh1, "00");
 				var oDate2 = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm2, hh2, "00");
-				if(oDate1.getTime() > oDate2.getTime())
+				if(oDate1.getTime() >= oDate2.getTime())
 					return 1;
 				else
 					return -1;
