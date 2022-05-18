@@ -3,6 +3,7 @@
 	<head>
 		<title> NPC </title>
 		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" name="viewport" />
 		<script src="Scripts/jquery-1.8.2.min.js"></script>
 		<script src="Scripts/common.js"></script>
 		<script src="Scripts/shCore.js"></script>
@@ -663,6 +664,17 @@
 						SelectIndex = id.substr(4);
 						var pop = document.getElementById("pop");
 						if(pop != null) pop.style.display = "none";
+					}
+				});
+				$("input[type='text']").dblclick(function () {
+					var id = $(this)[0].id;
+					if(id.substr(0,4) == "time") {
+						var d = new Date();
+						var h = d.getHours();
+						h = h > 9 ? h : ("0" + h);
+						var m = d.getMinutes();
+						m = m > 9 ? m : ("0" + m);
+						$(this)[0].value = h + ":" + m;
 					}
 				});
 				$("input[type='text']").mousedown(function (event) {
