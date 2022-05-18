@@ -75,11 +75,12 @@
 			}
 			//移动端禁用弹出复制粘贴
 			* {
-				-webkit-touch-callout: none; //系统默认菜单被禁用
-				-webkit-user-select: none; //webkit浏览器
-				-moz-user-select: none; //火狐
-				-ms-user-select: none; //IE10
-				user-select: none;
+				-webkit-touch-callout: none;  /*系统默认菜单被禁用*/
+				-webkit-user-select: none;  /*webkit浏览器*/
+				-khtml-user-select: none;  /*早起浏览器*/
+				-moz-user-select: none;  /*火狐浏览器*/
+				-ms-user-select: none;  /*IE浏览器*/
+				user-select: none;  /*用户是否能够选中文本*/
 			}
 		</style>
 		<style>
@@ -613,6 +614,10 @@
 		</script>
 			
 		<script type="text/javascript">
+			document.οncοntextmenu = function(e){
+				e.preventDefault();
+			};
+			
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
 			var TotalCount = 2;  //總數據條數\head占一行
