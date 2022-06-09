@@ -730,8 +730,13 @@
 			});
 			async function copyName(name) {
 				try {
-					if(name.length > 0)
+					if(name.length > 0) {
+						if(name.indexOf("(") > -1)
+							name = name.substr(0,name.indexOf("("));
+						if(name.indexOf("（") > -1)
+							name = name.substr(0,name.indexOf("（"));
 						await navigator.clipboard.writeText(name);
+					}
 				} catch (err) {
 					alert('Failed to copy.');
 				}
