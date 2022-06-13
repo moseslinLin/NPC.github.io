@@ -994,6 +994,10 @@
 					var name = notification.body.replace("可以攻击 ", "").replace(" 了!", "");
 					/* copyName(name);  //DOMException: Document is not focused. */
 					var clipboard = document.createElement('textarea');
+					if(name.indexOf("(") > -1)
+						name = name.substr(0,name.indexOf("("));
+					if(name.indexOf("（") > -1)
+						name = name.substr(0,name.indexOf("（"));
 					clipboard.value = name;
 					document.body.appendChild(clipboard);
 					clipboard.select();
