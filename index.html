@@ -794,7 +794,7 @@
 				m = m > 9 ? m : ("0" + m);
 				document.getElementById("time" + SelectIndex).value = h + ":" + m;
 				//可打未打的3分钟后再提示
-				if(way == "1" || way == "2") {
+				if(way == "1") {
 					for(var ii=1; ii<=TotalCount-2; ii++) {
 						var row1 = (ii > 9 ? ii : ("0" + ii))
 						if(row1 != SelectIndex) {
