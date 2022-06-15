@@ -800,9 +800,10 @@
 						if(row1 != SelectIndex) {
 							var mh1 = document.getElementById("time" + row1);
 							var dt1 = new Date();
+							dt1.setTime(dt1.setMinutes(dt1.getMinutes() + 3));
 							var h1 = dt1.getHours();
 							h1 = h1 > 9 ? h1 : ("0" + h1);
-							var m1 = dt1.getMinutes() + 3;
+							var m1 = dt1.getMinutes();
 							m1 = m1 > 9 ? m1 : ("0" + m1);
 							if(mh1.value < (h1 + ":" + m1)) {
 								mh1.value = h1 + ":" + m1;
