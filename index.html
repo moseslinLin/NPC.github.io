@@ -424,8 +424,17 @@
 			</tr>
 		</table>
 		<div id="blankDiv"></div>
-		<div style="position: fixed; bottom: 165px; right: 10px; width: 100px; text-align: center">
-			<input type="checkbox" class="switch" id="ckMessage">
+		<div style="position: fixed; bottom: 165px; right: 100px; width: 100px; text-align: center">
+			<table>
+				<tr>
+					<td>
+						<input type="checkbox" class="switch" id="ckTime" title="自动设置时间已关闭" onchange="ShowTime(this)">
+					</td>
+					<td>
+						<input type="checkbox" class="switch" id="ckMessage" title="消息提示已关闭" onchange="ShowTitle(this)">
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div style="position: fixed; bottom: 0px; width: 99%">
 			<table style="width: 99%" align="center">
@@ -850,7 +859,7 @@
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(time.length == 0) time = "23:59";
 					if(selectValue.length == 0) selectValue = "0";
-					if(selectValue.length == 1)
+					if(selectValue.length == 1 && document.getElementById("ckTime").checked)
 						if(selectValue == "7" || selectValue == "8")
 							time = "23:58";
 						else if(selectValue != "1" && selectValue != "2")
@@ -976,10 +985,14 @@
 				//定时开关消息提示
 				if(GetOS() == "windows") {
 					var ckMessage = document.getElementById("ckMessage");
-					if(compare(currentDate, "09:00") > 0 && compare(currentDate, "09:05") < 0 && !ckMessage.checked)
+					if(compare(currentDate, "09:00") > 0 && compare(currentDate, "09:05") < 0 && !ckMessage.checked) {
 						ckMessage.checked = true;
-					if(compare(currentDate, "17:45") > 0 && compare(currentDate, "17:50") < 0 && ckMessage.checked)
+						ckMessage.title = "消息提示已开启";
+					}
+					if(compare(currentDate, "17:45") > 0 && compare(currentDate, "17:50") < 0 && ckMessage.checked) {
 						ckMessage.checked = false;
+						ckMessage.title = "消息提示已关闭";
+					}
 				}
 			}
 			//显示消息
@@ -1195,6 +1208,19 @@
 					else SetBackColor(0);
 				}
 				else SetBackColor(0);
+			}
+			//设置提示
+			function ShowTitle(obj) {
+				if(obj.checked)
+					obj.title = "消息提示已开启";
+				else
+					obj.title = "消息提示已关闭";
+			}
+			function ShowTime(obj) {
+				if(obj.checked)
+					obj.title = "自动设置时间已开启";
+				else
+					obj.title = "自动设置时间已关闭";
 			}
 		</script>
 	</body>
