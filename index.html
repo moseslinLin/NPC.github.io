@@ -163,6 +163,7 @@
 										<input id="name01" type="text" value="" />
 									</td>
 									<td style="width: 250px">
+										<input id="date01" type="hidden" value="" />
 										<input id="time01" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -176,6 +177,7 @@
 										<input id="name02" type="text" value="" />
 									</td>
 									<td>
+										<input id="date02" type="hidden" value="" />
 										<input id="time02" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -189,6 +191,7 @@
 										<input id="name03" type="text" value="" />
 									</td>
 									<td>
+										<input id="date03" type="hidden" value="" />
 										<input id="time03" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -202,6 +205,7 @@
 										<input id="name04" type="text" value="" />
 									</td>
 									<td>
+										<input id="date04" type="hidden" value="" />
 										<input id="time04" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -215,6 +219,7 @@
 										<input id="name05" type="text" value="" />
 									</td>
 									<td>
+										<input id="date05" type="hidden" value="" />
 										<input id="time05" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -228,6 +233,7 @@
 										<input id="name06" type="text" value="" />
 									</td>
 									<td>
+										<input id="date06" type="hidden" value="" />
 										<input id="time06" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -241,6 +247,7 @@
 										<input id="name07" type="text" value="" />
 									</td>
 									<td>
+										<input id="date07" type="hidden" value="" />
 										<input id="time07" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -254,6 +261,7 @@
 										<input id="name08" type="text" value="" />
 									</td>
 									<td>
+										<input id="date08" type="hidden" value="" />
 										<input id="time08" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -267,6 +275,7 @@
 										<input id="name09" type="text" value="" />
 									</td>
 									<td>
+										<input id="date09" type="hidden" value="" />
 										<input id="time09" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -280,6 +289,7 @@
 										<input id="name10" type="text" value="" />
 									</td>
 									<td>
+										<input id="date10" type="hidden" value="" />
 										<input id="time10" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -293,6 +303,7 @@
 										<input id="name11" type="text" value="" />
 									</td>
 									<td>
+										<input id="date11" type="hidden" value="" />
 										<input id="time11" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -306,6 +317,7 @@
 										<input id="name12" type="text" value="" />
 									</td>
 									<td>
+										<input id="date12" type="hidden" value="" />
 										<input id="time12" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -319,6 +331,7 @@
 										<input id="name13" type="text" value="" />
 									</td>
 									<td>
+										<input id="date13" type="hidden" value="" />
 										<input id="time13" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -332,6 +345,7 @@
 										<input id="name14" type="text" value="" />
 									</td>
 									<td>
+										<input id="date14" type="hidden" value="" />
 										<input id="time14" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -345,6 +359,7 @@
 										<input id="name15" type="text" value="" />
 									</td>
 									<td>
+										<input id="date15" type="hidden" value="" />
 										<input id="time15" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -358,6 +373,7 @@
 										<input id="name16" type="text" value="" />
 									</td>
 									<td>
+										<input id="date16" type="hidden" value="" />
 										<input id="time16" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -371,6 +387,7 @@
 										<input id="name17" type="text" value="" />
 									</td>
 									<td>
+										<input id="date17" type="hidden" value="" />
 										<input id="time17" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -384,6 +401,7 @@
 										<input id="name18" type="text" value="" />
 									</td>
 									<td>
+										<input id="date18" type="hidden" value="" />
 										<input id="time18" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -397,6 +415,7 @@
 										<input id="name19" type="text" value="" />
 									</td>
 									<td>
+										<input id="date19" type="hidden" value="" />
 										<input id="time19" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -410,6 +429,7 @@
 										<input id="name20" type="text" value="" />
 									</td>
 									<td>
+										<input id="date20" type="hidden" value="" />
 										<input id="time20" type="text" value="" />
 									</td>
 									<td style="text-align: center">
@@ -629,10 +649,11 @@
 				while(row <= infoS.length) {
 					var s = infoS[row-1].split(" ");
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
-					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[2];
-					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[1];
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
+					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
+					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
-					var selectDataS = s[3].split(",");
+					var selectDataS = s[4].split(",");
 					var id = "Equip" + (row > 9 ? row : ("0" + row));
 					let SelectData = {};
 					for(var i=0; i<selectDataS.length; i++){
@@ -651,6 +672,7 @@
 				while(row <= 20) {
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
+					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
@@ -683,6 +705,7 @@
 						h = h > 9 ? h : ("0" + h);
 						var m = d.getMinutes();
 						m = m > 9 ? m : ("0" + m);
+						document.getElementById($(this)[0].id.replace("time","date")).value = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();;
 						$(this)[0].value = h + ":" + m;
 					}
 				});
@@ -789,18 +812,19 @@
 				if(way=="22") span = -30;
 				if(way=="33") span = -10;
 				if(way=="44") span = -1;
-				var d = new Date();
+				var d = document.getElementById("date" + SelectIndex).value.split("-");
 				var mh = document.getElementById("time" + SelectIndex).value.split(":");
 				if(mh.length < 2)
 					return;
 				var mm = mh[0];
 				var hh = mh[1];
-				var t = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm, hh, "00");
+				var t = new Date(d[0], d[1], d[2], mm, hh, "00");
 				t.setTime(t.setMinutes(t.getMinutes() + span));
 				var h = t.getHours();
 				h = h > 9 ? h : ("0" + h);
 				var m = t.getMinutes();
 				m = m > 9 ? m : ("0" + m);
+				document.getElementById("date" + SelectIndex).value = t.getFullYear() + "-" + t.getMonth() + "-" + t.getDate();
 				document.getElementById("time" + SelectIndex).value = h + ":" + m;
 				//可打未打的3分钟后再提示
 				if(way == "1") {
@@ -833,11 +857,12 @@
 				for(var row = 1; row <= 20; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
+					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(selectValue.length == 0) selectValue = "0";
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue;
+						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue;
 				}
 				localStorage.setItem("Info", Info.substr(1));
 				if(Info.leng == 0)
@@ -855,8 +880,11 @@
 				for(var row = 1; row <= 20; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
+					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
+					var d = new Date();
+					if(date.length == 0) date = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
 					if(time.length == 0) time = "23:59";
 					if(selectValue.length == 0) selectValue = "0";
 					if(selectValue.length == 1 && document.getElementById("ckTime").checked)
@@ -868,25 +896,27 @@
 					if(name.length > 0 && time.length > 0) {
 						Info[index] = new Array();
 						Info[index][0]=name;
-						Info[index][1]=formatTime(time);
-						Info[index][2]=color.replaceAll(" ", "");
-						Info[index][3]=selectValue;
+						Info[index][1]=date;
+						Info[index][2]=formatTime(time);
+						Info[index][3]=color.replaceAll(" ", "");
+						Info[index][4]=selectValue;
 						index = index + 1;
 					}
 				}
 
 				Info.sort(function(x, y) {
-					return compare(x[1], y[1]);
+					return compare(x[1]+" "+x[2], y[1]+" "+y[2]);
 				});
 
 				row = 1;
 				TotalCount = Info.length + 2;
 				while(row <= Info.length) {
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = Info[row-1][0];
-					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][2];
-					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
+					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][3];
+					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
+					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][2];
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
-					var selectDataS = Info[row-1][3].split(",");
+					var selectDataS = Info[row-1][4].split(",");
 					var id = "Equip" + (row > 9 ? row : ("0" + row));
 					let SelectData = {};
 					for(var i=0; i<selectDataS.length; i++){
@@ -905,6 +935,7 @@
 				while(row <= 20) {
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
+					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
@@ -921,26 +952,15 @@
 			}
 			//比较时间
 			function compare(date1, date2) {
-				var d = new Date();
-				var mh1 = date1.split(":");
-				var mm1 = mh1[0];
-				var hh1 = mh1[1];
-				var mh2 = date2.split(":");
-				var mm2 = mh2[0];
-				var hh2 = mh2[1];
-				var oDate1 = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm1, hh1, "00");
-				var oDate2 = new Date(d.getFullYear(), d.getMonth()+1, d.getDate(), mm2, hh2, "00");
-				if(oDate1.getTime() >= oDate2.getTime())
-					return 1;
-				else
-					return -1;
+				if(date1 >= date2) return 1;
+				else return -1;
 			}
 			//发送通知
 			function notifyMe() {
 				var d = new Date();
 				var hh = d.getHours() + "";
 				var mm = d.getMinutes() + "";
-				var currentDate = (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
+				var currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " " + (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
 				var Info = localStorage.getItem("Info");
 				if(Info == null || Info == "") { }
 				else {
@@ -948,7 +968,7 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] <= currentDate && document.getElementById("ckMessage").checked) {
+						if(s[1]+" "+s[2] <= currentDate && document.getElementById("ckMessage").checked) {
 							if(GetOS() == "windows")
 								ShowMsg("可以攻击 " + s[0] + " 了!");
 							else
@@ -963,7 +983,7 @@
 				var d = new Date();
 				var hh = d.getHours() + "";
 				var mm = d.getMinutes() + "";
-				var currentDate = (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
+				var currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " " + (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
 				var Info = localStorage.getItem("Info");
 				if(Info == null || Info == "") { }
 				else {
@@ -971,7 +991,7 @@
 					var row = 1;
 					while(row <= infoS.length) {
 						var s = infoS[row-1].split(" ");
-						if(s[1] <= currentDate) {
+						if(s[1]+" "+s[2] <= currentDate) {
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="green";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="green";
 						}
@@ -1051,11 +1071,12 @@
 				for(var row = 1; row <= 20; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
+					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(selectValue.length == 0) selectValue = "0";
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue;
+						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue;
 				}
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
@@ -1080,10 +1101,11 @@
 						while(row <= infoS.length) {
 							var s = infoS[row-1].split(" ");
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
-							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[2];
-							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[1];
+							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
+							document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
+							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
 							document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
-							var selectDataS = s[3].split(",");
+							var selectDataS = s[4].split(",");
 							var id = "Equip" + (row > 9 ? row : ("0" + row));
 							let SelectData = {};
 							for(var i=0; i<selectDataS.length; i++){
