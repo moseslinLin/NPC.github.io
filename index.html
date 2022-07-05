@@ -831,6 +831,7 @@
 					for(var ii=1; ii<=TotalCount-2; ii++) {
 						var row1 = (ii > 9 ? ii : ("0" + ii))
 						if(row1 != SelectIndex) {
+							var md1 = document.getElementById("date" + row1);
 							var mh1 = document.getElementById("time" + row1);
 							var dt1 = new Date();
 							dt1.setTime(dt1.setMinutes(dt1.getMinutes() + 3));
@@ -838,7 +839,7 @@
 							h1 = h1 > 9 ? h1 : ("0" + h1);
 							var m1 = dt1.getMinutes();
 							m1 = m1 > 9 ? m1 : ("0" + m1);
-							if(mh1.value < (h1 + ":" + m1)) {
+							if(mh1.value < (h1 + ":" + m1) && md1.value ==(dt1.getFullYear() + "-" + (dt1.getMonth()+1) + "-" + dt1.getDate())) {
 								mh1.value = h1 + ":" + m1;
 							}
 						}
