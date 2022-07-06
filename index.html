@@ -1006,6 +1006,7 @@
 				//定时开关消息提示
 				if(GetOS() == "windows") {
 					var ckMessage = document.getElementById("ckMessage");
+					currentDate = currentDate.split(" ")[1];
 					if(compare(currentDate, "09:00") > 0 && compare(currentDate, "09:05") < 0 && !ckMessage.checked) {
 						ckMessage.checked = true;
 						ckMessage.title = "消息提示已开启";
