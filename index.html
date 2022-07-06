@@ -701,11 +701,16 @@
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
 						var d = new Date();
+						var y1 = d.getFullYear();
+						var m1 = d.getMonth() + 1;
+						m1 = m1 > 9 ? m1 : ("0" + m1);
+						var d1 = d.getDate();
+						d1 = d1 > 9 ? d1 : ("0" + d1);
 						var h = d.getHours();
 						h = h > 9 ? h : ("0" + h);
 						var m = d.getMinutes();
 						m = m > 9 ? m : ("0" + m);
-						document.getElementById($(this)[0].id.replace("time","date")).value = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();;
+						document.getElementById($(this)[0].id.replace("time","date")).value = y1 + "-" + m1 + "-" + d1;;
 						$(this)[0].value = h + ":" + m;
 					}
 				});
@@ -820,11 +825,16 @@
 				var hh = mh[1];
 				var t = new Date(d[0], d[1], d[2], mm, hh, "00");
 				t.setTime(t.setMinutes(t.getMinutes() + span));
+				var y1 = t.getFullYear();
+				var m1 = t.getMonth();
+				m1 = m1 > 9 ? m1 : ("0" + m1);
+				var d1 = t.getDate();
+				d1 = d1 > 9 ? d1 : ("0" + d1);
 				var h = t.getHours();
 				h = h > 9 ? h : ("0" + h);
 				var m = t.getMinutes();
 				m = m > 9 ? m : ("0" + m);
-				document.getElementById("date" + SelectIndex).value = t.getFullYear() + "-" + t.getMonth() + "-" + t.getDate();
+				document.getElementById("date" + SelectIndex).value = y1 + "-" + m1 + "-" + d1;
 				document.getElementById("time" + SelectIndex).value = h + ":" + m;
 				//可打未打的3分钟后再提示
 				if(way == "1") {
@@ -835,12 +845,18 @@
 							var mh1 = document.getElementById("time" + row1);
 							var dt1 = new Date();
 							dt1.setTime(dt1.setMinutes(dt1.getMinutes() + 3));
-							var h1 = dt1.getHours();
-							h1 = h1 > 9 ? h1 : ("0" + h1);
-							var m1 = dt1.getMinutes();
+							var y1 = dt1.getFullYear();
+							var m1 = dt1.getMonth() + 1;
 							m1 = m1 > 9 ? m1 : ("0" + m1);
-							if(mh1.value < (h1 + ":" + m1) && md1.value ==(dt1.getFullYear() + "-" + (dt1.getMonth()+1) + "-" + dt1.getDate())) {
-								mh1.value = h1 + ":" + m1;
+							var d1 = dt1.getDate();
+							d1 = d1 > 9 ? d1 : ("0" + d1);
+							var hh = dt1.getHours();
+							hh = hh > 9 ? hh : ("0" + hh);
+							var mm = dt1.getMinutes();
+							mm = mm > 9 ? mm : ("0" + mm);
+							if ((md1.value + " " + mh1.value) < (y1 + "-" + m1 + "-" + d1 + " " + hh + ":" + mm)) {
+								md1.value = y1 + "-" + m1 + "-" + d1;
+								mh1.value = hh + ":" + mm;
 							}
 						}
 					}
@@ -982,9 +998,16 @@
 			//改变颜色
 			function colorMe() {
 				var d = new Date();
-				var hh = d.getHours() + "";
-				var mm = d.getMinutes() + "";
-				var currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " " + (hh.length>1 ? hh : "0"+hh) + ":" + (mm.length>1 ? mm : "0"+mm);
+				var y1 = d.getFullYear();
+				var m1 = d.getMonth() + 1;
+				m1 = m1 > 9 ? m1 : ("0" + m1);
+				var d1 = d.getDate();
+				d1 = d1 > 9 ? d1 : ("0" + d1);
+				var hh = d.getHours();
+				hh = hh > 9 ? hh : ("0" + hh);
+				var mm = d.getMinutes();
+				mm = mm > 9 ? mm : ("0" + mm);
+				var currentDate = y1 + "-" + m1 + "-" + d1 + " " + hh + ":" + mm;
 				var Info = localStorage.getItem("Info");
 				if(Info == null || Info == "") { }
 				else {
