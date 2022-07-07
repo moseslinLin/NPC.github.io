@@ -908,11 +908,14 @@
 					}
 					if(selectValue.length == 0) selectValue = "0";
 					if(selectValue.length == 1 && document.getElementById("ckTime").checked) {
-						date = "2099-12-31";
-						if(selectValue == "7" || selectValue == "8")
+						if(selectValue == "7" || selectValue == "8") {
+							date = "2099-12-31";
 							time = "23:58";
-						else if(selectValue != "1" && selectValue != "2")
+						}
+						else if(selectValue != "1" && selectValue != "2") {
+							date = "2099-12-31";
 							time = "23:59";
+						}
 					}
 					
 					if(name.length > 0 && time.length > 0) {
