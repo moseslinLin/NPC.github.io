@@ -902,13 +902,18 @@
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					var d = new Date();
 					if(date.length == 0) date = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
-					if(time.length == 0) time = "23:59";
+					if(time.length == 0) {
+						date = "2099-12-31";
+						time = "23:59";
+					}
 					if(selectValue.length == 0) selectValue = "0";
-					if(selectValue.length == 1 && document.getElementById("ckTime").checked)
+					if(selectValue.length == 1 && document.getElementById("ckTime").checked) {
+						date = "2099-12-31";
 						if(selectValue == "7" || selectValue == "8")
 							time = "23:58";
 						else if(selectValue != "1" && selectValue != "2")
 							time = "23:59";
+					}
 					
 					if(name.length > 0 && time.length > 0) {
 						Info[index] = new Array();
