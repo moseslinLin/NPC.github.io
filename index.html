@@ -968,10 +968,10 @@
 					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 					row += 1;
 				}
-				for(var ii = 0; ii<TotalCount; ii++) {
+				for(var ii = 0; ii<=TotalCount; ii++) {
 					rowOutIn(ii, "open");
 				}
-				for(var ii = TotalCount; ii<=20; ii++) {
+				for(var ii = TotalCount+1; ii<=20; ii++) {
 					rowOutIn(ii, "close");
 				}
 				//保存
