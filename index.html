@@ -264,6 +264,11 @@
 
 		<script type="text/javascript">
 			var TotalRowCount = 40;
+			var SelectIndex = "01";  //选中的“行”
+			var ColorIndex = "01";
+			var MessageTimer;  //“提示”计时器
+			var ColorTimer;  //“颜色”计时器
+			var TotalCount = 2;  //總數據條數\head占一行
 			
 			window.onload = function() {
 				var tb = document.getElementById("tableSort");
@@ -388,10 +393,6 @@
 			
 		<script type="text/javascript">
 			function LoadData() {
-				var MessageTimer;  //“提示”计时器
-				var ColorTimer;  //“颜色”计时器
-				var TotalCount = 2;  //總數據條數\head占一行
-
 				//打开页面读取数据
 				var Info = localStorage.getItem("Info");
 				if(Info == null || Info == "") { }
@@ -438,9 +439,6 @@
 					ColorTimer = self.setInterval("colorMe()", 1000);
 				}
 				//获取选中行
-				var SelectIndex = "01";  //选中的“行”
-				var ColorIndex = "01";
-			
 				$("input[type='text']").focus(function () {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
