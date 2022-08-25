@@ -645,7 +645,7 @@
 							var md1 = document.getElementById("date" + row1);
 							var mh1 = document.getElementById("time" + row1);
 							var dt1 = new Date();
-							dt1.setTime(dt1.setMinutes(dt1.getMinutes() + 3));
+							dt1.setTime(dt1.setMinutes(dt1.getMinutes() + (Math.random()*3+3)));
 							var y1 = dt1.getFullYear();
 							var m1 = dt1.getMonth() + 1;
 							m1 = m1 > 9 ? m1 : ("0" + m1);
