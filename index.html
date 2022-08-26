@@ -447,7 +447,7 @@
 						if(pop != null) pop.style.display = "none";
 					}
 				});
-				$("input[type='text']").dblclick(function () {
+				$("input[type='text']").dblclick(function (e) {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
 						var d = new Date();
@@ -463,6 +463,7 @@
 						document.getElementById($(this)[0].id.replace("time","date")).value = y1 + "-" + m1 + "-" + d1;;
 						$(this)[0].value = h + ":" + m;
 					}
+					e.preventDefault();
 				});
 				$("input[type='text']").mousedown(function (event) {
 					var id = $(this)[0].id;
