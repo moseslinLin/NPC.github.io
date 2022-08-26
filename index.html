@@ -451,7 +451,7 @@
 						if(pop != null) pop.style.display = "none";
 					}
 				});
-				$("input[type='text']").dblclick(function (e) {
+				$("input[type='text']").dblclick(function () {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
 						var d = new Date();
@@ -467,11 +467,7 @@
 						document.getElementById($(this)[0].id.replace("time","date")).value = y1 + "-" + m1 + "-" + d1;;
 						$(this)[0].value = h + ":" + m;
 					}
-					e.preventDefault();
 				});
-				document.addEventListener("touchstart", function(e) {
-					e.preventDefault();
-				}, false);
 				$("input[type='text']").mousedown(function (event) {
 					var id = $(this)[0].id;
 					var ww = $(this)[0].clientWidth;
