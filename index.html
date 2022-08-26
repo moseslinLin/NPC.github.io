@@ -465,6 +465,9 @@
 					}
 					e.preventDefault();
 				});
+				document.addEventListener(‘touchstart’, function(e) {
+					e.preventDefault();
+				}, false);
 				$("input[type='text']").mousedown(function (event) {
 					var id = $(this)[0].id;
 					var ww = $(this)[0].clientWidth;
