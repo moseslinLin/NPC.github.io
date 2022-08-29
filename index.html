@@ -489,9 +489,10 @@
 				$("input[type='text']").keydown(function (event) {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time" && event.keyCode == 13) {
-						if(GetOS() == "windows")
-							Sort();
-						else {
+						if(GetOS() == "windows") Sort();
+					}
+					if(id.substr(0,4) == "name" && event.keyCode == 13) {
+						if(GetOS() == "andriod") {
 							ShowProgressBar();
 							var selectValue = document.getElementById("EquipValue" + id.substr(4)).value;
 							if(selectValue.length == 0) selectValue = "0";
