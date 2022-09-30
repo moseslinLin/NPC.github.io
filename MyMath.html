@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> 小学加减法测试题生成系统 </title>
+		<meta charset="utf-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" name="viewport" />
+		<script src="Scripts/jquery-1.8.2.min.js"></script>
+		<script src="Scripts/common.js"></script>
+		
+		<style type="text/css">
+			.tableSort {
+				border: solid 1px #666;
+				border-collapse: collapse;
+				width: 100%;
+				cursor: default;
+			}
+			.tableSort tr {
+				border: solid 1px #666;
+				height: 30px;
+			}
+			.tableSort td {
+				border: solid 0px #666;
+				text-align: center;
+			}
+			.tableSort th {
+				border: solid 1px #666;
+				text-align: center;
+				cursor: pointer;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			function SetData() {
+				var ColPerRow = document.getElementById("ColPerRow").value;
+				var TotalRow = document.getElementById("TotalRow").value;
+				var tb = document.getElementById("Data");
+				var rowNum = tb.rows.length; 
+				for (i=0; i<rowNum; i++)  //清空行
+				{
+					tb.deleteRow(i);
+					rowNum = rowNum-1;
+					i = i-1;
+				}
+				var ColWidth = 0;
+				if (GetAmount() == 2)
+					ColWidth = 60;
+				else
+					ColWidth = 80;
+				for(var i=0; i<TotalRow; i++) {
+					var newTr = tb.insertRow(i);
+					for(var j=0; j<ColPerRow; j++) {
+						var newTd = newTr.insertCell();
+						newTd.style = "text-align: left; width: 250px; background: white; white-space: nowrap; border-left: solid 1px #666;";
+						var index = (j+1)+i*ColPerRow;
+						newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px'>" + GetStr() + "</td><td> =</td></tr></table>";
+					}
+				}
+			}
+			
+			function GetRange() {
+				var range = document.getElementsByName("Range");
+				for(i=0; i<range.length; i++) {
+					if(range[i].checked)
+						return range[i].value;
+				}
+			}
+			
+			function GetAmount() {
+				var amount = document.getElementsByName("Amount");
+				for(i=0; i<amount.length; i++) {
+					if(amount[i].checked)
+						return amount[i].value;
+				}
+			}
+			
+			function GetStr() {
+				var range = GetRange();
+				var amount = GetAmount();
+				if(amount == 2) {
+					var type = Math.ceil(Math.random()*2);  //1、加法  2、减法
+					if(type == 1)
+						return Math.ceil(Math.random()*9) + " + " + Math.ceil(Math.random()*9);
+					else {
+						var num1 = Math.ceil(Math.random()*9);
+						if(num1 < 2) num1 = 2;
+						return num1 + " - " + Math.ceil(Math.random()*(num1-1));
+					}
+				}
+				else {
+					var returnStr = "";
+					var type1 = Math.ceil(Math.random()*2);  //1、加法  2、减法
+					var num1 = Math.ceil(Math.random()*6 + 3);
+					var num2 = Math.ceil(Math.random()*9);
+					var num3 = Math.ceil(Math.random()*9);
+					if(type1 == 1) {
+						returnStr = num1 + " + " + num2;
+						num3 = num1 + num2;
+					}
+					else {
+						num2 = Math.ceil(Math.random()*(num1-1));
+						num3 = num1 - num2;
+						if(num3 == 1) {
+							num2 = num2 - 1;
+							num3 = num1 - num2;
+						}
+						returnStr = num1 + " - " + num2;
+					}
+					var type2 = Math.ceil(Math.random()*2);  //1、加法  2、减法
+					if(type2 == 1) {
+						num3 = Math.ceil(Math.random()*9)
+						returnStr = returnStr + " + " + num3;
+					}
+					else {
+						if(num3 > 9) num3 = 9;
+						num3 = Math.ceil(Math.random()*(num3-1));
+						returnStr = returnStr + " - " + num3;
+					}
+					return returnStr;
+				}
+			}
+		</script>
+	</head>
+	<body>
+	    <table border="0" style="padding-left: 100px">
+            <tr>
+				<td style="width: 150px; white-space: nowrap">
+					<input id="TotalRow" type="number" min="10" max="100" step="5" value="40" style="text-align: center"> 行
+				</td>
+				<td style="width: 150px; white-space: nowrap">
+					<input id="ColPerRow" type="number" min="3" max="6" step="1" value="4" style="text-align: center"> 列
+				</td>
+				<td style="width: 150px; white-space: nowrap">
+					<label>
+						<input name="Range" type="radio" value="10" checked style="width: 30px" />
+						10以内
+					</label>
+				</td>
+				<td style="width: 150px; white-space: nowrap">
+					<label>
+						<input name="Range" type="radio" value="100" style="width: 30px" />
+						100以内
+					</label>
+				</td>
+				<td></td>
+				<td style="width: 150px; white-space: nowrap">
+					<label>
+						<input name="Amount" type="radio" value="2" checked style="width: 30px" />
+						两项
+					</label>
+				</td>
+				<td style="width: 150px; white-space: nowrap">
+					<label>
+						<input name="Amount" type="radio" value="3" style="width: 30px" />
+						三项
+					</label>
+				</td>
+				<td style="width: 100px">
+					<button style="width:99%" onclick="SetData()">生成</button>
+				</td>
+			</tr>
+		</table>
+		<div id="blankDiv" style="height: 20px"></div>
+		<table id="Data" class="tableSort" style="width: 99%">
+			<tbody>
+			</tbody>
+		</table>
+	</body>
+</html>
