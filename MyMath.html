@@ -74,14 +74,14 @@
 			}
 			
 			function GetStr() {
-				var range = GetRange();
+				var range = GetRange()-1;
 				var amount = GetAmount();
 				if(amount == 2) {
 					var type = Math.ceil(Math.random()*2);  //1、加法  2、减法
 					if(type == 1)
-						return Math.ceil(Math.random()*9) + " + " + Math.ceil(Math.random()*9);
+						return Math.ceil(Math.random()*range) + " + " + Math.ceil(Math.random()*range);
 					else {
-						var num1 = Math.ceil(Math.random()*9);
+						var num1 = Math.ceil(Math.random()*range);
 						if(num1 < 2) num1 = 2;
 						return num1 + " - " + Math.ceil(Math.random()*(num1-1));
 					}
@@ -89,9 +89,9 @@
 				else {
 					var returnStr = "";
 					var type1 = Math.ceil(Math.random()*2);  //1、加法  2、减法
-					var num1 = Math.ceil(Math.random()*6 + 3);
-					var num2 = Math.ceil(Math.random()*9);
-					var num3 = Math.ceil(Math.random()*9);
+					var num1 = Math.ceil(Math.random()*(range-3) + 3);
+					var num2 = Math.ceil(Math.random()*range);
+					var num3 = Math.ceil(Math.random()*range);
 					if(type1 == 1) {
 						returnStr = num1 + " + " + num2;
 						num3 = num1 + num2;
@@ -107,11 +107,11 @@
 					}
 					var type2 = Math.ceil(Math.random()*2);  //1、加法  2、减法
 					if(type2 == 1) {
-						num3 = Math.ceil(Math.random()*9)
+						num3 = Math.ceil(Math.random()*range)
 						returnStr = returnStr + " + " + num3;
 					}
 					else {
-						if(num3 > 9) num3 = 9;
+						if(num3 > range) num3 = range;
 						num3 = Math.ceil(Math.random()*(num3-1));
 						returnStr = returnStr + " - " + num3;
 					}
