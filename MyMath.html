@@ -42,10 +42,18 @@
 					i = i-1;
 				}
 				var ColWidth = 0;
-				if (GetAmount() == 2)
-					ColWidth = 60;
-				else
-					ColWidth = 80;
+				if (GetRange() == 10) {
+					if (GetAmount() == 2)
+						ColWidth = 60;
+					else
+						ColWidth = 80;
+				}
+				else {
+					if (GetAmount() == 2)
+						ColWidth = 80;
+					else
+						ColWidth = 120;
+				}
 				for(var i=0; i<TotalRow; i++) {
 					var newTr = tb.insertRow(i);
 					for(var j=0; j<ColPerRow; j++) {
