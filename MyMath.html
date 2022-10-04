@@ -48,7 +48,7 @@
 			function SetData() {
 				var ColPerRow = document.getElementById("ColPerRow").value;
 				var TotalRow = document.getElementById("TotalRow").value;
-				var tb = document.getElementById("Data");
+				var box = document.getElementById("printDiv");
 				var rowNum = tb.rows.length; 
 				for (i=0; i<rowNum; i++)  //清空行
 				{
@@ -69,10 +69,13 @@
 					else
 						ColWidth = 80;
 				}
+				var tb = document.createElement("table");
+				tb.className = "tableSort";
+				tb.style = "width: 99%; font-size: small";
 				for(var i=0; i<TotalRow; i++) {
 					var newTr = tb.insertRow(i);
 					var trClassName = "";
-					if ((ColPerRow < 5 && i > 10 && i%28 == 0) || (ColPerRow > 4 && i > 10 && i%21 == 0)) {  //强制换页
+					if ((ColPerRow < 5 && i > 10 && i%27 == 0) || (ColPerRow > 4 && i > 10 && i%21 == 0)) {  //强制换页
 						trClassName = "pageBreak";
 						newTr.className = trClassName;
 					}
@@ -83,6 +86,7 @@
 						newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px'>" + GetStr() + "</td><td> = </td></tr></table>";
 					}
 				}
+				box.appendChild(tb);
 			}
 			
 			function GetRange() {
@@ -202,11 +206,6 @@
 			</tr>
 		</table>
 		<div id="blankDiv" style="height: 20px" class="noprint"></div>
-		<div id="printDiv">
-			<table id="Data" class="tableSort" style="width: 99%; font-size: small">
-				<tbody>
-				</tbody>
-			</table>
-		</div>
+		<div id="printDiv"></div>
 	</body>
 </html>
