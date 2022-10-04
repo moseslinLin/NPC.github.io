@@ -31,10 +31,6 @@
 			@page {
 				margin: 10px;  /*打印时隐藏页眉页脚*/
 			}
-			nav {
-				position: fixed;
-				top: 0;
-			}
 		</style>
 		
 		<style media="print" type="text/css">
@@ -58,15 +54,15 @@
 				var ColWidth = 0;
 				if (GetRange() == 10) {
 					if (GetAmount() == 2)
-						ColWidth = 60;
+						ColWidth = 40;
 					else
-						ColWidth = 80;
+						ColWidth = 60;
 				}
 				else {
 					if (GetAmount() == 2)
-						ColWidth = 80;
+						ColWidth = 60;
 					else
-						ColWidth = 120;
+						ColWidth = 80;
 				}
 				for(var i=0; i<TotalRow; i++) {
 					var newTr = tb.insertRow(i);
@@ -74,7 +70,7 @@
 						var newTd = newTr.insertCell();
 						newTd.style = "text-align: left; width: 250px; background: white; white-space: nowrap; border-left: solid 1px #666;";
 						var index = (j+1)+i*ColPerRow;
-						newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px; text-align:right'>" + GetStr() + "</td><td> = </td><td style='width:150px'></td></tr></table>";
+						newTd.innerHTML = "<table style='width: 99%'><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px'>" + GetStr() + "</td><td> = </td><td></td></tr></table>";
 					}
 				}
 			}
@@ -143,7 +139,6 @@
 		</script>
 	</head>
 	<body>
-		<nav>小学加减法测试题生成系统</nav>
 		<table border="0" style="padding-left: 100px" class="noprint">
             		<tr>
 				<td style="width: 150px; white-space: nowrap">
@@ -186,7 +181,7 @@
 			</tr>
 		</table>
 		<div id="blankDiv" style="height: 20px" class="noprint"></div>
-		<table id="Data" class="tableSort" style="width: 99%; font-size: 12px">
+		<table id="Data" class="tableSort" style="width: 99%; font-size: small">
 			<tbody>
 			</tbody>
 		</table>
