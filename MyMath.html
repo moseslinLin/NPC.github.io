@@ -49,7 +49,7 @@
 				var ColPerRow = document.getElementById("ColPerRow").value;
 				var TotalRow = document.getElementById("TotalRow").value;
 				var box = document.getElementById("printDiv");
-				box.innerHtml = "";
+				box.innerHTML = "";
 				//var rowNum = tb.rows.length; 
 				//for (i=0; i<rowNum; i++)  //清空行
 				//{
@@ -87,11 +87,12 @@
 						for(var j=0; j<ColPerRow; j++) {
 							var newTd = newTr.insertCell();
 							newTd.style = "text-align: left; width: 250px; background: white; white-space: nowrap; border-left: solid 1px #666;";
-							var index = (j+1)+i*ColPerRow;
+							var index = (j+1)+i*ColPerRow+ii*RowPerPage*ColPerRow;
 							newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px'>" + GetStr() + "</td><td> = </td></tr></table>";
 						}
 					}
 					box.appendChild(tb);
+					
 				}
 			}
 			
