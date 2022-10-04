@@ -74,7 +74,7 @@
 					var trClassName = "";
 					if ((ColPerRow < 5 && i > 10 && i%23 == 1) || (ColPerRow > 4 && i > 10 && i%21 == 1))  //强制换页
 						trClassName = "pageBreak";
-					newTd.className = trClassName;
+					newTr.className = trClassName;
 					for(var j=0; j<ColPerRow; j++) {
 						var newTd = newTr.insertCell();
 						newTd.style = "text-align: left; width: 250px; background: white; white-space: nowrap; border-left: solid 1px #666;";
