@@ -74,11 +74,11 @@
 				var RowPerPage = 1;
 				if(ColPerRow < 5)  RowPerPage = 27;
 				else RowPerPage = 21;
-				if(TotalRow % 27 == 0)
+				if(TotalRow % RowPerPage == 0)
 					PageCount = TotalRow / RowPerPage;
 				else
 					PageCount = ceil(TotalRow / RowPerPage);
-				for(int ii=0; ii<PageCount; ii++) {
+				for(var ii=0; ii<PageCount; ii++) {
 					var tb = document.createElement("table");
 					tb.className = "tableSort";
 					tb.style = "width: 99%; font-size: small";
