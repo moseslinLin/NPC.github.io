@@ -74,7 +74,7 @@
 				var RowPerPage = 1;
 				if(ColPerRow < 5)  RowPerPage = 27;
 				else RowPerPage = 21;
-				if(TotalRow % RowPerPage == 0)
+				if(c % RowPerPage == 0)
 					PageCount = TotalRow / RowPerPage;
 				else
 					PageCount = Math.ceil(TotalRow / RowPerPage);
@@ -82,7 +82,7 @@
 					var tb = document.createElement("table");
 					tb.className = "tableSort";
 					tb.style = "width: 99%; font-size: small";
-					for(var i=0; i<RowPerPage; i++) {
+					for(var i=0; i<RowPerPage; i<TotalRow; i++) {
 						var newTr = tb.insertRow(i);
 						for(var j=0; j<ColPerRow; j++) {
 							var newTd = newTr.insertCell();
