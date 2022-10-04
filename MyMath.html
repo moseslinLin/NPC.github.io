@@ -38,6 +38,10 @@
 				height: 0px;
 				display: none;
 			}
+			
+			.pageBreak {
+				page-break-after: always;  /*强制换页的关键*/
+			}
 		</style>
 		
 		<script type="text/javascript">
@@ -68,8 +72,12 @@
 				for(var i=0; i<TotalRow; i++) {
 					var newTr = tb.insertRow(i);
 					for(var j=0; j<ColPerRow; j++) {
+						var tdClassName = "";
+						if ((ColPerRow < 5 && i > 10 && i%31 == 1) || (ColPerRow > 4 && i > 10 && i%21 == 1))  //强制换页
+							tdClassName = "pageBreak";
 						var newTd = newTr.insertCell();
 						newTd.style = "text-align: left; width: 250px; background: white; white-space: nowrap; border-left: solid 1px #666;";
+						newTd.className = tdClassName;
 						var index = (j+1)+i*ColPerRow;
 						newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px'>" + GetStr() + "</td><td> = </td></tr></table>";
 					}
@@ -142,9 +150,9 @@
 				var html = "";
 				var ColPerRow = document.getElementById("ColPerRow").value;
 				if(ColPerRow < 5) 
-					html = "<style type='text/css' media='print'>\n" + " @page {size: landscape; }\n" + "</style>";
-				else
 					html = "<style type='text/css' media='print'>\n" + " @page {size: portrait; }\n" + "</style>";
+				else
+					html = "<style type='text/css' media='print'>\n" + " @page {size: landscape; }\n" + "</style>";
 				$("#printDiv").append(html);
 				window.print();
 			}
