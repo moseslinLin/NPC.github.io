@@ -49,13 +49,14 @@
 				var ColPerRow = document.getElementById("ColPerRow").value;
 				var TotalRow = document.getElementById("TotalRow").value;
 				var box = document.getElementById("printDiv");
-				var rowNum = tb.rows.length; 
-				for (i=0; i<rowNum; i++)  //清空行
-				{
-					tb.deleteRow(i);
-					rowNum = rowNum-1;
-					i = i-1;
-				}
+				box.innerHtml = "";
+				//var rowNum = tb.rows.length; 
+				//for (i=0; i<rowNum; i++)  //清空行
+				//{
+				//	tb.deleteRow(i);
+				//	rowNum = rowNum-1;
+				//	i = i-1;
+				//}
 				var ColWidth = 0;
 				if (GetRange() == 10) {
 					if (GetAmount() == 2)
