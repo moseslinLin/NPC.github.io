@@ -77,7 +77,7 @@
 				if(TotalRow % RowPerPage == 0)
 					PageCount = TotalRow / RowPerPage;
 				else
-					PageCount = ceil(TotalRow / RowPerPage);
+					PageCount = Math.ceil(TotalRow / RowPerPage);
 				for(var ii=0; ii<PageCount; ii++) {
 					var tb = document.createElement("table");
 					tb.className = "tableSort";
