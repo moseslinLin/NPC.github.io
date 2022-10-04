@@ -137,6 +137,16 @@
 					return returnStr;
 				}
 			}
+			
+			function PrintPage() {
+				var html = "";
+				var ColPerRow = document.getElementById("ColPerRow").value;
+				if(ColPerRow < 5) 
+					html = "<style type='text/css' media='print'>\n" + " @page {size: landscape; }\n" + "</style>";
+				else
+					html = "<style type='text/css' media='print'>\n" + " @page {size: portrait; }\n" + "</style>";
+				$("#printDiv").append(html);
+			}
 		</script>
 	</head>
 	<body>
@@ -177,14 +187,16 @@
 					<button style="width:99%" onclick="SetData()">生成</button>
 				</td>
 				<td style="width: 100px">
-					<button style="width:99%" onclick="window.print()">打印</button>
+					<button style="width:99%" onclick="PrintPage()">打印</button>
 				</td>
 			</tr>
 		</table>
 		<div id="blankDiv" style="height: 20px" class="noprint"></div>
-		<table id="Data" class="tableSort" style="width: 99%; font-size: small">
-			<tbody>
-			</tbody>
-		</table>
+		<div id="printDiv">
+			<table id="Data" class="tableSort" style="width: 99%; font-size: small">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</body>
 </html>
