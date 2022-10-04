@@ -29,7 +29,11 @@
 			}
 			
 			@page {
-				margin: 20px;
+				margin: 10px;  /*打印时隐藏页眉页脚*/
+			}
+			nav {
+				position: fixed;
+				top: 0;
 			}
 		</style>
 		
@@ -139,6 +143,7 @@
 		</script>
 	</head>
 	<body>
+		<nav>小学加减法测试题生成系统</nav>
 		<table border="0" style="padding-left: 100px" class="noprint">
             		<tr>
 				<td style="width: 150px; white-space: nowrap">
@@ -181,7 +186,7 @@
 			</tr>
 		</table>
 		<div id="blankDiv" style="height: 20px" class="noprint"></div>
-		<table id="Data" class="tableSort" style="width: 99%">
+		<table id="Data" class="tableSort" style="width: 99%; font-size: 12px">
 			<tbody>
 			</tbody>
 		</table>
