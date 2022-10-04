@@ -82,7 +82,7 @@
 					var tb = document.createElement("table");
 					tb.className = "tableSort";
 					tb.style = "width: 99%; font-size: small";
-					for(var i=0; i<RowPerPage; i<TotalRow; i++) {
+					for(var i=0; i<Math.min(RowPerPage,TotalRow-ii*RowPerPage); i++) {
 						var newTr = tb.insertRow(i);
 						for(var j=0; j<ColPerRow; j++) {
 							var newTd = newTr.insertCell();
