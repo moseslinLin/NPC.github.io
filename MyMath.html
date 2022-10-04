@@ -74,7 +74,7 @@
 				var RowPerPage = 1;
 				if(ColPerRow < 5)  RowPerPage = 27;
 				else RowPerPage = 21;
-				if(c % RowPerPage == 0)
+				if(TotalRow % RowPerPage == 0)
 					PageCount = TotalRow / RowPerPage;
 				else
 					PageCount = Math.ceil(TotalRow / RowPerPage);
