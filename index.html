@@ -522,7 +522,7 @@
 				});
 				
 				var os = GetOS();
-				if(os == "andriod") {
+				if(os == "android") {
 					document.getElementById("tableSort").style.fontSize="400%";
 					var btns = document.getElementsByTagName('button');
 					for(n=0; n<btns.length; n++){
@@ -1013,7 +1013,7 @@
 				if (agent.indexOf("win64") >= 0 || agent.indexOf("wow64") >= 0) return "windows";
 				if (ios) return "iphone";
 				if (mac) return "mac";
-				if (android) return "andriod";
+				if (android) return "android";
 				return "unknow";
 			}
 			//设置背景色
