@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> MyGame </title>
+		<meta charset="utf-8">
+		<script src="Scripts/jquery-1.8.2.min.js"></script>
+		<script src="Scripts/common.js"></script>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<style type="text/css">
+			iframe {
+				transform: scale(1);
+			}
+		</style>
+		
+		<script type="text/javascript">
+			function GetOS() {
+				var agent = navigator.userAgent.toLowerCase();
+				var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				var mac = /macintosh|mac os x/i.test(navigator.userAgent) && !window.MSStream;
+				var android = /Android/.test(navigator.userAgent) && !window.MSStream;
+
+				if (agent.indexOf("win32") >= 0 || agent.indexOf("wow32") >= 0) return "windows";
+				if (agent.indexOf("win64") >= 0 || agent.indexOf("wow64") >= 0) return "windows";
+				if (ios) return "iphone";
+				if (mac) return "mac";
+				if (android) return "android";
+				return "unknow";
+			}
+		</script>
+		
+		<script type="text/javascript">
+			function SetData1() {
+				document.getElementById("iframe1").src="http://47.107.31.19/h5/zycq-955.html?user=" + document.getElementById("GameID1").value;
+			}
+			function SetData2() {
+				document.getElementById("iframe2").src="http://47.107.31.19/h5/zycq-955.html?user=" + document.getElementById("GameID2").value;
+			}
+			
+			const innerHeight = window.innerHeight;
+			window.addEventListener('resize', () => {
+				const newInnerHeight = window.innerHeight;
+				if (innerHeight > newInnerHeight) {
+					// 键盘弹出事件处理
+					// alert("android 键盘弹出事件");
+					var _body=document.getElementsByTagName('body')[0];
+					_body.scrollTo(0,0);
+					console.log(innerHeight + "  " + newInnerHeight);
+				} else {
+					// 键盘收起事件处理
+					// alert("android 键盘收起事件")
+					var _body=document.getElementsByTagName('body')[0];
+					_body.scrollTo(0,0);
+					console.log(innerHeight + "  " + newInnerHeight);
+				}
+			});
+			
+			function LoadData() {
+				//安卓端宽度和高度
+				if(GetOS() == "android") {
+					var iframes = document.getElementsByTagName('iframe');
+					for(n=0; n<iframes.length; n++){
+						iframes[n].style.width="445px";
+						iframes[n].style.height="820px";
+					}
+					
+					document.getElementById("time1").style.width="65px";
+					document.getElementById("time2").style.width="65px";
+					document.getElementById("time3").style.width="65px";
+				}
+				//加载日期和时间
+				var d = new Date();
+				var y1 = d.getFullYear();
+				var m1 = d.getMonth() + 1;
+				m1 = m1 > 9 ? m1 : ("0" + m1);
+				var d1 = d.getDate();
+				d1 = d1 > 9 ? d1 : ("0" + d1);
+				var h = d.getHours();
+				h = h > 9 ? h : ("0" + h);
+				var m = d.getMinutes();
+				m = m > 9 ? m : ("0" + m);
+				//1
+				try {
+					var time1 = localStorage.getItem("Time1").split(" ");
+					document.getElementById("date1").value = time1[0];
+					document.getElementById("time1").value = time1[1];
+				}
+				catch(err) {
+					document.getElementById("date1").value = y1 + "-" + m1 + "-" + d1;
+					document.getElementById("time1").value = h + ":" + m + ":00";
+				}
+				//2
+				try {
+					var time2 = localStorage.getItem("Time2").split(" ");;
+					document.getElementById("date2").value = time2[0];
+					document.getElementById("time2").value = time2[1];
+				}
+				catch(err) {
+					document.getElementById("date2").value = y1 + "-" + m1 + "-" + d1;
+					document.getElementById("time2").value = h + ":" + m + ":00";
+				}
+				//3
+				try {
+					var time3 = localStorage.getItem("Time3").split(" ");;
+					document.getElementById("date3").value = time3[0];
+					document.getElementById("time3").value = time3[1];
+				}
+				catch(err) {
+					document.getElementById("date3").value = y1 + "-" + m1 + "-" + d1;
+					document.getElementById("time3").value = h + ":" + m + ":00";
+				}
+			}
+			//保存日期和时间
+			function SetTime(num) {
+				if(GetOS() == "android") {
+					SetCurrDate(num);
+					SetCurrTime(num);
+				}
+				var time = document.getElementById("date"+num).value + " " + document.getElementById("time"+num).value;
+				localStorage.setItem("Time" + num, time);
+			}
+			//双击设置当前日期
+			function SetCurrDate(num) {
+				var d = new Date();
+				var y1 = d.getFullYear();
+				var m1 = d.getMonth() + 1;
+				m1 = m1 > 9 ? m1 : ("0" + m1);
+				var d1 = d.getDate();
+				d1 = d1 > 9 ? d1 : ("0" + d1);
+				var h = d.getHours();
+				h = h > 9 ? h : ("0" + h);
+				var m = d.getMinutes();
+				m = m > 9 ? m : ("0" + m);
+				document.getElementById("date"+num).value = y1 + "-" + m1 + "-" + d1;
+			}
+			//双击设置当前时间
+			function SetCurrTime(num) {
+				var d = new Date();
+				var y1 = d.getFullYear();
+				var m1 = d.getMonth() + 1;
+				m1 = m1 > 9 ? m1 : ("0" + m1);
+				var d1 = d.getDate();
+				d1 = d1 > 9 ? d1 : ("0" + d1);
+				var h = d.getHours();
+				h = h > 9 ? h : ("0" + h);
+				var m = d.getMinutes();
+				m = m > 9 ? m : ("0" + m);
+				document.getElementById("time"+num).value = h + ":" + m + ":00";
+			}
+			
+			function ShowPanel() {
+				var btn = document.getElementById("btnShow");
+				if(btn.value == "NPC") {
+					document.getElementById("NPC1").style.display="";
+					document.getElementById("NPC2").style.display="none";
+					btn.value="小号";
+				}
+				else {
+					document.getElementById("NPC1").style.display="none";
+					document.getElementById("NPC2").style.display="";
+					btn.value="NPC";
+				}
+			}
+		</script>
+	</head>
+	<body onload="LoadData()">
+		<table style="width:100%">
+			<tr>
+				<td align="center" style="width:30%">
+					<table style="width: 100%">
+						<tr>
+							<td align="center" style="padding-top:18px">
+								/* 制杖老魔 */
+								<input type="date" id="date1" value="" ondblclick="SetCurrDate(1)" style="width:100px" />
+								<input type="time" id="time1" value="" ondblclick="SetCurrTime(1)" style="width:90px" />
+								<input type="button" id="button1" value="设定时间" onclick="SetTime(1)"/>
+								<iframe id="iframe1" frameborder="0" noresize="noresize" style="background:transparent; width:99%; height:860px" src="http://47.107.31.19/h5/zycq-955.html?user=o01Ai6nNgha3n0xekz-DNS33gnKU"></iframe>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td align="center" style="width:70%">
+					<fieldset style="border: 1px dashed">
+						<legend>
+							<input type="button" id="btnShow" value="小号" onclick="ShowPanel()"/>
+						</legend>
+						<table style="width:100%" id="NPC1">
+							<tr>
+								<td align="center" style="width:50%">
+									/* 老魔 */
+									<input type="date" id="date2" value="" ondblclick="SetCurrDate(2)" style="width:100px" />
+									<input type="time" id="time2" value="" ondblclick="SetCurrTime(2)" style="width:90px" />
+									<input type="button" id="button2" value="设定时间" onclick="SetTime(2)"/>
+									<iframe id="iframe2" frameborder="0" noresize="noresize" style="background:transparent; width:99%; height:860px" src="http://47.107.31.19/h5/zycq-955.html?user=o01Ai6os9Juqc9r428Eay-T1yhyI"></iframe>
+								</td>
+								<td align="center" style="width:50%">
+									/* 至尊手残 */
+									<input type="date" id="date3" value="" ondblclick="SetCurrDate(3)" style="width:100px" />
+									<input type="time" id="time3" value="" ondblclick="SetCurrTime(3)" style="width:90px" />
+									<input type="button" id="button3" value="设定时间" onclick="SetTime(3)"/>
+									<iframe id="iframe3" frameborder="0" noresize="noresize" style="background:transparent; width:99%; height:860px" src="http://47.107.31.19/h5/zycq-955.html?user=o01Ai6jbDVYQEvje9qSCoduE8w_4"></iframe>
+								</td>
+							</tr>
+						</table>
+						<table style="width:100%; display: none" id="NPC2">
+							<tr>
+								<td align="center" style="width:1000px">
+									<iframe id="iframe4" frameborder="0" noresize="noresize" style="background:transparent; width:99%; height:860px" src="index.html"></iframe>
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" style="width:500px">
+					
+				</td>
+				<td align="center" style="width:500px">
+					
+				</td>
+				<td align="center" style="width:500px">
+					
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
