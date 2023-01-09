@@ -273,7 +273,7 @@
 		</style>
 
 		<script type="text/javascript">
-			var TotalRowCount = 40;
+			var TotalRowCount = 60;
 			var SelectIndex = "01";  //选中的“行”
 			var ColorIndex = "01";
 			var MessageTimer;  //“提示”计时器
@@ -457,7 +457,7 @@
 						if(pop != null) pop.style.display = "none";
 					}
 				});
-				$("input[type='text']").dblclick(function () {
+				$("input[type='text']").dblclick(function (e) {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time") {
 						var d = new Date();
@@ -470,8 +470,12 @@
 						h = h > 9 ? h : ("0" + h);
 						var m = d.getMinutes();
 						m = m > 9 ? m : ("0" + m);
-						document.getElementById($(this)[0].id.replace("time","date")).value = y1 + "-" + m1 + "-" + d1;;
+						document.getElementById($(this)[0].id.replace("time","date")).value = y1 + "-" + m1 + "-" + d1;
 						$(this)[0].value = h + ":" + m;
+					}
+					if(id.substr(0,4) == "name") {  //双击名字设置时间(暂时不打)
+						document.getElementById($(this)[0].id.replace("name","date")).value = "2099-12-31";
+						document.getElementById($(this)[0].id.replace("name","time")).value = "23:57";
 					}
 				});
 				$("input[type='text']").mousedown(function (event) {
