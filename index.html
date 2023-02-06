@@ -178,9 +178,17 @@
 						<td colspan="3" align="right">
 							<table>
 								<tr>
+									<td style="display:table-cell; vertical-align:middle">自动当前时间</td>
 									<td>
-										<input type="checkbox" class="switch" id="ckTime" title="自动设置时间已关闭" onchange="ShowTime(this)">
+										<input type="checkbox" class="switch" id="ckCurrTime" title="自动当前时间已关闭" onchange="ShowCurrentTime(this)">
 									</td>
+									<td style="width:10px"></td>
+									<td style="display:table-cell; vertical-align:middle">自动调整时间</td>
+									<td>
+										<input type="checkbox" class="switch" id="ckTime" title="自动调整时间已关闭" onchange="ShowTime(this)">
+									</td>
+									<td style="width:10px"></td>
+									<td style="display:table-cell; vertical-align:middle">消息提示</td>
 									<td>
 										<input type="checkbox" class="switch" id="ckMessage" title="消息提示已关闭" onchange="ShowTitle(this)">
 									</td>
@@ -635,6 +643,19 @@
 				if(way=="44") span = -1;
 				var d = document.getElementById("date" + SelectIndex).value.split("-");
 				var mh = document.getElementById("time" + SelectIndex).value.split(":");
+				if(document.getElementById("ckCurrTime").checked) { //自动设置当前时间 2023-02-01
+					var dt0 = new Date();
+					var y0 = dt0.getFullYear();
+					var m0 = dt0.getMonth() + 1;
+					m0 = m0 > 9 ? m0 : ("0" + m0);
+					var d0 = dt0.getDate();
+					d0 = d0 > 9 ? d0 : ("0" + d0);
+					var hh0 = dt0.getHours();
+					hh0 = hh0 > 9 ? hh0 : ("0" + hh0);
+					var mm0 = dt0.getMinutes();
+					d = (y0 + "-" + m0 + "-" + d0).split("-");
+					mh = (hh0 + ":" + mm0).split(":");
+				}
 				if(mh.length < 2)
 					return;
 				var mm = mh[0];
@@ -1062,6 +1083,13 @@
 					obj.title = "自动设置时间已开启";
 				else
 					obj.title = "自动设置时间已关闭";
+			}
+			
+			function ShowCurrentTime(obj) {
+				if(obj.checked)
+					obj.title = "自动当前时间已开启";
+				else
+					obj.title = "自动当前时间已关闭";
 			}
 		</script>
 	</body>
