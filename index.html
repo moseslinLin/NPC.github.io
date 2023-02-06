@@ -482,9 +482,23 @@
 						$(this)[0].value = h + ":" + m;
 					}
 					if(id.substr(0,4) == "name") {  //双击名字设置时间(暂时不打)
-						document.getElementById($(this)[0].id.replace("name","date")).value = "2099-12-31";
-						document.getElementById($(this)[0].id.replace("name","time")).value = "23:57";
+						var selectValue = document.getElementById("EquipValue" + id.substr(4)).value;
+						if(selectValue.length == 0) {
+							document.getElementById($(this)[0].id.replace("name","date")).value = "2099-12-31";
+							document.getElementById($(this)[0].id.replace("name","time")).value = "23:59";
+						}
+						else {
+							if(selectValue.substr(0,1) == "1" || selectValue.substr(0,1) == "2") {
+								document.getElementById($(this)[0].id.replace("name","date")).value = "2099-12-31";
+								document.getElementById($(this)[0].id.replace("name","time")).value = "23:56";
+							}
+							else {
+								document.getElementById($(this)[0].id.replace("name","date")).value = "2099-12-31";
+								document.getElementById($(this)[0].id.replace("name","time")).value = "23:57";
+							}
+						}
 					}
+					e.preventDefault();
 				});
 				$("input[type='text']").mousedown(function (event) {
 					var id = $(this)[0].id;
