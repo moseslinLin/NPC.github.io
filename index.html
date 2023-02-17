@@ -896,7 +896,11 @@
 						date = "2099-12-31";
 						time = "23:59";
 					}
-					if(selectValue.length == 0) selectValue = "0";
+					if(selectValue.length == 0) {
+						selectValue = "0";
+						date = "2099-12-31";
+						time = "23:59";
+					}
 					if(selectValue.length == 1 && document.getElementById("ckTime").checked) {
 						if(selectValue > 2) {
 							if(selectValue == "7" || selectValue == "8") {
