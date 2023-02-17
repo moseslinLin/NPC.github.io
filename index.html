@@ -3,7 +3,7 @@
 	<head>
 		<title> NPC </title>
 		<meta charset="utf-8">
-		<meta content="user-scalable=0" name="viewport" />
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
 		<script src="Scripts/jquery-1.8.2.min.js"></script>
 		<script src="Scripts/common.js"></script>
 		<script src="Scripts/shCore.js"></script>
@@ -49,9 +49,10 @@
 				border: 0px;
 				width: 98%;
 				text-align: center;
+				/* background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, pink); /* linear rainbow */ */
 			}
 			
-			input:focus {  //获取焦点时边框发光
+			input[type="text"]:focus {  //获取焦点时边框发光
 				transition: border linear .2s, box-shadow linear .5s;
 				-moz-transition: border linear .2s, -moz-box-shadow linear .5s;
 				-webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
@@ -71,8 +72,13 @@
 				background-color: green;
 			}
 			
-			body {
-				user-select: none;  /* 阻止双击选取 */
+			* {
+				-webkit-touch-callout: none;  /*系统默认菜单被禁用*/
+				-webkit-user-select: none;  /*webkit浏览器*/
+				-khtml-user-select: none;  /*早起浏览器*/
+				-moz-user-select: none;  /*火狐浏览器*/
+				-ms-user-select: none;  /*IE浏览器*/
+				user-select: none;  /*用户是否能够选中文本*/
 			}
 		</style>
 		<style>
@@ -84,7 +90,7 @@
 				-moz-appearance: none;
 				position: relative;
 				width: 80px;
-				height: 40px;
+				height: 60px;
 				background: #ccc;
 				border-radius: 10px;
 				transition: border-color .3s, background-color .3s;
@@ -144,29 +150,43 @@
 			
 			.selectList {
 				height: 42px;
-				overflow-y: auto;
+				overflow-y: scroll;
 			}
+		</style>
+		<style>
+			<!-- input { -->
+				<!-- color: #FF0000; -->
+				<!-- animation: bgColor 5s infinite linear; -->
+			<!-- } -->
+			<!-- @keyframes bgColor { -->
+				<!-- 12.5% { color: #FF0000; } -->
+				<!-- 25% { color: #FFA500; } -->
+				<!-- 37.5% { color: #FFFF00; } -->
+				<!-- 50% { color: #7FFF00; } -->
+				<!-- 62.5% { color: #00FFFF; } -->
+				<!-- 75% { color: #0000FF; } -->
+				<!-- 87.5% { color: #9932CC; } -->
+				<!-- 100% { color: #FF1493; } -->
+			<!-- } -->
 		</style>
 	</head>
 	<body>
+		<input id="KillInfo" type="hidden" value="" />
 	    <table border="0" width="100%">
             <tr>
                 <td align="center">
-					<p>
-						<table id="tableSort" class="tableSort" style="width: 99%">
-							<thead>
-								<tr>
-									<th type="number">序号</th>
-									<th type="string">姓名</th>
-									<th type="string">时间</th>
-									<th type="string">装备</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-						</table>
-					</p>
+					<table id="tableSort" class="tableSort" style="width: 99%">
+						<thead>
+							<tr>
+								<th type="number">序号</th>
+								<th type="string">姓名</th>
+								<th type="string">时间</th>
+								<th type="string">装备</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 				</td>
 			</tr>
 		</table>
@@ -180,7 +200,7 @@
 								<tr>
 									<td style="display:table-cell; vertical-align:middle">自动当前时间</td>
 									<td>
-										<input type="checkbox" class="switch" id="ckCurrTime" title="自动当前时间已关闭" onchange="ShowCurrentTime(this)">
+										<input type="checkbox" checked class="switch" id="ckCurrTime" title="自动当前时间已关闭" onchange="ShowCurrentTime(this)">
 									</td>
 									<td style="width:10px"></td>
 									<td style="display:table-cell; vertical-align:middle">自动调整时间</td>
@@ -198,7 +218,16 @@
 					</tr>
 					<tr>
 						<td style="width: 33%" align="center">
-							<button style="width:99%" onclick="SetTime(1)">+60</button>
+							<table style="width: 100%">
+								<tr>
+									<td>
+										<button style="width:99%" onclick="SetTime(0)">+60(出装)</button>
+									</td>
+									<td>
+										<button style="width:99%" onclick="SetTime(1)">+60</button>
+									</td>
+								</tr>
+							</table>
 						</td>
 						<td style="width: 34%" align="center">
 							<button style="width:99%" onclick="SetTime(2)">+30</button>
@@ -220,10 +249,28 @@
 					</tr>
 					<tr>
 						<td style="width: 33%" align="center">
-							<button style="width:99%" onclick="Copy()">复制</button>
+							<table style="width: 100%">
+								<tr>
+									<td>
+										<button style="width:99%" onclick="Copy1()">复制(NPC)</button>
+									</td>
+									<td>
+										<button style="width:99%" onclick="Copy2()">复制(参数)</button>
+									</td>
+								</tr>
+							</table>
 						</td>
 						<td style="width: 34%" align="center">
-							<button style="width:99%" onclick="Paste()">粘贴</button>
+							<table style="width: 100%">
+								<tr>
+									<td>
+										<button style="width:99%" onclick="Paste1()">粘贴(NPC)</button>
+									</td>
+									<td>
+										<button style="width:99%" onclick="Paste2()">粘贴(参数)</button>
+									</td>
+								</tr>
+							</table>
 						</td>
 						<td style="width: 33%" align="center">
 							<button style="width:99%" onclick="Sort()">刷新</button>
@@ -287,17 +334,17 @@
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
 			var TotalCount = 2;  //總數據條數\head占一行
-			
+
 			window.onload = function() {
 				var tb = document.getElementById("tableSort");
 				for(var i=1; i<=TotalRowCount; i++) {
 					var newTr = tb.insertRow(i);
 					var newTd1 = newTr.insertCell();
-					newTd1.style = "text-align: center;	width: 120px; background: white;";
+					newTd1.style = "text-align: center;	width: 150px; background: white;";
 					newTd1.innerHTML = i;
 					
 					var newTd2 = newTr.insertCell();
-					newTd2.style="width: 380px; background: white;";
+					newTd2.style="width: 350px; background: white;";
 					newTd2.innerHTML = "<input id='name" + styleNum(i) + "' type='text' value='' />";
 					
 					var newTd3 = newTr.insertCell();
@@ -306,7 +353,7 @@
 					
 					var newTd4 = newTr.insertCell();
 					newTd4.style="text-align: center; background: white;";
-					newTd4.innerHTML = "<div id='Equip" + styleNum(i) + "' style='width: 99%;'></div><input type='text' id='EquipValue" + styleNum(i) + "' style='display: none' />";
+					newTd4.innerHTML = "<div id='Equip" + styleNum(i) + "' style='width: 99%; font-size: 14px'></div><input type='text' id='EquipValue" + styleNum(i) + "' style='display: none' />";
 				}
 				LoadData();
 			}
@@ -411,6 +458,10 @@
 			
 		<script type="text/javascript">
 			function LoadData() {
+				$("input[type='text']").οncοntextmenu = function(e){
+					e.preventDefault();
+				};
+
 				//打开页面读取数据
 				var Info = localStorage.getItem("Info");
 				if(Info == null || Info == "") { }
@@ -456,6 +507,7 @@
 					MessageTimer = self.setInterval("notifyMe()", 60000);
 					ColorTimer = self.setInterval("colorMe()", 1000);
 				}
+				document.getElementById("KillInfo").value = localStorage.getItem("KillInfo");
 				//获取选中行
 				$("input[type='text']").focus(function () {
 					var id = $(this)[0].id;
@@ -517,13 +569,41 @@
 						copyName($(this)[0].value);
 					}
 				});
+				$("input[type='text']").mouseover(function (event) {
+					var id = $(this)[0].id;
+					if(id.substr(0,4) == "name") {
+						var name = document.getElementById("name" + id.substr(4)).value;
+						if(name.indexOf("(") > -1)
+							name = name.substr(0,name.indexOf("("));
+						if(name.indexOf("（") > -1)
+							name = name.substr(0,name.indexOf("（"));
+						var KillInfo = document.getElementById("KillInfo").value;	//姓名,击败,击杀,击杀出装;
+						var killinfoS = KillInfo.split(";");
+						var findNPC = 0;
+						var row = 1;
+						while(row <= killinfoS.length) {
+							var s = killinfoS[row-1].split(",");
+							if(s[0] == name) {
+								findNPC = 1;
+								var rate1 = (parseFloat(s[1])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2) + "%";
+								var rate2 = (parseFloat(s[2])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2) + "%";
+								var rate3 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2) + "%";
+								$(this)[0].title = "攻击 " + (parseInt(s[1])+parseInt(s[2])+parseInt(s[3])) + " 次\r\n击败概率：" + rate1 + "\r\n击杀概率：" + rate2 + "\r\n击杀出装概率：" + rate3;
+							}
+							row += 1;
+						}
+						if(!findNPC) {
+							$(this)[0].title = "";
+						}
+					}
+				});
 				$("input[type='text']").keydown(function (event) {
 					var id = $(this)[0].id;
 					if(id.substr(0,4) == "time" && event.keyCode == 13) {
 						if(GetOS() == "windows") Sort();
 					}
 					if(id.substr(0,4) == "name" && event.keyCode == 13) {
-						if(GetOS() == "android") {
+						//if(GetOS() == "android") {
 							ShowProgressBar();
 							var selectValue = document.getElementById("EquipValue" + id.substr(4)).value;
 							if(selectValue.length == 0) selectValue = "0";
@@ -548,7 +628,7 @@
 							$("#Equip00 .selectList").each(function(){  //弹框样式--换行
 								$(this)[0].style.overflow = "visible";
 							});
-						}
+						//}
 					}
 				});
 				
@@ -651,6 +731,7 @@
 				if(pop != null) pop.style.display = "none";
 				
 				var span = 0;
+				if(way=="0") span = 60;
 				if(way=="1") span = 60;
 				if(way=="2") span = 30;
 				if(way=="3") span = 10;
@@ -691,8 +772,8 @@
 				m = m > 9 ? m : ("0" + m);
 				document.getElementById("date" + SelectIndex).value = y1 + "-" + m1 + "-" + d1;
 				document.getElementById("time" + SelectIndex).value = h + ":" + m;
-				//可打未打的3分钟后再提示
-				if(way == "1") {
+				//未打的+3分钟
+				if(way == "0" || way == "1") {
 					for(var ii=1; ii<=TotalCount-2; ii++) {
 						var row1 = (ii > 9 ? ii : ("0" + ii))
 						if(row1 != SelectIndex) {
@@ -716,6 +797,40 @@
 						}
 					}
 				}
+				//记录击败击杀出装信息
+				var name = document.getElementById("name" + SelectIndex).value;
+				if(name.indexOf("(") > -1)
+					name = name.substr(0,name.indexOf("("));
+				if(name.indexOf("（") > -1)
+					name = name.substr(0,name.indexOf("（"));
+				var KillInfo = document.getElementById("KillInfo").value;	//姓名,击败,击杀,击杀出装;
+				var killinfoS = KillInfo.split(";");
+				var findNPC = 0;
+				var row = 1;
+				while(row <= killinfoS.length) {
+					var s = killinfoS[row-1].split(",");
+					if(s[0] == name) {
+						findNPC = 1;
+						if(way == "0") s[3] = parseInt(s[3]) + 1;
+						if(way == "1") s[2] = parseInt(s[2]) + 1;
+						if(way == "2") s[1] = parseInt(s[1]) + 1;
+						killinfoS[row-1] = name + "," + s[1] + "," + s[2] + "," + s[3];
+					}
+					row += 1;
+				}
+				if(!findNPC) {
+					if(way == "0") killinfoS.push(name + ",0,0,1");
+					if(way == "1") killinfoS.push(name + ",0,1,0");
+					if(way == "2") killinfoS.push(name + ",1,0,0");
+				}
+				KillInfo = "";
+				for(var i=0; i<killinfoS.length; i++) {
+					if(killinfoS[i].length > 0)
+						KillInfo = KillInfo + killinfoS[i] + ";";
+				}
+				document.getElementById("KillInfo").value = KillInfo;
+				localStorage.setItem("KillInfo", KillInfo);
+
 				Save();
 			}
 			//格式化、前加“0”
@@ -763,13 +878,15 @@
 					}
 					if(selectValue.length == 0) selectValue = "0";
 					if(selectValue.length == 1 && document.getElementById("ckTime").checked) {
-						if(selectValue == "7" || selectValue == "8") {
-							date = "2099-12-31";
-							time = "23:58";
-						}
-						else if(selectValue != "1" && selectValue != "2") {
-							date = "2099-12-31";
-							time = "23:59";
+						if(selectValue > 2) {
+							if(selectValue == "7" || selectValue == "8") {
+								date = "2099-12-31";
+								time = "23:58";
+							}
+							else {
+								date = "2099-12-31";
+								time = "23:59";
+							}
 						}
 					}
 					
@@ -958,7 +1075,7 @@
 			
 			const clipboardObj = navigator.clipboard;
 			
-			async function Copy() {
+			async function Copy1() {  //复制NPC
 				//隐藏弹出层
 				var pop = document.getElementById("pop");
 				if(pop != null) pop.style.display = "none";
@@ -980,11 +1097,30 @@
 				} catch (err) {
 					alert('Failed to copy.');
 				}
-				//parent.document.getElementById("date1")
-				//parent.document.getElementById("time1")
 			}
 			
-			async function Paste() {
+			async function Copy2() {  //复制参数
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
+				var Info = "";
+				//复制时加上上一次击杀NPC爆出倍卡的时间
+				//本地直接打开文件的情况下，需要给浏览器EXE文件添加启动参数--enable-file-cookies，如有多个参数用空格隔开
+				//"C:\Program Files\Google\Chrome\Application\chrome.exe" --enable-file-cookies --allow-file-access-from-files
+				if(parent.document.getElementById("date1") != null) {
+					Info = parent.document.getElementById("date1").value + " " + parent.document.getElementById("time1").value + ";" + parent.document.getElementById("date2").value + " " + parent.document.getElementById("time2").value + ";" + parent.document.getElementById("date3").value + " " + parent.document.getElementById("time3").value;
+				}
+				Info = Info + "|" + document.getElementById("KillInfo").value;
+				try {
+					await navigator.clipboard.writeText(Info);
+					if(GetOS() == "windows")
+						location = "mailto:moseslin@163.com?subject=NPC&body=" + Info;
+				} catch (err) {
+					alert('Failed to copy.');
+				}
+			}	
+			
+			async function Paste1() {  //粘贴NPC
 				//隐藏弹出层
 				var pop = document.getElementById("pop");
 				if(pop != null) pop.style.display = "none";
@@ -994,7 +1130,6 @@
 					else {
 						var infoS = Info.split(";");
 						var row = 1;
-						TotalCount = infoS.length + 2;
 						while(row <= infoS.length) {
 							var s = infoS[row-1].split(" ");
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
@@ -1026,11 +1161,36 @@
 							document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 							row += 1;
 						}
-						for(var ii = 0; ii<TotalCount; ii++) {
-							rowOutIn(ii, "open");
+					}
+				} catch (err) {
+					alert('Failed to paste.');
+				}
+			}
+			async function Paste2() {  //粘贴参数
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
+				try {
+					const Info = await navigator.clipboard.readText();
+					if(Info == null || Info == "") { }
+					else {
+						//上一次击杀NPC爆出倍卡的时间
+						var infoS = Info.split("|");
+						if(infoS.length > 1) {
+							try {
+								var infoS2 = infoS[0].split(";");
+								for(var iii=0; iii<infoS2.length; iii++) {
+									var infoS3 = infoS2[iii].split(" ");
+									parent.document.getElementById("date" + (iii+1)).value = infoS3[0];
+									parent.document.getElementById("time" + (iii+1)).value = infoS3[1];
+									parent.SetTime(iii+1);
+								}
+							} catch (err2) { }
+							document.getElementById("KillInfo").value = infoS[1];
+							localStorage.setItem("KillInfo", infoS[1]);
 						}
-						for(var ii = TotalCount; ii<=TotalRowCount; ii++) {
-							rowOutIn(ii, "close");
+						else {
+							alert('Failed to paste.');
 						}
 					}
 				} catch (err) {
@@ -1095,12 +1255,12 @@
 				else
 					obj.title = "消息提示已关闭";
 			}
-
+			
 			function ShowTime(obj) {
 				if(obj.checked)
-					obj.title = "自动设置时间已开启";
+					obj.title = "自动调整时间已开启";
 				else
-					obj.title = "自动设置时间已关闭";
+					obj.title = "自动调整时间已关闭";
 			}
 			
 			function ShowCurrentTime(obj) {
