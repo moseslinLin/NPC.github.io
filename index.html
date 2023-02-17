@@ -221,16 +221,16 @@
 							<table style="width: 100%">
 								<tr>
 									<td>
-										<button style="width:99%" onclick="SetTime(0)">+60(出装)</button>
+										<button style="width:99%" onclick="SetTime(1)">+60(出装)</button>
 									</td>
 									<td>
-										<button style="width:99%" onclick="SetTime(1)">+60</button>
+										<button style="width:99%" onclick="SetTime(2)">+60</button>
 									</td>
 								</tr>
 							</table>
 						</td>
 						<td style="width: 34%" align="center">
-							<button style="width:99%" onclick="SetTime(2)">+30</button>
+							<button style="width:99%" onclick="SetTime(3)">+30</button>
 						</td>
 						<td style="width: 33%" align="center">
 							<button style="width:99%" onclick="SetTime(4)">+1</button>
@@ -238,10 +238,19 @@
 					</tr>
 					<tr>
 						<td style="width: 33%" align="center">
-							<button style="width:99%" onclick="SetTime(11)">-60</button>
+							<table style="width: 100%">
+								<tr>
+									<td>
+										<button style="width:99%" onclick="SetTime(11)">-60(出装)</button>
+									</td>
+									<td>
+										<button style="width:99%" onclick="SetTime(22)">-60</button>
+									</td>
+								</tr>
+							</table>
 						</td>
 						<td style="width: 34%" align="center">
-							<button style="width:99%" onclick="SetTime(22)">-30</button>
+							<button style="width:99%" onclick="SetTime(33)">-30</button>
 						</td>
 						<td style="width: 33%" align="center">
 							<button style="width:99%" onclick="SetTime(44)">-1</button>
@@ -731,14 +740,13 @@
 				if(pop != null) pop.style.display = "none";
 				
 				var span = 0;
-				if(way=="0") span = 60;
 				if(way=="1") span = 60;
-				if(way=="2") span = 30;
-				if(way=="3") span = 10;
+				if(way=="2") span = 60;
+				if(way=="3") span = 30;
 				if(way=="4") span = 1;
 				if(way=="11") span = -60;
-				if(way=="22") span = -30;
-				if(way=="33") span = -10;
+				if(way=="22") span = -60;
+				if(way=="33") span = -30;
 				if(way=="44") span = -1;
 				var d = document.getElementById("date" + SelectIndex).value.split("-");
 				var mh = document.getElementById("time" + SelectIndex).value.split(":");
@@ -773,7 +781,7 @@
 				document.getElementById("date" + SelectIndex).value = y1 + "-" + m1 + "-" + d1;
 				document.getElementById("time" + SelectIndex).value = h + ":" + m;
 				//未打的+3分钟
-				if(way == "0" || way == "1") {
+				if(way == "1" || way == "2") {
 					for(var ii=1; ii<=TotalCount-2; ii++) {
 						var row1 = (ii > 9 ? ii : ("0" + ii))
 						if(row1 != SelectIndex) {
@@ -811,17 +819,29 @@
 					var s = killinfoS[row-1].split(",");
 					if(s[0] == name) {
 						findNPC = 1;
-						if(way == "0") s[3] = parseInt(s[3]) + 1;
-						if(way == "1") s[2] = parseInt(s[2]) + 1;
-						if(way == "2") s[1] = parseInt(s[1]) + 1;
+						if(way == "1") s[3] = parseInt(s[3]) + 1;
+						if(way == "2") s[2] = parseInt(s[2]) + 1;
+						if(way == "3") s[1] = parseInt(s[1]) + 1;
+						if(way == "11") {
+							s[3] = parseInt(s[3]) - 1;
+							if(s[3]<0) s[3] = 0;
+						}
+						if(way == "22") {
+							s[2] = parseInt(s[2]) - 1;
+							if(s[2]<0) s[2] = 0;
+						}
+						if(way == "33") {
+							s[1] = parseInt(s[1]) + 1;
+							if(s[1]<0) s[1] = 0;
+						}
 						killinfoS[row-1] = name + "," + s[1] + "," + s[2] + "," + s[3];
 					}
 					row += 1;
 				}
 				if(!findNPC) {
-					if(way == "0") killinfoS.push(name + ",0,0,1");
-					if(way == "1") killinfoS.push(name + ",0,1,0");
-					if(way == "2") killinfoS.push(name + ",1,0,0");
+					if(way == "1") killinfoS.push(name + ",0,0,1");
+					if(way == "2") killinfoS.push(name + ",0,1,0");
+					if(way == "3") killinfoS.push(name + ",1,0,0");
 				}
 				KillInfo = "";
 				for(var i=0; i<killinfoS.length; i++) {
