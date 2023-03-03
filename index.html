@@ -883,6 +883,9 @@
 				//排序
 				var Info = new Array();
 				
+				var KillInfo = document.getElementById("KillInfo").value;	//姓名,击败,击杀,击杀出装;
+				var killinfoS = KillInfo.split(";");
+				
 				var index = 0;
 				for(var row = 1; row <= TotalRowCount; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
