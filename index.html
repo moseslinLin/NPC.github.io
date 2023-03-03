@@ -913,6 +913,31 @@
 							}
 						}
 					}
+
+					if(name.length > 0) {
+						var rowId = 1;
+						name = name.replace("1","").replace("2","").replace("3","");
+						var nameC = name;
+						if(nameC.indexOf("(") > -1)
+							nameC = nameC.substr(0,nameC.indexOf("("));
+						if(nameC.indexOf("（") > -1)
+							nameC = nameC.substr(0,nameC.indexOf("（"));
+						while(rowId <= killinfoS.length) {
+							var s = killinfoS[rowId-1].split(",");
+							if(s[0] == nameC) {
+								var rate1 = (parseFloat(s[1])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+								var rate2 = (parseFloat(s[2])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+								var rate3 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+								if(rate3 < 5)
+									name = name.substr(0,name.length-1) + "3" + ")";
+								else if(rate3 < 25)
+									name = name.substr(0,name.length-1) + "2" + ")";
+								else
+									name = name.substr(0,name.length-1) + "1" + ")";
+							}
+							rowId += 1;
+						}
+					}
 					
 					if(name.length > 0 && time.length > 0) {
 						Info[index] = new Array();
