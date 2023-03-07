@@ -337,7 +337,7 @@
 		</style>
 
 		<script type="text/javascript">
-			var TotalRowCount = 60;
+			var TotalRowCount = 100;
 			var SelectIndex = "01";  //选中的“行”
 			var ColorIndex = "01";
 			var MessageTimer;  //“提示”计时器
@@ -1159,8 +1159,8 @@
 				//复制时加上上一次击杀NPC爆出倍卡的时间
 				//本地直接打开文件的情况下，需要给浏览器EXE文件添加启动参数--enable-file-cookies，如有多个参数用空格隔开
 				//"C:\Program Files\Google\Chrome\Application\chrome.exe" --enable-file-cookies --allow-file-access-from-files
-				if(parent.document.getElementById("date1") != null) {
-					Info = parent.document.getElementById("date1").value + " " + parent.document.getElementById("time1").value + ";" + parent.document.getElementById("date2").value + " " + parent.document.getElementById("time2").value + ";" + parent.document.getElementById("date3").value + " " + parent.document.getElementById("time3").value;
+				if(parent.document.getElementById("AllTime1") != null) {
+					Info = parent.document.getElementById("AllTime1").value + "|" + parent.document.getElementById("AllTime2").value + "|" + parent.document.getElementById("AllTime3").value;
 				}
 				Info = Info + "|" + document.getElementById("KillInfo").value;
 				try {
@@ -1228,23 +1228,43 @@
 					else {
 						//上一次击杀NPC爆出倍卡的时间
 						var infoS = Info.split("|");
-						if(infoS.length > 1) {
+						if(infoS.length == 4) {
 							if(infoS[0].length > 0) {
 								try {
+									parent.document.getElementById("AllTime1").value = infoS[0];
 									var infoS2 = infoS[0].split(";");
-									for(var iii=0; iii<infoS2.length; iii++) {
-										var infoS3 = infoS2[iii].split(" ");
-										parent.document.getElementById("date" + (iii+1)).value = infoS3[0];
-										parent.document.getElementById("time" + (iii+1)).value = infoS3[1];
-										parent.SetTime(iii+1);
-									}
+									var infoS3 = infoS2[infoS2.length-2].split(" ");
+									parent.document.getElementById("date1").value = infoS3[0];
+									parent.document.getElementById("time1").value = infoS3[1];
+									parent.SetTime(4);
 								} catch (err2) { }
 							}
-							document.getElementById("KillInfo").value = infoS[1];
-							localStorage.setItem("KillInfo", infoS[1]);
+							if(infoS[1].length > 0) {
+								try {
+									parent.document.getElementById("AllTime2").value = infoS[1];
+									var infoS2 = infoS[1].split(";");
+									var infoS3 = infoS2[infoS2.length-2].split(" ");
+									parent.document.getElementById("date2").value = infoS3[0];
+									parent.document.getElementById("time2").value = infoS3[1];
+									parent.SetTime(5);
+								} catch (err2) { }
+							}
+							if(infoS[2].length > 0) {
+								try {
+									parent.document.getElementById("AllTime3").value = infoS[2];
+									var infoS2 = infoS[2].split(";");
+									var infoS3 = infoS2[infoS2.length-2].split(" ");
+									parent.document.getElementById("date3").value = infoS3[0];
+									parent.document.getElementById("time3").value = infoS3[1];
+									parent.SetTime(6);
+								} catch (err2) { }
+							}
+							document.getElementById("KillInfo").value = infoS[3];
+							localStorage.setItem("KillInfo", infoS[3]);
 						}
 						else {
-							alert('Failed to paste.');
+							document.getElementById("KillInfo").value = infoS[1];
+							localStorage.setItem("KillInfo", infoS[1]);
 						}
 					}
 				} catch (err) {
