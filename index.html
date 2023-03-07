@@ -723,17 +723,17 @@
 			//设置背景色
 			function SetBackColor(colorIndex) {
 				if (colorIndex == 1)
-					document.getElementById("name" + ColorIndex).style.background = "#fff5ee";
+					document.getElementById("name" + ColorIndex).style.background = "gray";
 				else if (colorIndex == 2)
-					document.getElementById("name" + ColorIndex).style.background = "#faebd7";
+					document.getElementById("name" + ColorIndex).style.background = "green";
 				else if (colorIndex == 3)
-					document.getElementById("name" + ColorIndex).style.background = "#f5deb3";
+					document.getElementById("name" + ColorIndex).style.background = "yellow";
 				else if (colorIndex == 4)
-					document.getElementById("name" + ColorIndex).style.background = "#f4a460";
+					document.getElementById("name" + ColorIndex).style.background = "orange";
 				else if (colorIndex == 5)
-					document.getElementById("name" + ColorIndex).style.background = "#ff7f50";
+					document.getElementById("name" + ColorIndex).style.background = "red";
 				else if (colorIndex == 6)
-					document.getElementById("name" + ColorIndex).style.background = "#ff4500";
+					document.getElementById("name" + ColorIndex).style.background = "-webkit-linear-gradient(left top,red,blue)";  //"#ff4500";
 				else
 					document.getElementById("name" + ColorIndex).style.background = "white";
 			}
@@ -1055,7 +1055,22 @@
 			}
 			//按装备质量排序
 			function Sort4(x,y) {
-				return compare(x[3], y[3]);
+				var color1, color2;
+				if(x[3] == "-webkit-linear-gradient(lefttop,red,blue)") color1 = 6;
+				if(x[3] == "red") color1 = 5;
+				if(x[3] == "orange") color1 = 4;
+				if(x[3] == "yellow") color1 = 3;
+				if(x[3] == "green") color1 = 2;
+				if(x[3] == "gray") color1 = 1;
+				if(x[3] == "white") color1 = 0;
+				if(y[3] == "-webkit-linear-gradient(lefttop,red,blue)") color2 = 6;
+				if(y[3] == "red") color2 = 5;
+				if(y[3] == "orange") color2 = 4;
+				if(y[3] == "yellow") color2 = 3;
+				if(y[3] == "green") color2 = 2;
+				if(y[3] == "gray") color2 = 1;
+				if(y[3] == "white") color2 = 0;
+				return compare(color2, color1);
 			}
 			//比较时间
 			function compare(date1, date2) {
