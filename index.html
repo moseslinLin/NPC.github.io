@@ -198,6 +198,17 @@
 						<td colspan="3" align="right">
 							<table>
 								<tr>
+									<td style="display:table-cell; vertical-align:middle">排序规则</td>
+									<td>
+										<select style="height: 42px; font-size: 1.2rem; background: #ccc;" id="orderIndex">
+											<option value="0">默认</option>
+											<option value="1">按姓名</option>
+											<option value="2">按职业</option>
+											<option value="3">按出装几率</option>
+											<option value="4">按装备质量</option>
+										</select>
+									</td>
+									<td style="width:10px"></td>
 									<td style="display:table-cell; vertical-align:middle">自动当前时间</td>
 									<td>
 										<input type="checkbox" checked class="switch" id="ckCurrTime" title="自动当前时间已关闭" onchange="ShowCurrentTime(this)">
@@ -953,9 +964,33 @@
 					}
 				}
 
-				Info.sort(function(x, y) {
-					return compare(x[1]+" "+x[2], y[1]+" "+y[2]);
-				});
+				var orderIndex = document.getElementById("orderIndex").value;
+				//默认
+				if(orderIndex == 0) {
+					Info.sort(function(x, y) {
+						return compare(x[1]+" "+x[2], y[1]+" "+y[2]);
+					});
+				}
+				//按姓名
+				if(orderIndex == 1) {
+					Info.sort(function(x, y) {
+						return compare(x[0].substr(0,x[0].indexOf('(')), y[0].substr(0,y[0].indexOf('(')));
+					});
+				}
+				//按职业
+				if(orderIndex == 2) {
+					Info.sort(function(x, y) {
+						return compare(x[0].substr(x[0].indexOf('(')+1,1), y[0].substr(y[0].indexOf('(')+1,1));
+					});
+				}
+				//按出装几率
+				if(orderIndex == 3) {
+					Info.sort(Sort3);
+				}
+				//按装备质量
+				if(orderIndex == 4) {
+					Info.sort(Sort4);
+				}
 
 				row = 1;
 				TotalCount = Info.length + 2;
@@ -998,6 +1033,29 @@
 				}
 				//保存
 				Save();
+			}
+			//按出装几率排序
+			function Sort3(x,y) {
+				var KillInfo = document.getElementById("KillInfo").value;
+				var killinfoS = KillInfo.split(";");
+				var rate1 = 0.00, rate2 = 0.00;
+				var row = 1;
+				while(row <= killinfoS.length) {
+					var s = killinfoS[row-1].split(",");
+					if(s[0] == x[0].substr(0,x[0].indexOf('('))) {
+						rate1 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+					}
+					if(s[0] == y[0].substr(0,y[0].indexOf('('))) {
+						rate2 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+					}
+					row += 1;
+				}
+				if(Number(rate1) > Number(rate2)) return -1;
+				else return 1;
+			}
+			//按装备质量排序
+			function Sort4(x,y) {
+				return compare(x[3], y[3]);
 			}
 			//比较时间
 			function compare(date1, date2) {
