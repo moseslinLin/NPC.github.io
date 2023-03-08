@@ -198,6 +198,10 @@
 						<td colspan="3" align="right">
 							<table>
 								<tr>
+									<td>
+										<button style="width: 100px" onclick="MergeNPC()">合并</button>
+									</td>
+									<td style="width:10px"></td>
 									<td style="display:table-cell; vertical-align:middle">排序规则</td>
 									<td>
 										<select style="height: 42px; font-size: 1.2rem; background: #ccc; border-radius: 10px;" id="orderIndex">
@@ -1415,6 +1419,47 @@
 					obj.title = "自动当前时间已开启";
 				else
 					obj.title = "自动当前时间已关闭";
+			}
+			
+			function MergeNPC() {
+				var NewKillInfo=prompt("请输入击杀情况：", "");
+				if(NewKillInfo!=null && NewKillInfo!=""){
+					var newKillInfoS = NewKillInfo.split(";");
+					var KillInfo = document.getElementById("KillInfo").value;
+					var killinfoS = KillInfo.split(";");
+					var findNPC = 0;
+					var row1 = 0, row2 = 0;
+					while(row1 < newKillInfoS.length) {
+						if(newKillInfoS[row1].length > 0) {
+							findNPC = 0, row2 = 0;
+							var s1 = newKillInfoS[row1].split(",");
+							while(row2 < killinfoS.length) {
+								if(killinfoS[row2].length > 0) {
+									var s2 = killinfoS[row2].split(",");
+									if(s1[0] == s2[0]) {
+										findNPC = 1;
+										s2[1]=Number(s2[1])+Number(s1[1]);
+										s2[2]=Number(s2[2])+Number(s1[2]);
+										s2[3]=Number(s2[3])+Number(s1[3]);
+										killinfoS[row2] = s2[0] + "," + s2[1] + "," + s2[2] + "," + s2[3];
+									}
+								}
+								row2 += 1;
+							}
+							if(findNPC == 0) {
+								killinfoS.push(s1[0] + "," + s1[1] + "," + s1[2] + "," + s1[3]);
+							}
+						}
+						row1 += 1;
+					}
+					KillInfo = "";
+					for(var i=0; i<killinfoS.length; i++) {
+						if(killinfoS[i].length > 0)
+							KillInfo = KillInfo + killinfoS[i] + ";";
+					}
+					document.getElementById("KillInfo").value = KillInfo;
+					localStorage.setItem("KillInfo", KillInfo);
+				}
 			}
 		</script>
 	</body>
