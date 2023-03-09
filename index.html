@@ -1211,13 +1211,13 @@
 				var Info = "";
 				for(var row = 1; row <= TotalRowCount; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
-					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
+					//var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(selectValue.length == 0) selectValue = "0";
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue;
+						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + selectValue;
 				}
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
@@ -1262,11 +1262,11 @@
 						while(row <= infoS.length) {
 							var s = infoS[row-1].split(" ");
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
-							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
+							//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
 							document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
 							document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
-							var selectDataS = s[4].split(",");
+							var selectDataS = s[3].split(",");
 							var id = "Equip" + (row > 9 ? row : ("0" + row));
 							let SelectData = {};
 							for(var i=0; i<selectDataS.length; i++){
@@ -1295,6 +1295,7 @@
 					alert('Failed to paste.');
 				}
 			}
+			
 			async function Paste2() {  //粘贴参数
 				//隐藏弹出层
 				var pop = document.getElementById("pop");
