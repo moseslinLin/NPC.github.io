@@ -1222,7 +1222,10 @@
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
 					if(GetOS() == "windows")
-						location = "mailto:moseslin@163.com?subject=NPC&body=" + Info.substr(1);
+						location = "mailto:moseslin@163.com?subject=NPC&body=";  // + Info.substr(1)
+					else
+						location = "mailto:itan@ceccoils.com?subject=NPC&body=";
+
 				} catch (err) {
 					alert('Failed to copy.');
 				}
@@ -1243,7 +1246,9 @@
 				try {
 					await navigator.clipboard.writeText(Info);
 					if(GetOS() == "windows")
-						location = "mailto:moseslin@163.com?subject=NPC&body=" + Info;
+						location = "mailto:moseslin@163.com?subject=NPC&body=";  // + Info
+					else
+						location = "mailto:itan@ceccoils.com?subject=NPC&body=";
 				} catch (err) {
 					alert('Failed to copy.');
 				}
