@@ -1255,103 +1255,107 @@
 			}	
 			
 			async function Paste1() {  //粘贴NPC
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
-				try {
-					const Info = await navigator.clipboard.readText();
-					if(Info == null || Info == "") { }
-					else {
-						var infoS = Info.split(";");
-						var row = 1;
-						while(row <= infoS.length) {
-							var s = infoS[row-1].split(" ");
-							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
-							//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
-							document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
-							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
-							document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
-							var selectDataS = s[3].split(",");
-							var id = "Equip" + (row > 9 ? row : ("0" + row));
-							let SelectData = {};
-							for(var i=0; i<selectDataS.length; i++){
-								SelectData[i] = {"colId":selectDataS[i], "colValue":""};
+				if(confirm("确认粘贴NPC？")) {
+					//隐藏弹出层
+					var pop = document.getElementById("pop");
+					if(pop != null) pop.style.display = "none";
+					try {
+						const Info = await navigator.clipboard.readText();
+						if(Info == null || Info == "") { }
+						else {
+							var infoS = Info.split(";");
+							var row = 1;
+							while(row <= infoS.length) {
+								var s = infoS[row-1].split(" ");
+								document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = s[0];
+								//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
+								document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
+								document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
+								document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
+								var selectDataS = s[3].split(",");
+								var id = "Equip" + (row > 9 ? row : ("0" + row));
+								let SelectData = {};
+								for(var i=0; i<selectDataS.length; i++){
+									SelectData[i] = {"colId":selectDataS[i], "colValue":""};
+								}
+								$("#" + id).multiselectInit({
+									"selectData": InitEquip,
+									"isSelectData": SelectData,
+									"isMulti": true, //是否多选
+									"inputId": "EquipValue" + (row > 9 ? row : ("0" + row)), //输入框的id
+									"checkStyle": "fg" //选择的样式
+								});
+								SetColorState(row > 9 ? row : ("0" + row));
+								row++;
 							}
-							$("#" + id).multiselectInit({
-								"selectData": InitEquip,
-								"isSelectData": SelectData,
-								"isMulti": true, //是否多选
-								"inputId": "EquipValue" + (row > 9 ? row : ("0" + row)), //输入框的id
-								"checkStyle": "fg" //选择的样式
-							});
-							SetColorState(row > 9 ? row : ("0" + row));
-							row++;
+							while(row <= TotalRowCount) {
+								document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
+								document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
+								document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+								document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
+								document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
+								row += 1;
+							}
 						}
-						while(row <= TotalRowCount) {
-							document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
-							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
-							document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
-							document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
-							document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
-							row += 1;
-						}
+					} catch (err) {
+						alert('Failed to paste.');
 					}
-				} catch (err) {
-					alert('Failed to paste.');
 				}
 			}
 			
 			async function Paste2() {  //粘贴参数
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
-				try {
-					const Info = await navigator.clipboard.readText();
-					if(Info == null || Info == "") { }
-					else {
-						//上一次击杀NPC爆出倍卡的时间
-						var infoS = Info.split("|");
-						if(infoS.length == 4) {
-							if(infoS[0].length > 0) {
-								try {
-									parent.document.getElementById("AllTime1").value = infoS[0];
-									var infoS2 = infoS[0].split(";");
-									var infoS3 = infoS2[infoS2.length-2].split(" ");
-									parent.document.getElementById("date1").value = infoS3[0];
-									parent.document.getElementById("time1").value = infoS3[1];
-									parent.SetTime(4);
-								} catch (err2) { }
-							}
-							if(infoS[1].length > 0) {
-								try {
-									parent.document.getElementById("AllTime2").value = infoS[1];
-									var infoS2 = infoS[1].split(";");
-									var infoS3 = infoS2[infoS2.length-2].split(" ");
-									parent.document.getElementById("date2").value = infoS3[0];
-									parent.document.getElementById("time2").value = infoS3[1];
-									parent.SetTime(5);
-								} catch (err2) { }
-							}
-							if(infoS[2].length > 0) {
-								try {
-									parent.document.getElementById("AllTime3").value = infoS[2];
-									var infoS2 = infoS[2].split(";");
-									var infoS3 = infoS2[infoS2.length-2].split(" ");
-									parent.document.getElementById("date3").value = infoS3[0];
-									parent.document.getElementById("time3").value = infoS3[1];
-									parent.SetTime(6);
-								} catch (err2) { }
-							}
-							document.getElementById("KillInfo").value = infoS[3];
-							localStorage.setItem("KillInfo", infoS[3]);
-						}
+				if(confirm("确认粘贴参数？")) {
+					//隐藏弹出层
+					var pop = document.getElementById("pop");
+					if(pop != null) pop.style.display = "none";
+					try {
+						const Info = await navigator.clipboard.readText();
+						if(Info == null || Info == "") { }
 						else {
-							document.getElementById("KillInfo").value = infoS[1];
-							localStorage.setItem("KillInfo", infoS[1]);
+							//上一次击杀NPC爆出倍卡的时间
+							var infoS = Info.split("|");
+							if(infoS.length == 4) {
+								if(infoS[0].length > 0) {
+									try {
+										parent.document.getElementById("AllTime1").value = infoS[0];
+										var infoS2 = infoS[0].split(";");
+										var infoS3 = infoS2[infoS2.length-2].split(" ");
+										parent.document.getElementById("date1").value = infoS3[0];
+										parent.document.getElementById("time1").value = infoS3[1];
+										parent.SetTime(4);
+									} catch (err2) { }
+								}
+								if(infoS[1].length > 0) {
+									try {
+										parent.document.getElementById("AllTime2").value = infoS[1];
+										var infoS2 = infoS[1].split(";");
+										var infoS3 = infoS2[infoS2.length-2].split(" ");
+										parent.document.getElementById("date2").value = infoS3[0];
+										parent.document.getElementById("time2").value = infoS3[1];
+										parent.SetTime(5);
+									} catch (err2) { }
+								}
+								if(infoS[2].length > 0) {
+									try {
+										parent.document.getElementById("AllTime3").value = infoS[2];
+										var infoS2 = infoS[2].split(";");
+										var infoS3 = infoS2[infoS2.length-2].split(" ");
+										parent.document.getElementById("date3").value = infoS3[0];
+										parent.document.getElementById("time3").value = infoS3[1];
+										parent.SetTime(6);
+									} catch (err2) { }
+								}
+								document.getElementById("KillInfo").value = infoS[3];
+								localStorage.setItem("KillInfo", infoS[3]);
+							}
+							else {
+								document.getElementById("KillInfo").value = infoS[1];
+								localStorage.setItem("KillInfo", infoS[1]);
+							}
 						}
+					} catch (err) {
+						alert('Failed to paste.');
 					}
-				} catch (err) {
-					alert('Failed to paste.');
 				}
 			}
 			//隐藏 table 的某一行
