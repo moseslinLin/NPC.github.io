@@ -1254,12 +1254,12 @@
 			}	
 			
 			async function Paste1() {  //粘贴NPC
-				if(confirm("确认粘贴NPC？")) {
-					//隐藏弹出层
-					var pop = document.getElementById("pop");
-					if(pop != null) pop.style.display = "none";
-					try {
-						const Info = await navigator.clipboard.readText();
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
+				try {
+					const Info = await navigator.clipboard.readText();
+					if(confirm("确认粘贴NPC？")) {
 						if(Info == null || Info == "") { }
 						else {
 							var infoS = Info.split(";");
@@ -1296,19 +1296,19 @@
 								row += 1;
 							}
 						}
-					} catch (err) {
-						alert('Failed to paste.');
 					}
+				} catch (err) {
+					alert('Failed to paste.');
 				}
 			}
 			
 			async function Paste2() {  //粘贴参数
-				if(confirm("确认粘贴参数？")) {
-					//隐藏弹出层
-					var pop = document.getElementById("pop");
-					if(pop != null) pop.style.display = "none";
-					try {
-						const Info = await navigator.clipboard.readText();
+				//隐藏弹出层
+				var pop = document.getElementById("pop");
+				if(pop != null) pop.style.display = "none";
+				try {
+					const Info = await navigator.clipboard.readText();
+					if(confirm("确认粘贴参数？")) {
 						if(Info == null || Info == "") { }
 						else {
 							//上一次击杀NPC爆出倍卡的时间
@@ -1352,9 +1352,9 @@
 								localStorage.setItem("KillInfo", infoS[1]);
 							}
 						}
-					} catch (err) {
-						alert('Failed to paste.');
 					}
+				} catch (err) {
+					alert('Failed to paste.');
 				}
 			}
 			//隐藏 table 的某一行
