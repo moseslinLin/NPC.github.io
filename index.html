@@ -971,7 +971,7 @@
 				//默认
 				if(orderIndex == 0) {
 					Info.sort(function(x, y) {
-						return compare(x[1]+" "+x[2] + x[3], y[1]+" "+y[2] + y[3]);
+						return compare(x[1]+" "+x[2] + ColorNum(x[3]), y[1]+" "+y[2] + ColorNum(y[3]));
 					});
 				}
 				//按姓名
@@ -983,7 +983,7 @@
 				//按职业
 				if(orderIndex == 2) {
 					Info.sort(function(x, y) {
-						return compare(x[0].substr(x[0].indexOf('(')+1,1), y[0].substr(y[0].indexOf('(')+1,1));
+						return compare(x[0].substr(x[0].indexOf('(')+1,1)+ColorNum(x[3]), y[0].substr(y[0].indexOf('(')+1,1)+ColorNum(y[3]));
 					});
 				}
 				//按出装几率
@@ -1082,6 +1082,16 @@
 				if(y[3] == "gray") color2 = 1;
 				if(y[3] == "white") color2 = 0;
 				return compare(color2, color1);
+			}
+			function ColorNum(color) {
+				if(color == "-webkit-linear-gradient(lefttop,red,pink)") return 0;
+				if(color == "red") return 1;
+				if(color == "orange") return 2;
+				if(color == "yellow") return 3;
+				if(color == "pink") return 4;
+				if(color == "gray") return 5;
+				if(color == "white") return 6;
+				return -1;
 			}
 			//比较时间
 			function compare(date1, date2) {
