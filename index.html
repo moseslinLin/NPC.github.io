@@ -199,7 +199,11 @@
 							<table>
 								<tr>
 									<td>
-										<button style="width: 100px" onclick="MergeNPC()">合并</button>
+										<button style="width: 80px" onclick="SetTopNPC()">置顶</button>
+									</td>
+									<td style="width:10px"></td>
+									<td>
+										<button style="width: 80px" onclick="MergeNPC()">合并</button>
 									</td>
 									<td style="width:10px"></td>
 									<td style="display:table-cell; vertical-align:middle">排序规则</td>
@@ -970,21 +974,15 @@
 				var orderIndex = document.getElementById("orderIndex").value;
 				//默认
 				if(orderIndex == 0) {
-					Info.sort(function(x, y) {
-						return compare(x[1]+" "+x[2] + ColorNum(x[3]), y[1]+" "+y[2] + ColorNum(y[3]));
-					});
+					Info.sort(Sort0);
 				}
 				//按姓名
 				if(orderIndex == 1) {
-					Info.sort(function(x, y) {
-						return compare(x[0].substr(0,x[0].indexOf('(')), y[0].substr(0,y[0].indexOf('(')));
-					});
+					Info.sort(Sort1);
 				}
 				//按职业
 				if(orderIndex == 2) {
-					Info.sort(function(x, y) {
-						return compare(x[0].substr(x[0].indexOf('(')+1,1)+ColorNum(x[3]), y[0].substr(y[0].indexOf('(')+1,1)+ColorNum(y[3]));
-					});
+					Info.sort(Sort2);
 				}
 				//按出装几率
 				if(orderIndex == 3) {
@@ -1037,52 +1035,87 @@
 				//保存
 				Save();
 			}
+			//默认排序
+			function Sort0(x,y) {
+				var tt = GetTopNPC(x,y);
+				if(tt < 2)
+					return tt;
+				else
+					return compare(x[1]+" "+x[2] + ColorNum(x[3]), y[1]+" "+y[2] + ColorNum(y[3]));
+			}
+			//按姓名排序
+			function Sort1(x,y) {
+				var tt = GetTopNPC(x,y);
+				if(tt < 2)
+					return tt;
+				else
+					return compare(x[0].substr(0,x[0].indexOf('(')), y[0].substr(0,y[0].indexOf('(')));
+			}
+			//按职业排序
+			function Sort2(x,y) {
+				var tt = GetTopNPC(x,y);
+				if(tt < 2)
+					return tt;
+				else
+					return compare(x[0].substr(x[0].indexOf('(')+1,1)+ColorNum(x[3]), y[0].substr(y[0].indexOf('(')+1,1)+ColorNum(y[3]));
+			}
 			//按出装几率排序
 			function Sort3(x,y) {
-				var KillInfo = document.getElementById("KillInfo").value;
-				var killinfoS = KillInfo.split(";");
-				var rate1 = 0.00, rate2 = 0.00;
-				var row = 1;
-				while(row <= killinfoS.length) {
-					var s = killinfoS[row-1].split(",");
-					if(s[0] == x[0].substr(0,x[0].indexOf('('))) {
-						rate1 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+				var tt = GetTopNPC(x,y);
+				if(tt < 2)
+					return tt;
+				else {
+					var KillInfo = document.getElementById("KillInfo").value;
+					var killinfoS = KillInfo.split(";");
+					var rate1 = 0.00, rate2 = 0.00;
+					var row = 1;
+					while(row <= killinfoS.length) {
+						var s = killinfoS[row-1].split(",");
+						if(s[0] == x[0].substr(0,x[0].indexOf('('))) {
+							rate1 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+						}
+						if(s[0] == y[0].substr(0,y[0].indexOf('('))) {
+							rate2 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+						}
+						if(x[1]+" "+x[2] == "2099-12-31 23:56") rate1 = -1;
+						if(x[1]+" "+x[2] == "2099-12-31 23:57") rate1 = -2;
+						if(x[1]+" "+x[2] == "2099-12-31 23:58") rate1 = -3;
+						if(x[1]+" "+x[2] == "2099-12-31 23:59") rate1 = -4;
+						if(y[1]+" "+y[2] == "2099-12-31 23:56") rate2 = -1;
+						if(y[1]+" "+y[2] == "2099-12-31 23:57") rate2 = -2;
+						if(y[1]+" "+y[2] == "2099-12-31 23:58") rate2 = -3;
+						if(y[1]+" "+y[2] == "2099-12-31 23:59") rate2 = -4;
+						row += 1;
 					}
-					if(s[0] == y[0].substr(0,y[0].indexOf('('))) {
-						rate2 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
-					}
-					if(x[1]+" "+x[2] == "2099-12-31 23:56") rate1 = -1;
-					if(x[1]+" "+x[2] == "2099-12-31 23:57") rate1 = -2;
-					if(x[1]+" "+x[2] == "2099-12-31 23:58") rate1 = -3;
-					if(x[1]+" "+x[2] == "2099-12-31 23:59") rate1 = -4;
-					if(y[1]+" "+y[2] == "2099-12-31 23:56") rate2 = -1;
-					if(y[1]+" "+y[2] == "2099-12-31 23:57") rate2 = -2;
-					if(y[1]+" "+y[2] == "2099-12-31 23:58") rate2 = -3;
-					if(y[1]+" "+y[2] == "2099-12-31 23:59") rate2 = -4;
-					row += 1;
+					if(Number(rate1) > Number(rate2)) return -1;
+					else return 1;
 				}
-				if(Number(rate1) > Number(rate2)) return -1;
-				else return 1;
 			}
 			//按装备质量排序
 			function Sort4(x,y) {
-				var color1, color2;
-				if(x[3] == "-webkit-linear-gradient(lefttop,red,pink)") color1 = 6;
-				if(x[3] == "red") color1 = 5;
-				if(x[3] == "orange") color1 = 4;
-				if(x[3] == "yellow") color1 = 3;
-				if(x[3] == "pink") color1 = 2;
-				if(x[3] == "gray") color1 = 1;
-				if(x[3] == "white") color1 = 0;
-				if(y[3] == "-webkit-linear-gradient(lefttop,red,pink)") color2 = 6;
-				if(y[3] == "red") color2 = 5;
-				if(y[3] == "orange") color2 = 4;
-				if(y[3] == "yellow") color2 = 3;
-				if(y[3] == "pink") color2 = 2;
-				if(y[3] == "gray") color2 = 1;
-				if(y[3] == "white") color2 = 0;
-				return compare(color2, color1);
+				var tt = GetTopNPC(x,y);
+				if(tt < 2)
+					return tt;
+				else {
+					var color1, color2;
+					if(x[3] == "-webkit-linear-gradient(lefttop,red,pink)") color1 = 6;
+					if(x[3] == "red") color1 = 5;
+					if(x[3] == "orange") color1 = 4;
+					if(x[3] == "yellow") color1 = 3;
+					if(x[3] == "pink") color1 = 2;
+					if(x[3] == "gray") color1 = 1;
+					if(x[3] == "white") color1 = 0;
+					if(y[3] == "-webkit-linear-gradient(lefttop,red,pink)") color2 = 6;
+					if(y[3] == "red") color2 = 5;
+					if(y[3] == "orange") color2 = 4;
+					if(y[3] == "yellow") color2 = 3;
+					if(y[3] == "pink") color2 = 2;
+					if(y[3] == "gray") color2 = 1;
+					if(y[3] == "white") color2 = 0;
+					return compare(color2, color1);
+				}
 			}
+			//排序第二条件
 			function ColorNum(color) {
 				if(color == "-webkit-linear-gradient(lefttop,red,pink)") return 0;
 				if(color == "red") return 1;
@@ -1097,6 +1130,34 @@
 			function compare(date1, date2) {
 				if(date1 >= date2) return 1;
 				else return -1;
+			}
+			let TopNPC = [];
+			//置顶
+			function SetTopNPC() {
+				var name = document.getElementById("name" + SelectIndex).value;
+				if(name.indexOf("(") > -1)
+					name = name.substr(0,name.indexOf("("));
+				if(name.indexOf("（") > -1)
+					name = name.substr(0,name.indexOf("（"));
+				var index = TopNPC.indexOf(name);
+				if(index > -1) {
+					TopNPC.splice(index, 1);
+				}
+				else {
+					TopNPC.push(name);
+				}
+				if(TopNPC.length > 0)
+					alert("当前置顶 NPC：" + TopNPC.join('、'));
+			}
+			//置顶操作
+			function GetTopNPC(x,y) {
+				if(TopNPC.indexOf(x[0].substr(0,x[0].indexOf("(")))>-1 && TopNPC.indexOf(y[0].substr(0,y[0].indexOf("(")))==-1)
+					return -1;
+				if(TopNPC.indexOf(x[0].substr(0,x[0].indexOf("(")))==-1 && TopNPC.indexOf(y[0].substr(0,y[0].indexOf("(")))>-1)
+					return 1;
+				if(TopNPC.indexOf(x[0].substr(0,x[0].indexOf("(")))>-1 && TopNPC.indexOf(y[0].substr(0,y[0].indexOf("(")))>-1)
+					return 0;
+				return 2;
 			}
 			//发送通知
 			function notifyMe() {
