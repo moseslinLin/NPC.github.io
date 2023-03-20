@@ -1151,11 +1151,20 @@
 			}
 			//置顶操作
 			function GetTopNPC(x,y) {
-				if(TopNPC.indexOf(x[0].substr(0,x[0].indexOf("(")))>-1 && TopNPC.indexOf(y[0].substr(0,y[0].indexOf("(")))==-1)
+				var xx, yy;
+				if(x[0].indexOf("(") > -1)
+					xx = x[0].substr(0,x[0].indexOf("("));
+				else
+					xx = x[0];
+				if(y[0].indexOf("(") > -1)
+					yy = y[0].substr(0,y[0].indexOf("("));
+				else
+					yy = y[0];
+				if(TopNPC.indexOf(xx)>-1 && TopNPC.indexOf(yy)==-1)
 					return -1;
-				if(TopNPC.indexOf(x[0].substr(0,x[0].indexOf("(")))==-1 && TopNPC.indexOf(y[0].substr(0,y[0].indexOf("(")))>-1)
+				if(TopNPC.indexOf(xx)==-1 && TopNPC.indexOf(yy)>-1)
 					return 1;
-				if(TopNPC.indexOf(x[0].substr(0,x[0].indexOf("(")))>-1 && TopNPC.indexOf(y[0].substr(0,y[0].indexOf("(")))>-1)
+				if(TopNPC.indexOf(xx)>-1 && TopNPC.indexOf(yy)>-1)
 					return 0;
 				return 2;
 			}
