@@ -1041,7 +1041,7 @@
 				if(tt < 2)
 					return tt;
 				else
-					return compare(x[1]+" "+x[2] + ColorNum(x[3]), y[1]+" "+y[2] + ColorNum(y[3]));
+					return compare(x[1]+" "+x[2] + ColorNum(x[3]) + GetRate(x[0]), y[1]+" "+y[2] + ColorNum(y[3]) + GetRate(y[0]));
 			}
 			//按姓名排序
 			function Sort1(x,y) {
@@ -1133,6 +1133,22 @@
 				if(color == "gray") return 5;
 				if(color == "white") return 6;
 				return -1;
+			}
+			//排序第三条件
+			function GetRate(name) {
+				var KillInfo = document.getElementById("KillInfo").value;	//姓名,击败,击杀,击杀出装;
+				var killinfoS = KillInfo.split(";");
+				var rate = 0.00;
+				var row = 1;
+				while(row <= killinfoS.length) {
+					var s = killinfoS[row-1].split(",");
+					if(s[0] == name.substr(0,name.indexOf('('))) {
+						rate = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2);
+					}
+					row += 1;
+				}
+				var rateS = Number(100.00-rate).toFixed(2).split(".");
+				return (rateS[0] == 100 ? rateS[0] : (rateS[0] > 9 ? ("0" + rateS[0]) : ("00" + rateS[0]))) + "." + rateS[1];
 			}
 			//比较时间
 			function compare(date1, date2) {
