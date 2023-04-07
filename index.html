@@ -1057,7 +1057,7 @@
 				if(tt < 2)
 					return tt;
 				else
-					return compare(x[0].substr(x[0].indexOf('(')+1,1)+ColorNum(x[3]), y[0].substr(y[0].indexOf('(')+1,1)+ColorNum(y[3]));
+					return compare(x[0].substr(x[0].indexOf('(')+1,1)+ColorNum(x[3])+GetRate(x[0]), y[0].substr(y[0].indexOf('(')+1,1)+ColorNum(y[3])+GetRate(y[0]));
 			}
 			//按出装几率排序
 			function Sort3(x,y) {
