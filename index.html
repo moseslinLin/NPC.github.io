@@ -841,7 +841,7 @@
 						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue + " " + time2;
 				}
 				localStorage.setItem("Info", Info.substr(1));
-				if(Info.leng == 0)
+				if(Info.length == 0)
 					window.clearInterval(MessageTimer);
 			}
 			//排序
