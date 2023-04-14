@@ -643,59 +643,27 @@
 					}
 				});
 				
-				var os = GetOS();
-				if(os == "android") {
-					document.getElementById("tableSort").style.fontSize="400%";
-					var btns = document.getElementsByTagName('button');
-					for(n=0; n<btns.length; n++){
-						btns[n].style.fontSize="250%";
-						btns[n].style.height="100px";
-						btns[n].onmouseover = function() {
-							this.style.fontSize="320%";
-						}
-						btns[n].onmouseout = function() {
-							this.style.fontSize="250%";
-						}
+				document.getElementById("tableSort").style.fontSize="200%";
+				var btns = document.getElementsByTagName('button');
+				for(n=0; n<btns.length; n++) {
+					btns[n].style.fontSize="150%";
+					btns[n].style.height="80px";
+					btns[n].onmouseover = function() {
+						this.style.fontSize="180%";
 					}
-					document.getElementById("blankDiv").style.height = "320px";
-					document.getElementById("ckCurrTime").style.width="120px";
-					document.getElementById("ckCurrTime").style.height="60px";
-					document.getElementById("ckTime").style.width="120px";
-					document.getElementById("ckTime").style.height="60px";
-					document.getElementById("ckMessage").style.width="120px";
-					document.getElementById("ckMessage").style.height="60px";
-					document.getElementById("ckChangePlayer").style.width="120px";
-					document.getElementById("ckChangePlayer").style.height="60px";
-					
-					var table = document.getElementById("tableSort");
-					var trs = table.rows;
-					for(var i=0; i<trs.length; i++) {
-						trs[i].cells[3].style.display = "none";
+					btns[n].onmouseout = function() {
+						this.style.fontSize="150%";
 					}
 				}
-				else {
-					document.getElementById("tableSort").style.fontSize="200%";
-					var btns = document.getElementsByTagName('button');
-					for(n=0; n<btns.length; n++) {
-						btns[n].style.fontSize="150%";
-						btns[n].style.height="80px";
-						btns[n].onmouseover = function() {
-							this.style.fontSize="180%";
-						}
-						btns[n].onmouseout = function() {
-							this.style.fontSize="150%";
-						}
-					}
-					document.getElementById("blankDiv").style.height = "360px";
-					document.getElementById("ckCurrTime").style.width="80px";
-					document.getElementById("ckCurrTime").style.height="40px";
-					document.getElementById("ckTime").style.width="80px";
-					document.getElementById("ckTime").style.height="40px";
-					document.getElementById("ckMessage").style.width="80px";
-					document.getElementById("ckMessage").style.height="40px";
-					document.getElementById("ckChangePlayer").style.width="80px";
-					document.getElementById("ckChangePlayer").style.height="40px";
-				}
+				document.getElementById("blankDiv").style.height = "360px";
+				document.getElementById("ckCurrTime").style.width="80px";
+				document.getElementById("ckCurrTime").style.height="40px";
+				document.getElementById("ckTime").style.width="80px";
+				document.getElementById("ckTime").style.height="40px";
+				document.getElementById("ckMessage").style.width="80px";
+				document.getElementById("ckMessage").style.height="40px";
+				document.getElementById("ckChangePlayer").style.width="80px";
+				document.getElementById("ckChangePlayer").style.height="40px";
 			}
 			
 			async function copyName(name) {
