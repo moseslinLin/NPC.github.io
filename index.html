@@ -200,11 +200,11 @@
 							<table>
 								<tr>
 									<td>
-										<button style="width: 80px" onclick="SetTopNPC()">置顶</button>
+										<button style="width: 120px" onclick="SetTopNPC()">置顶</button>
 									</td>
 									<td style="width:10px"></td>
 									<td>
-										<button style="width: 80px" onclick="MergeNPC()">合并</button>
+										<button style="width: 120px" onclick="MergeNPC()">合并</button>
 									</td>
 									<td style="width:10px"></td>
 									<td style="display:table-cell; vertical-align:middle; font-size: small">排序规则</td>
@@ -645,7 +645,7 @@
 				
 				var os = GetOS();
 				if(os == "android") {
-					document.getElementById("tableSort").style.fontSize="150%";
+					document.getElementById("tableSort").style.fontSize="200%";
 					var btns = document.getElementsByTagName('button');
 					for(n=0; n<btns.length; n++){
 						btns[n].style.fontSize="250%";
