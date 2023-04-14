@@ -180,7 +180,8 @@
 							<tr>
 								<th type="number">序号</th>
 								<th type="string">姓名</th>
-								<th type="string">时间</th>
+								<th type="string">时间1</th>
+								<th type="string">时间2</th>
 								<th type="string">装备</th>
 							</tr>
 						</thead>
@@ -217,19 +218,24 @@
 										</select>
 									</td>
 									<td style="width:10px"></td>
-									<td style="display:table-cell; vertical-align:middle; font-size: small">自动当前时间</td>
+									<td style="display:none; vertical-align:middle; font-size:small">自动当前时间</td>
 									<td>
 										<input type="checkbox" checked class="switch" id="ckCurrTime" title="自动当前时间已开启" onchange="ShowCurrentTime(this)">
 									</td>
 									<td style="width:10px"></td>
-									<td style="display:table-cell; vertical-align:middle; font-size: small">自动调整时间</td>
+									<td style="display:none; vertical-align:middle; font-size:small">自动调整时间</td>
 									<td>
 										<input type="checkbox" checked class="switch" id="ckTime" title="自动调整时间已开启" onchange="ShowTime(this)">
 									</td>
 									<td style="width:10px"></td>
-									<td style="display:table-cell; vertical-align:middle; font-size: small">消息提示</td>
+									<td style="display:none; vertical-align:middle; font-size:small">消息提示</td>
 									<td>
 										<input type="checkbox" class="switch" id="ckMessage" title="消息提示已关闭" onchange="ShowTitle(this)">
+									</td>
+									<td style="width:10px"></td>
+									<td style="display:none; vertical-align:middle; font-size:small">切换排序角色</td>
+									<td>
+										<input type="checkbox" class="switch" id="ckChangePlayer" title="当前角色：制杖老魔" onchange="ChangePlayer(this)">
 									</td>
 								</tr>
 							</table>
@@ -307,21 +313,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="pop" style="border: 1px outset white; background-color: white; display: none">
-			<table style="width: 100%">
-				<tr>
-					<td>
-						<input type="button" id="btnGray" width="100%" height="100%" style="background-color: #99cc99" onclick="SetBackColor(1)" />
-					</td>
-					<td>
-						<input type="button" id="btnYellow" width="100%" height="100%" style="background-color: #ffcc99" onclick="SetBackColor(2)" />
-					</td>
-					<td>
-						<input type="button" id="btnRed" width="100%" height="100%" style="background-color: #ff3333" onclick="SetBackColor(3)" />
-					</td>
-				</tr>
-			</table>
-		</div>
 		<div id="divProgress" class="divProgress" style="text-align: center; display: none; position: fixed; width: 880px; height: 300px; border: 1px dashed #000; border-radius: 10px; box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3); background-color: #99cccc">
 			<div id="Equip00" style="width: 99%; font-size: 400%; padding-top: 10px"></div>
 			<input type="text" id="EquipValue00" style="display: none" />
@@ -358,7 +349,6 @@
 		<script type="text/javascript">
 			var TotalRowCount = 100;
 			var SelectIndex = "01";  //选中的“行”
-			var ColorIndex = "01";
 			var MessageTimer;  //“提示”计时器
 			var ColorTimer;  //“颜色”计时器
 			var TotalCount = 2;  //總數據條數\head占一行
@@ -368,16 +358,20 @@
 				for(var i=1; i<=TotalRowCount; i++) {
 					var newTr = tb.insertRow(i);
 					var newTd1 = newTr.insertCell();
-					newTd1.style = "text-align: center;	width: 150px; background: white;";
+					newTd1.style = "text-align: center; width: 100px; background: white;";
 					newTd1.innerHTML = i;
 					
 					var newTd2 = newTr.insertCell();
-					newTd2.style="width: 350px; background: white;";
+					newTd2.style="width: 200px; background: white;";
 					newTd2.innerHTML = "<input id='name" + styleNum(i) + "' type='text' value='' />";
 					
-					var newTd3 = newTr.insertCell();
-					newTd3.style="width: 180px; background: white;";
-					newTd3.innerHTML = "<input id='date" + styleNum(i) + "' type='hidden' value='' /><input id='time" + styleNum(i) + "' type='text' value='' readonly />";
+					var newTd31 = newTr.insertCell();
+					newTd31.style="width: 95px; background: white;";
+					newTd31.innerHTML = "<input id='date" + styleNum(i) + "' type='hidden' value='' /><input id='time" + styleNum(i) + "' type='text' value='' readonly />";
+					
+					var newTd32 = newTr.insertCell();
+					newTd32.style="width: 95px; background: white;";
+					newTd32.innerHTML = "<input id='date2" + styleNum(i) + "' type='hidden' value='' /><input id='time2" + styleNum(i) + "' type='text' value='' />";
 					
 					var newTd4 = newTr.insertCell();
 					newTd4.style="text-align: center; background: white;";
@@ -502,6 +496,7 @@
 						document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
 						document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
 						document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
+						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[5];
 						document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 						var selectDataS = s[4].split(",");
 						var id = "Equip" + (row > 9 ? row : ("0" + row));
@@ -524,6 +519,7 @@
 						document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 						document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = "";
 						document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = "";
 						document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 						document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 						row += 1;
@@ -539,10 +535,6 @@
 				$("input[type='text']").focus(function () {
 					var id = $(this)[0].id;
 					SelectIndex = id.substr(4);
-					if(id.substr(0,4) == "time") {
-						var pop = document.getElementById("pop");
-						if(pop != null) pop.style.display = "none";
-					}
 				});
 				$("input[type='text']").dblclick(function (e) {
 					var id = $(this)[0].id;
@@ -583,15 +575,7 @@
 					var id = $(this)[0].id;
 					var ww = $(this)[0].clientWidth;
 					if(id.substr(0,4) == "name") {
-						ColorIndex = id.substr(4);
-						<!-- var pop = document.getElementById("pop"); -->
-						<!-- if(pop != null) { -->
-							<!-- var p = getPos(event); -->
-							<!-- pop.style.display = ""; -->
-							<!-- pop.style.position = "absolute"; -->
-							<!-- pop.style.left = (150 + ww/2 + 100) + "px"; -->
-							<!-- pop.style.top = (p.y - 12) + "px"; -->
-						<!-- } -->
+						SelectIndex = id.substr(4);
 						//有内容直接复制
 						copyName($(this)[0].value);
 					}
@@ -674,14 +658,14 @@
 						}
 					}
 					document.getElementById("blankDiv").style.height = "320px";
-					document.getElementById("pop").style.fontSize = "300%";
-					document.getElementById("pop").style.width = "250px";
 					document.getElementById("ckCurrTime").style.width="120px";
 					document.getElementById("ckCurrTime").style.height="60px";
 					document.getElementById("ckTime").style.width="120px";
 					document.getElementById("ckTime").style.height="60px";
 					document.getElementById("ckMessage").style.width="120px";
 					document.getElementById("ckMessage").style.height="60px";
+					document.getElementById("ckChangePlayer").style.width="120px";
+					document.getElementById("ckChangePlayer").style.height="60px";
 					
 					var table = document.getElementById("tableSort");
 					var trs = table.rows;
@@ -703,14 +687,14 @@
 						}
 					}
 					document.getElementById("blankDiv").style.height = "290px";
-					document.getElementById("pop").style.fontSize = "120%";
-					document.getElementById("pop").style.width = "150px";
 					document.getElementById("ckCurrTime").style.width="80px";
 					document.getElementById("ckCurrTime").style.height="40px";
 					document.getElementById("ckTime").style.width="80px";
 					document.getElementById("ckTime").style.height="40px";
 					document.getElementById("ckMessage").style.width="80px";
 					document.getElementById("ckMessage").style.height="40px";
+					document.getElementById("ckChangePlayer").style.width="80px";
+					document.getElementById("ckChangePlayer").style.height="40px";
 				}
 			}
 			
@@ -730,19 +714,19 @@
 			//设置背景色
 			function SetBackColor(colorIndex) {
 				if (colorIndex == 1)
-					document.getElementById("name" + ColorIndex).style.background = "gray";
+					document.getElementById("name" + SelectIndex).style.background = "gray";
 				else if (colorIndex == 2)
-					document.getElementById("name" + ColorIndex).style.background = "pink";
+					document.getElementById("name" + SelectIndex).style.background = "pink";
 				else if (colorIndex == 3)
-					document.getElementById("name" + ColorIndex).style.background = "yellow";
+					document.getElementById("name" + SelectIndex).style.background = "yellow";
 				else if (colorIndex == 4)
-					document.getElementById("name" + ColorIndex).style.background = "orange";
+					document.getElementById("name" + SelectIndex).style.background = "orange";
 				else if (colorIndex == 5)
-					document.getElementById("name" + ColorIndex).style.background = "red";
+					document.getElementById("name" + SelectIndex).style.background = "red";
 				else if (colorIndex == 6)
-					document.getElementById("name" + ColorIndex).style.background = "-webkit-linear-gradient(left top,red,pink)";  //"#ff4500";
+					document.getElementById("name" + SelectIndex).style.background = "-webkit-linear-gradient(left top,red,pink)";  //"#ff4500";
 				else
-					document.getElementById("name" + ColorIndex).style.background = "white";
+					document.getElementById("name" + SelectIndex).style.background = "white";
 			}
 			//获取位置
 			function getPos(ipt) {
@@ -753,10 +737,6 @@
 			}
 			//操作时间
 			function SetTime(way) {
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
-				
 				var span = 0;
 				if(way=="1") span = 60;
 				if(way=="2") span = 60;
@@ -801,7 +781,8 @@
 				//未打的+3分钟
 				if(way == "1" || way == "2") {
 					for(var ii=1; ii<=TotalCount-2; ii++) {
-						var row1 = (ii > 9 ? ii : ("0" + ii))
+						var row1 = (ii > 9 ? ii : ("0" + ii));
+						if(SelectIndex.length == 3) row1 = '2' + row1;
 						if(row1 != SelectIndex) {
 							var md1 = document.getElementById("date" + row1);
 							var mh1 = document.getElementById("time" + row1);
@@ -816,7 +797,7 @@
 							hh = hh > 9 ? hh : ("0" + hh);
 							var mm = dt1.getMinutes();
 							mm = mm > 9 ? mm : ("0" + mm);
-							if ((md1.value + " " + mh1.value) < (y1 + "-" + m1 + "-" + d1 + " " + hh + ":" + mm)) {
+							if (mh1.value.length > 1 && ((md1.value + " " + mh1.value) < (y1 + "-" + m1 + "-" + d1 + " " + hh + ":" + mm))) {
 								md1.value = y1 + "-" + m1 + "-" + d1;
 								mh1.value = hh + ":" + mm;
 							}
@@ -824,7 +805,7 @@
 					}
 				}
 				//记录击败击杀出装信息
-				var name = document.getElementById("name" + SelectIndex).value;
+				var name = document.getElementById("name" + SelectIndex.substr(-2,2)).value;  //取SelectIndex后两位，保证两个角色的信息都能记录
 				if(name.indexOf("(") > -1)
 					name = name.substr(0,name.indexOf("("));
 				if(name.indexOf("（") > -1)
@@ -873,6 +854,7 @@
 			}
 			//格式化、前加“0”
 			function formatTime(time) {
+				if(time == "") return "";
 				var timeS = time.split(":");
 				return (timeS[0].length==1 ? "0"+timeS[0] : timeS[0]) + ":" + (timeS[1].length==1 ? "0"+timeS[1] : timeS[1]);
 			}
@@ -884,10 +866,11 @@
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(selectValue.length == 0) selectValue = "0";
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue;
+						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue + " " + time2;
 				}
 				localStorage.setItem("Info", Info.substr(1));
 				if(Info.leng == 0)
@@ -895,9 +878,6 @@
 			}
 			//排序
 			function Sort() {
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
 				//排序
 				var Info = new Array();
 				
@@ -910,6 +890,7 @@
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					var d = new Date();
 					if(date.length == 0) date = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
@@ -934,7 +915,6 @@
 							}
 						}
 					}
-
 					if(name.length > 0) {
 						var rowId = 1;
 						name = name.replace("1","").replace("2","").replace("3","");
@@ -967,6 +947,7 @@
 						Info[index][2]=formatTime(time);
 						Info[index][3]=color.replaceAll(" ", "");
 						Info[index][4]=selectValue;
+						Info[index][5]=formatTime(time2);
 						index = index + 1;
 					}
 				}
@@ -974,7 +955,10 @@
 				var orderIndex = document.getElementById("orderIndex").value;
 				//默认
 				if(orderIndex == 0) {
-					Info.sort(Sort0);
+					if(!document.getElementById("ckChangePlayer").checked)
+						Info.sort(Sort0_1);
+					else 
+						Info.sort(Sort0_2);
 				}
 				//按姓名
 				if(orderIndex == 1) {
@@ -1000,6 +984,7 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][3];
 					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][2];
+					document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][5];
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 					var selectDataS = Info[row-1][4].split(",");
 					var id = "Equip" + (row > 9 ? row : ("0" + row));
@@ -1022,6 +1007,7 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+					document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 					row += 1;
@@ -1036,12 +1022,19 @@
 				Save();
 			}
 			//默认排序
-			function Sort0(x,y) {
+			function Sort0_1(x,y) {
 				var tt = GetTopNPC(x,y);
 				if(tt < 2)
 					return tt;
 				else
 					return compare(x[1]+" "+x[2] + ColorNum(x[3]) + GetRate(x[0]), y[1]+" "+y[2] + ColorNum(y[3]) + GetRate(y[0]));
+			}
+			function Sort0_2(x,y) {
+				var tt = GetTopNPC(x,y);
+				if(tt < 2)
+					return tt;
+				else
+					return compare(x[1]+" "+x[5] + ColorNum(x[3]) + GetRate(x[0]), y[1]+" "+y[5] + ColorNum(y[3]) + GetRate(y[0]));
 			}
 			//按姓名排序
 			function Sort1(x,y) {
@@ -1065,7 +1058,7 @@
 				if(tt < 2)
 					return tt;
 				else {
-					var KillInfo = document.getElementById("KillInfo").value;
+					var KillInfo = document.getElementById("KillInfo").value;	//姓名,击败,击杀,击杀出装;
 					var killinfoS = KillInfo.split(";");
 					var rate1 = 0.00, rate2 = 0.00;
 					var row = 1;
@@ -1250,6 +1243,11 @@
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="";
 						}
+						var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row)));
+						if(time2.value.length > 1 &&  time2.value <= (hh + ":" + mm))
+							time2.style.color="green";
+						else
+							time2.style.color="";
 						row++;
 					}
 				}
@@ -1316,9 +1314,6 @@
 			const clipboardObj = navigator.clipboard;
 			
 			async function Copy1() {  //复制NPC
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
 				var Info = "";
 				for(var row = 1; row <= TotalRowCount; row++) {
 					var name = document.getElementById("name" + (row > 9 ? row : ("0" + row))).value;
@@ -1336,16 +1331,12 @@
 						location = "mailto:moseslin@163.com?subject=NPC&body=";  // + Info.substr(1)
 					else
 						location = "mailto:itan@ceccoils.com?subject=NPC&body=";
-
 				} catch (err) {
 					alert('Failed to copy.');
 				}
 			}
 			
 			async function Copy2() {  //复制参数
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
 				var Info = "";
 				//复制时加上上一次击杀NPC爆出倍卡的时间
 				//本地直接打开文件的情况下，需要给浏览器EXE文件添加启动参数--enable-file-cookies，如有多个参数用空格隔开
@@ -1366,9 +1357,6 @@
 			}	
 			
 			async function Paste1() {  //粘贴NPC
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
 				try {
 					const Info = await navigator.clipboard.readText();
 					if(confirm("确认粘贴NPC？")) {
@@ -1415,9 +1403,6 @@
 			}
 			
 			async function Paste2() {  //粘贴参数
-				//隐藏弹出层
-				var pop = document.getElementById("pop");
-				if(pop != null) pop.style.display = "none";
 				try {
 					const Info = await navigator.clipboard.readText();
 					if(confirm("确认粘贴参数？")) {
@@ -1500,7 +1485,7 @@
 			}
 			//设置背景色
 			function SetColorState(colorIndex) {
-				ColorIndex = colorIndex;
+				SelectIndex = colorIndex;
 				var selectData = document.getElementById("EquipValue" + colorIndex).value;
 				if(selectData.length > 0) {
 					var selectDataS = selectData.split(",");
@@ -1542,6 +1527,13 @@
 					obj.title = "自动当前时间已关闭";
 			}
 			
+			function ChangePlayer(obj) {
+				if(obj.checked)
+					obj.title = "当前角色：老魔";
+				else
+					obj.title = "当前角色：制杖老魔";
+			}
+			//合并
 			function MergeNPC() {
 				var NewKillInfo=prompt("请输入击杀情况：", "");
 				if(NewKillInfo!=null && NewKillInfo!=""){
