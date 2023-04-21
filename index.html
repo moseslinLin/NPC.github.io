@@ -1288,10 +1288,11 @@
 					//var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(selectValue.length == 0) selectValue = "0";
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + selectValue;
+						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + selectValue + " " + time2;
 				}
 				try {
 					await navigator.clipboard.writeText(Info.substr(1));
@@ -1338,6 +1339,7 @@
 								//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
 								document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
 								document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
+								document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[4];
 								document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 								var selectDataS = s[3].split(",");
 								var id = "Equip" + (row > 9 ? row : ("0" + row));
