@@ -496,6 +496,7 @@
 						document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
 						document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
 						document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
+						document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = s[1];
 						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[5];
 						document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 						var selectDataS = s[4].split(",");
@@ -519,6 +520,7 @@
 						document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 						document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = "";
 						document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+						document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = "";
 						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = "";
 						document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 						document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
@@ -746,6 +748,37 @@
 				m = m > 9 ? m : ("0" + m);
 				document.getElementById("date" + SelectIndex).value = y1 + "-" + m1 + "-" + d1;
 				document.getElementById("time" + SelectIndex).value = h + ":" + m;
+				if(Math.abs(span) > 10) {  //设置隔壁时间
+					var t2 = new Date(d[0], d[1]-1, d[2], mm, hh, "00");
+					t2.setTime(t2.setMinutes(t2.getMinutes() + Math.floor(Math.random()*(10-5+1)+5)));  //延迟5-10分钟
+					var y12 = t2.getFullYear();
+					var m12 = t2.getMonth() + 1;
+					m12 = m12 > 9 ? m12 : ("0" + m12);
+					var d12 = t2.getDate();
+					d12 = d12 > 9 ? d12 : ("0" + d12);
+					var h2 = t2.getHours();
+					h2 = h2 > 9 ? h2 : ("0" + h2);
+					var m2 = t2.getMinutes();
+					m2 = m2 > 9 ? m2 : ("0" + m2);
+					if(SelectIndex.length == 3){
+						var row2 = SelectIndex.substr(1,2);
+						var md2 = document.getElementById("date" + row2);
+						var mh2 = document.getElementById("time" + row2);
+						if (mh2.value.length > 1 && ((md2.value + " " + mh2.value) < (y12 + "-" + m12 + "-" + d12 + " " + h2 + ":" + m2))) {
+							md2.value = y12 + "-" + m12 + "-" + d12;
+							mh2.value = h2 + ":" + m2;
+						}
+					}
+					else {
+						var row2 = '2' + SelectIndex;
+						var md2 = document.getElementById("date" + row2);
+						var mh2 = document.getElementById("time" + row2);
+						if (mh2.value.length > 1 && ((md2.value + " " + mh2.value) < (y12 + "-" + m12 + "-" + d12 + " " + h2 + ":" + m2))) {
+							md2.value = y12 + "-" + m12 + "-" + d12;
+							mh2.value = h2 + ":" + m2;
+						}
+					}
+				}
 				//未打的+3分钟
 				if(way == "1" || way == "2") {
 					for(var ii=1; ii<=TotalCount-2; ii++) {
@@ -865,21 +898,25 @@
 					if(time.length == 0) {
 						date = "2099-12-31";
 						time = "23:59";
+						time2 = "";
 					}
 					if(selectValue.length == 0) {
 						selectValue = "0";
 						date = "2099-12-31";
 						time = "23:59";
+						time2 = "";
 					}
 					if(selectValue.length == 1 && document.getElementById("ckTime").checked) {
 						if(selectValue > 2) {
 							if(selectValue == "7" || selectValue == "8") {
 								date = "2099-12-31";
 								time = "23:58";
+								time2 = "";
 							}
 							else {
 								date = "2099-12-31";
 								time = "23:59";
+								time2 = "";
 							}
 						}
 					}
@@ -952,6 +989,7 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][3];
 					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][2];
+					document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
 					document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][5];
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 					var selectDataS = Info[row-1][4].split(",");
@@ -975,6 +1013,7 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+					document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = "";
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 					document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
@@ -1339,6 +1378,7 @@
 								//document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
 								document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
 								document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
+								document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = s[1];
 								document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[4];
 								document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 								var selectDataS = s[3].split(",");
@@ -1361,6 +1401,7 @@
 								document.getElementById("name" + (row > 9 ? row : ("0" + row))).value = "";
 								document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = "white";
 								document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = "";
+								document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = "";
 								document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "none";
 								document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value = "";  //清空、否则新建的时候会错误用到
 								row += 1;
