@@ -760,23 +760,14 @@
 					h2 = h2 > 9 ? h2 : ("0" + h2);
 					var m2 = t2.getMinutes();
 					m2 = m2 > 9 ? m2 : ("0" + m2);
-					if(SelectIndex.length == 3){
-						var row2 = SelectIndex.substr(1,2);
-						var md2 = document.getElementById("date" + row2);
-						var mh2 = document.getElementById("time" + row2);
-						if (mh2.value.length > 1 && ((md2.value + " " + mh2.value) < (y12 + "-" + m12 + "-" + d12 + " " + h2 + ":" + m2))) {
-							md2.value = y12 + "-" + m12 + "-" + d12;
-							mh2.value = h2 + ":" + m2;
-						}
-					}
-					else {
-						var row2 = '2' + SelectIndex;
-						var md2 = document.getElementById("date" + row2);
-						var mh2 = document.getElementById("time" + row2);
-						if (mh2.value.length > 1 && ((md2.value + " " + mh2.value) < (y12 + "-" + m12 + "-" + d12 + " " + h2 + ":" + m2))) {
-							md2.value = y12 + "-" + m12 + "-" + d12;
-							mh2.value = h2 + ":" + m2;
-						}
+					var row2;
+					if(SelectIndex.length == 3) row2 = SelectIndex.substr(1,2);
+					else row2 = '2' + SelectIndex;
+					var md2 = document.getElementById("date" + row2);
+					var mh2 = document.getElementById("time" + row2);
+					if (mh2.value.length > 1 && ((md2.value + " " + mh2.value) < (y12 + "-" + m12 + "-" + d12 + " " + h2 + ":" + m2))) {
+						md2.value = y12 + "-" + m12 + "-" + d12;
+						mh2.value = h2 + ":" + m2;
 					}
 				}
 				//未打的+3分钟
