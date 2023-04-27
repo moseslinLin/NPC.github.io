@@ -360,19 +360,19 @@
 				for(var i=1; i<=TotalRowCount; i++) {
 					var newTr = tb.insertRow(i);
 					var newTd1 = newTr.insertCell();
-					newTd1.style = "text-align: center; width: 100px; background: white;";
+					newTd1.style = "text-align: center; width: 80px; background: white;";
 					newTd1.innerHTML = i;
 					
 					var newTd2 = newTr.insertCell();
-					newTd2.style="width: 200px; background: white;";
+					newTd2.style="width: 190px; background: white;";
 					newTd2.innerHTML = "<input id='name" + styleNum(i) + "' type='text' value='' />";
 					
 					var newTd31 = newTr.insertCell();
-					newTd31.style="width: 120px; background: white;";
+					newTd31.style="width: 110px; background: white;";
 					newTd31.innerHTML = "<input id='date" + styleNum(i) + "' type='hidden' value='' /><input id='time" + styleNum(i) + "' type='text' value='' readonly />";
 					
 					var newTd32 = newTr.insertCell();
-					newTd32.style="width: 120px; background: white;";
+					newTd32.style="width: 110px; background: white;";
 					newTd32.innerHTML = "<input id='date2" + styleNum(i) + "' type='hidden' value='' /><input id='time2" + styleNum(i) + "' type='text' value='' readonly />";
 					
 					var newTd4 = newTr.insertCell();
