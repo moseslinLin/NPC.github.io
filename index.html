@@ -498,8 +498,8 @@
 						document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = s[3];
 						document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = s[1];
 						document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
-						document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = s[1];
-						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[5];
+						document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = s[5];
+						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[6];
 						document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 						var selectDataS = s[4].split(",");
 						var id = "Equip" + (row > 9 ? row : ("0" + row));
@@ -707,6 +707,7 @@
 				p.y += ipt.clientY;
 				return p;
 			}
+			var ChangePlayer = 0;  //自动切换排序角色
 			//操作时间
 			function SetTime(way) {
 				var span = 0;
@@ -763,8 +764,26 @@
 					var m2 = t2.getMinutes();
 					m2 = m2 > 9 ? m2 : ("0" + m2);
 					var row2;
-					if(SelectIndex.length == 3) row2 = SelectIndex.substr(1,2);
-					else row2 = '2' + SelectIndex;
+					if(SelectIndex.length == 3) {
+						row2 = SelectIndex.substr(1,2);
+						if(Math.abs(span) == 60) {
+							ChangePlayer += 1;
+							if(ChangePlayer > 1) {
+								ChangePlayer = 0;
+								document.getElementById("ckChangePlayer").checked = false;
+							}
+						}
+					}
+					else {
+						row2 = '2' + SelectIndex;
+						if(Math.abs(span) == 60) {
+							ChangePlayer += 1;
+							if(ChangePlayer > 1) {
+								ChangePlayer = 0;
+								document.getElementById("ckChangePlayer").checked = true;
+							}
+						}
+					}
 					var md2 = document.getElementById("date" + row2);
 					var mh2 = document.getElementById("time" + row2);
 					if (mh2.value.length > 1 && ((md2.value + " " + mh2.value) < (y12 + "-" + m12 + "-" + d12 + " " + h2 + ":" + m2))) {
@@ -860,11 +879,12 @@
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					var date2 = document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value;
 					var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					if(selectValue.length == 0) selectValue = "0";
 					if(name.length > 0 && time.length > 0)
-						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue + " " + time2;
+						Info = Info + ";" + name + " " + date + " " + formatTime(time) + " " + color.replaceAll(" ", "") + " " + selectValue + " " + date2 + " " + time2;
 				}
 				localStorage.setItem("Info", Info.substr(1));
 				if(Info.length == 0)
