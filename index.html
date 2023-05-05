@@ -500,6 +500,7 @@
 						document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = s[2];
 						document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = s[5];
 						document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = s[6];
+						if(s.length < 7) document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = "";
 						document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 						var selectDataS = s[4].split(",");
 						var id = "Equip" + (row > 9 ? row : ("0" + row));
