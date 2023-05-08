@@ -237,7 +237,7 @@
 									<td style="width:10px"></td>
 									<td style="display:none; vertical-align:middle; font-size:small">切换排序角色</td>
 									<td>
-										<input type="checkbox" class="switch" id="ckChangePlayer" title="当前角色：制杖老魔" onchange="ChangePlayer(this)">
+										<input type="checkbox" class="switch" id="ckChangePlayer" title="当前角色：制杖老魔" onchange="AutoChangePlayer(this)">
 									</td>
 								</tr>
 							</table>
@@ -1552,7 +1552,7 @@
 					obj.title = "自动当前时间已关闭";
 			}
 			
-			function ChangePlayer(obj) {
+			function AutoChangePlayer(obj) {
 				if(obj.checked)
 					obj.title = "当前角色：老魔";
 				else
