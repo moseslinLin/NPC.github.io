@@ -171,6 +171,23 @@
 				<!-- 100% { color: #FF1493; } -->
 			<!-- } -->
 		</style>
+		<style>
+			select option[value="0"] {
+				background: lightsalmon;
+			}
+			select option[value="1"] {
+				background: coral;
+			}
+			select option[value="2"] {
+				background: tomato;
+			}
+			select option[value="3"] {
+				background: orangered;
+			}
+			select option[value="4"] {
+				background: red;
+			}
+		</style>
 	</head>
 	<body>
 	    <input id="KillInfo" type="hidden" value="" />
@@ -380,6 +397,8 @@
 					newTd4.innerHTML = "<div id='Equip" + styleNum(i) + "' style='width: 99%; font-size: 14px'></div><input type='text' id='EquipValue" + styleNum(i) + "' style='display: none' />";
 				}
 				LoadData();
+				ShowCurrentTime(document.getElementById("ckCurrTime"));
+				ShowTime(document.getElementById("ckTime"));
 			}
 			
 			function styleNum(i) {
@@ -772,6 +791,7 @@
 							if(ChangePlayer > 1) {
 								ChangePlayer = 0;
 								document.getElementById("ckChangePlayer").checked = false;
+								document.getElementById("ckChangePlayer").title="当前角色：制杖老魔";
 							}
 						}
 					}
@@ -782,6 +802,7 @@
 							if(ChangePlayer > 1) {
 								ChangePlayer = 0;
 								document.getElementById("ckChangePlayer").checked = true;
+								document.getElementById("ckChangePlayer").title="当前角色：老魔";
 							}
 						}
 					}
@@ -904,6 +925,7 @@
 					var color = document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background;
 					var date = document.getElementById("date" + (row > 9 ? row : ("0" + row))).value;
 					var time = document.getElementById("time" + (row > 9 ? row : ("0" + row))).value;
+					var date2 = document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value;
 					var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value;
 					var selectValue = document.getElementById("EquipValue" + (row > 9 ? row : ("0" + row))).value;
 					var d = new Date();
@@ -911,12 +933,14 @@
 					if(time.length == 0) {
 						date = "2099-12-31";
 						time = "23:59";
+						date2 = "";
 						time2 = "";
 					}
 					if(selectValue.length == 0) {
 						selectValue = "0";
 						date = "2099-12-31";
 						time = "23:59";
+						date2 = "";
 						time2 = "";
 					}
 					if(selectValue.length == 1 && document.getElementById("ckTime").checked) {
@@ -924,15 +948,18 @@
 							if(selectValue == "7" || selectValue == "8") {
 								date = "2099-12-31";
 								time = "23:58";
+								date2 = "";
 								time2 = "";
 							}
 							else {
 								date = "2099-12-31";
 								time = "23:59";
+								date2 = "";
 								time2 = "";
 							}
 						}
 					}
+					if(time2.length == 0) date2 = "";
 					if(name.length > 0) {
 						var rowId = 1;
 						name = name.replace("1","").replace("2","").replace("3","");
@@ -965,7 +992,8 @@
 						Info[index][2]=formatTime(time);
 						Info[index][3]=color.replaceAll(" ", "");
 						Info[index][4]=selectValue;
-						Info[index][5]=formatTime(time2);
+						Info[index][5]=date2;
+						Info[index][6]=formatTime(time2);;
 						index = index + 1;
 					}
 				}
@@ -1002,8 +1030,8 @@
 					document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.background = Info[row-1][3];
 					document.getElementById("date" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
 					document.getElementById("time" + (row > 9 ? row : ("0" + row))).value = Info[row-1][2];
-					document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][1];
-					document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][5];
+					document.getElementById("date2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][5];
+					document.getElementById("time2" + (row > 9 ? row : ("0" + row))).value = Info[row-1][6];
 					document.getElementById("Equip" + (row > 9 ? row : ("0" + row))).style.display = "";
 					var selectDataS = Info[row-1][4].split(",");
 					var id = "Equip" + (row > 9 ? row : ("0" + row));
@@ -1053,8 +1081,12 @@
 				var tt = GetTopNPC(x,y);
 				if(tt < 2)
 					return tt;
-				else
-					return compare(x[1]+" "+x[5] + ColorNum(x[3]) + GetRate(x[0]), y[1]+" "+y[5] + ColorNum(y[3]) + GetRate(y[0]));
+				else {
+					if(x[6].length < 1 && y[6].length > 0) return 1;
+					if(x[6].length < 1 && y[6].length < 1) return 0;
+					if(x[6].length > 0 && y[6].length < 1) return -1;
+					return compare(x[5]+" "+x[6] + ColorNum(x[3]) + GetRate(x[0]), y[5]+" "+y[6] + ColorNum(y[3]) + GetRate(y[0]));
+				}
 			}
 			//按姓名排序
 			function Sort1(x,y) {
@@ -1263,8 +1295,9 @@
 							document.getElementById("name" + (row > 9 ? row : ("0" + row))).style.color="";
 							document.getElementById("time" + (row > 9 ? row : ("0" + row))).style.color="";
 						}
+						var date2 = document.getElementById("date2" + (row > 9 ? row : ("0" + row)));
 						var time2 = document.getElementById("time2" + (row > 9 ? row : ("0" + row)));
-						if(time2.value.length > 1 &&  time2.value <= (hh + ":" + mm))
+						if(time2.value.length > 1 && date2.value+" "+time2.value <= currentDate)
 							time2.style.color="green";
 						else
 							time2.style.color="";
@@ -1493,7 +1526,7 @@
 				}
 				catch(err) { }
 			}
-			
+			//判断操作系统
 			function GetOS() {
 				var agent = navigator.userAgent.toLowerCase();
 				var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -1539,14 +1572,14 @@
 			
 			function ShowTime(obj) {
 				if(obj.checked)
-					obj.title = "自动调整时间已开启";
+					obj.title = "自动调整时间已开启\nNPC只有一件目标装备时不再攻击";
 				else
 					obj.title = "自动调整时间已关闭";
 			}
 			
 			function ShowCurrentTime(obj) {
 				if(obj.checked)
-					obj.title = "自动当前时间已开启";
+					obj.title = "自动当前时间已开启\n击败或击杀NPC时使用当前时间计算";
 				else
 					obj.title = "自动当前时间已关闭";
 			}
