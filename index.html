@@ -940,6 +940,8 @@
 								if(nameD.indexOf("(") > -1) nameD = nameD.substr(0,nameD.indexOf("("));
 								if(nameD.indexOf("（") > -1) nameD = nameD.substr(0,nameD.indexOf("（"));
 								if(nameC == nameD) {
+									document.getElementById("name" + styleNum(i+1)).focus();
+									document.getElementById("name" + styleNum(i+1)).select();
 									alert("NPC已存在!");
 									return;
 								}
