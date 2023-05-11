@@ -620,10 +620,11 @@
 							var s = killinfoS[row-1].split(",");
 							if(s[0] == name) {
 								findNPC = 1;
-								var rate1 = (parseFloat(s[1])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2) + "%";
-								var rate2 = (parseFloat(s[2])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2) + "%";
-								var rate3 = (parseFloat(s[3])/(parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]))*100).toFixed(2) + "%";
-								$(this)[0].title = "攻击 " + (parseInt(s[1])+parseInt(s[2])+parseInt(s[3])) + " 次\r\n击败概率：" + rate1 + "\r\n击杀概率：" + rate2 + "\r\n击杀出装概率：" + rate3;
+								var TotalAttackCount = parseFloat(s[1])+parseFloat(s[2])+parseFloat(s[3]);
+								var rate1 = (parseFloat(s[1])/TotalAttackCount*100).toFixed(2) + "%";
+								var rate2 = (parseFloat(s[2])/TotalAttackCount*100).toFixed(2) + "%";
+								var rate3 = (parseFloat(s[3])/TotalAttackCount*100).toFixed(2) + "%";
+								$(this)[0].title = "攻击 " + TotalAttackCount + " 次\r\n击败概率：" + rate1 + "\r\n击杀概率：" + rate2 + "\r\n击杀出装概率：" + rate3;
 							}
 							row += 1;
 						}
