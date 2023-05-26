@@ -80,6 +80,17 @@
 				-ms-user-select: none;  /*IE浏览器*/
 				user-select: none;  /*用户是否能够选中文本*/
 			}
+			
+			.SelectedRow {
+				transition: border linear .2s, box-shadow linear .5s;
+				-moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+				-webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+				border-color: rgba(0,0,255,.75);
+				box-shadow: 0 0 3px rgba(0,0,255,.1);
+				-moz-box-shadow: 0 0 3px rgba(0,0,255,.5);
+				-webkit-box-shadow: 0 0 3px rgba(0,0,255,3);
+				background: blue;
+			}
 		</style>
 		<style>
 			/* Switch开关样式 */
@@ -569,6 +580,10 @@
 				$("input[type='text']").focus(function () {
 					var id = $(this)[0].id;
 					SelectIndex = id.substr(4);
+					$('#tableSort tr').each(function(i){
+						$(this)[0].className = "";
+					});
+					$(this)[0].parentNode.parentNode.className = "SelectedRow";
 				});
 				$("input[type='text']").dblclick(function (e) {
 					var id = $(this)[0].id;
@@ -1094,6 +1109,10 @@
 				}
 				//保存
 				Save();
+				//清空className
+				$('#tableSort tr').each(function(i){
+					$(this)[0].className = "";
+				});
 			}
 			//默认排序
 			function Sort0_1(x,y) {
