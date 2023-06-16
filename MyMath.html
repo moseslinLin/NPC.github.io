@@ -28,6 +28,10 @@
 				cursor: pointer;
 			}
 			
+			.ColorTr {
+				background-color: #33A1C9;  /*奇偶行交替颜色*/
+			}
+			
 			@page {
 				margin: 10px;  /*打印时隐藏页眉页脚*/
 			}
@@ -84,11 +88,12 @@
 					tb.style = "font-size: small";
 					for(var i=0; i<Math.min(RowPerPage,TotalRow-ii*RowPerPage); i++) {
 						var newTr = tb.insertRow(i);
+						if(i%2==0) newTr.className = "ColorTr";
 						for(var j=0; j<ColPerRow; j++) {
 							var newTd = newTr.insertCell();
-							newTd.style = "text-align: left; width: 250px; background: white; white-space: nowrap; border-left: solid 1px #666;";
+							newTd.style = "text-align: left; width: 250px; white-space: nowrap; border-left: solid 1px #666;";
 							var index = (j+1)+i*ColPerRow+ii*RowPerPage*ColPerRow;
-							newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width: 40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;'>" + GetStr() + "</td><td> = </td></tr></table>";
+							newTd.innerHTML = "<table><tr><td>" + "<div align='right' style='width:40px'>" + index + "、" + "</div></td><td style='width: " + ColWidth + "px;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;'>" + GetStr() + "</td><td> = </td></tr></table>";
 						}
 					}
 					box.appendChild(tb);
